@@ -1,0 +1,15 @@
+{
+  "_comment": "Single source of truth for company details. Edit, then run: python3 tools/build.py. Items marked VERIFY are listed in COMPANY-CONTENT-CHECKLIST.md.",
+  "site_url": "https://nepalshippingandsorucing.com",
+  "_site_url_note": "VERIFY: supplied domain spells 'sorucing', not 'sourcing'. Confirm the registered domain before launch.",
+  "site_name": "Nepal Shipping & Sourcing",
+  "legal_name": "Nepal Shipping & Sourcing Pvt. Ltd.",
+  "email": "",
+  "_email_note": "Set to the business email address, then rebuild.",
+  "phone_e164": "+9779740318224",
+  "phone_display": "+977 974-031-8224",
+  "_phone_note": "VERIFY: supplied as 9740318224; +977 (Nepal) country code assumed.",
+  "whatsapp_url": "https://wa.me/9779740318224",
+  "_whatsapp_note": "VERIFY: confirm this number is active on WhatsApp.",
+  "og_image": "/assets/img/og-image.png"
+}

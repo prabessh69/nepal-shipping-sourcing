@@ -1,0 +1,125 @@
+<!--meta
+{
+  "title": "Contact Us | Shipping and Sourcing Inquiries | Nepal Shipping & Sourcing",
+  "description": "Contact Nepal Shipping & Sourcing about international freight from Nepal or sourcing Nepalese products. Email, phone, WhatsApp and inquiry form.",
+  "path": "/contact/",
+  "nav": "contact",
+  "crumb": "Contact us",
+  "order": 5,
+  "organization": true
+}
+-->
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="wrap page-hero__grid">
+        <h1 id="page-title">Talk to our team.</h1>
+        <p class="lead">Send us the details of your shipment or the product you want to source. We will reply with next steps and anything else we need to prepare a quote.</p>
+      </div>
+      <div class="page-hero__plate page-hero__plate--west" role="presentation"></div>
+    </section>
+
+    <section class="section" aria-label="Contact details and inquiry form">
+      <div class="wrap contact-layout">
+        <div>
+          <h2 class="display-2">Contact details</h2>
+          <ul class="contact-list contact-aside">
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-mail"/></svg>
+              <span class="contact-list__label">Email</span>
+              <span class="contact-list__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-phone"/></svg>
+              <span class="contact-list__label">Phone</span>
+              <!-- VERIFY (COMPANY-CONTENT-CHECKLIST.md #2): number supplied as 9740318224; +977 country code assumed. -->
+              <span class="contact-list__value"><a href="tel:{{PHONE_E164}}" data-placeholder="Confirm country code">{{PHONE_DISPLAY}}</a></span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-chat"/></svg>
+              <span class="contact-list__label">WhatsApp</span>
+              <!-- VERIFY (COMPANY-CONTENT-CHECKLIST.md #3): confirm this number is active on WhatsApp. -->
+              <span class="contact-list__value"><a href="{{WHATSAPP_URL}}" target="_blank" rel="noopener noreferrer" data-placeholder="Confirm WhatsApp number">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-pin"/></svg>
+              <span class="contact-list__label">Office</span>
+              <!-- PLACEHOLDER (COMPANY-CONTENT-CHECKLIST.md #4): replace with the registered office address. -->
+              <span class="contact-list__value" data-placeholder="Office address to confirm">Nepal</span>
+              <span class="contact-list__hint">Full office address shared on request. Please contact us before visiting.</span>
+            </li>
+          </ul>
+          <!-- PLACEHOLDER (COMPANY-CONTENT-CHECKLIST.md #5): add confirmed business hours and time zone. -->
+          <p class="field__hint contact-aside" data-placeholder="Business hours to confirm">We reply to inquiries in English. Times are Nepal Time (UTC+5:45).</p>
+        </div>
+
+        <div class="form-panel" id="inquiry" tabindex="-1">
+          <h2>Send an inquiry</h2>
+          <p class="form-panel__intro">This form opens a pre-filled email in your own email app, so nothing is stored on this website. Fields marked <span class="field__req">required</span> are needed so we can reply.</p>
+
+          <div class="form-error-summary" id="form-errors" tabindex="-1" role="alert" hidden>
+            <h3>Please fix the following</h3>
+            <ul></ul>
+          </div>
+
+          <form id="inquiry-form" action="mailto:{{EMAIL}}" method="post" enctype="text/plain" novalidate data-recipient="{{EMAIL}}">
+            <div class="form-grid">
+              <div class="field">
+                <label for="f-name">Your name <span class="field__req">required</span></label>
+                <input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required aria-describedby="f-name-error">
+                <p class="field__error" id="f-name-error"></p>
+              </div>
+              <div class="field">
+                <label for="f-company">Company</label>
+                <input id="f-company" name="company" type="text" autocomplete="organization" maxlength="120">
+              </div>
+              <div class="field">
+                <label for="f-email">Email address <span class="field__req">required</span></label>
+                <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required aria-describedby="f-email-error">
+                <p class="field__error" id="f-email-error"></p>
+              </div>
+              <div class="field">
+                <label for="f-country">Country</label>
+                <input id="f-country" name="country" type="text" autocomplete="country-name" maxlength="80">
+              </div>
+              <div class="field field--full">
+                <label for="f-topic">What is your inquiry about? <span class="field__req">required</span></label>
+                <select id="f-topic" name="topic" required aria-describedby="f-topic-error">
+                  <option value="">Choose a topic</option>
+                  <option value="air-freight">Air freight</option>
+                  <option value="sea-freight">Sea freight</option>
+                  <option value="land-transport">Land transport</option>
+                  <option value="freight-forwarding">Freight forwarding</option>
+                  <option value="import-export">Import and export assistance</option>
+                  <option value="customs">Customs coordination</option>
+                  <option value="cargo-handling">Cargo handling and packing</option>
+                  <option value="sourcing">Product sourcing</option>
+                  <option value="other">Something else</option>
+                </select>
+                <p class="field__error" id="f-topic-error"></p>
+              </div>
+              <div class="field field--full">
+                <label for="f-message">Details <span class="field__req">required</span></label>
+                <p class="field__hint" id="f-message-hint">For shipments: goods, approximate weight or volume, origin, destination and timing. For sourcing: product, quantity and target market.</p>
+                <textarea id="f-message" name="message" rows="7" maxlength="1500" required aria-describedby="f-message-hint f-message-error"></textarea>
+                <p class="field__error" id="f-message-error"></p>
+              </div>
+              <div class="visually-hidden" aria-hidden="true">
+                <label for="f-website">Leave this field empty</label>
+                <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">Create email</button>
+              <p class="form-privacy">Your details go only into the email you send us. Please do not include passwords, payment card numbers or other sensitive personal data.</p>
+            </div>
+          </form>
+
+          <div class="form-status" id="form-status" tabindex="-1" role="status" hidden>
+            <h3 data-status-title></h3>
+            <p data-status-text></p>
+            <div class="btn-row">
+              <button class="btn btn--secondary btn--small" type="button" id="copy-message">Copy message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
