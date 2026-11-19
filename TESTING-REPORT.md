@@ -3,7 +3,7 @@
 Final QA pass on the local build, served by `tools/serve.py`, which applies the production
 `site/_headers` (including the Content Security Policy) the way Cloudflare Pages would.
 
-**Date:** 19 November 2026 · **Build:** `python3 tools/build.py` (with the test email address, see below)
+**Date:** 19 November 2026 · **Build:** `python3 tools/build.py`, with the corrected domain and the business email. The full QA suite was re-run after that change: 222 passed, 0 failed.
 
 ## Summary
 
@@ -134,9 +134,8 @@ sizes will be noticeably smaller. The contour map SVG (117 KB raw) compresses es
    The generated URL was verified. Send one test inquiry from a desktop and a phone after launch.
 5. **Cloudflare's own header handling:** `_headers` was tested with a local emulation. After the first
    deploy, confirm with `curl -sI https://<domain>/`.
-6. **The real business email** is not in this build (the build currently uses `inquiries@example.com`).
-   After setting it in `site.config.json` and rebuilding, re-run the QA suite or at least send a test
-   inquiry.
+6. **A real test inquiry** should be sent to the business email after launch, from both a desktop and a
+   phone, to confirm delivery end to end.
 
 ## Re-running the tests
 

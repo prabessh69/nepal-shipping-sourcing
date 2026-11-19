@@ -6,18 +6,18 @@ confirm. Item numbers match the `<!-- PLACEHOLDER/VERIFY/REVIEW (… #N) -->` co
 **Tip:** open any page with `?review` added to the address (e.g. `http://127.0.0.1:8080/contact/?review`)
 to highlight every on-page placeholder in yellow.
 
-Legend: 🔴 must resolve before launch · 🟠 should confirm before launch · 🟢 recommended improvement
+Legend: 🔴 must resolve before launch · 🟠 should confirm before launch · 🟢 recommended improvement · ✅ resolved
 
 ## Identity and contact details
 
 | # | Item | Current state | Where | Action |
 |---|------|---------------|-------|--------|
-| 1 | 🔴 **Domain spelling** | Configured as `nepalshippingandsorucing.com` exactly as supplied. Note **"sorucing"** vs **"sourcing"**. | `site.config.json` → `site_url` (canonical tags, sitemap, robots.txt, Open Graph, Schema.org) | Confirm which domain is actually registered. If it is `…sourcing.com`, change `site_url` and run `python3 tools/build.py`. |
+| 1 | ✅ **Domain** | **Resolved.** Corrected to `nepalshippingandsourcing.com` and used in canonical tags, sitemap, robots.txt, Open Graph and Schema.org. | `site.config.json` → `site_url` | None. To change it again, edit `site_url` and run `python3 tools/build.py`. |
 | 2 | 🔴 **Phone number format** | Supplied as `9740318224`. Displayed as `+977 974-031-8224`, dialled as `tel:+9779740318224` (Nepal country code assumed). | `site.config.json` → `phone_e164`, `phone_display` | Confirm the country code and preferred display format. |
 | 3 | 🔴 **WhatsApp** | Links to `https://wa.me/9779740318224` (same number, assumed). | `site.config.json` → `whatsapp_url`; Contact page; footer | Confirm the number is active on WhatsApp, or remove the WhatsApp rows. |
 | 4 | 🔴 **Office address** | Shows "Nepal" and "Full office address shared on request". Not included in Schema.org. | Contact page; footer | Provide the registered office address (street, city, district, postal code). Add it to the page and, once verified, to `organization_jsonld()` in `tools/build.py` as a `PostalAddress`. |
 | 5 | 🟠 **Business hours and language** | Says "We reply to inquiries in English. Times are Nepal Time (UTC+5:45)." No hours listed. | Contact page | Confirm reply language(s) and add office hours if desired. |
-| 14 | 🔴 **Business email in the build** | `site.config.json` has an empty `email`, so the site currently builds with the test address `inquiries@example.com`. | `site.config.json` → `email` | Set `email` to the business address supplied in the brief and run `python3 tools/build.py`. The build prints a warning until this is done. |
+| 14 | ✅ **Business email in the build** | **Resolved.** The business email from the brief is set in `site.config.json` and built into every page and the inquiry form. | `site.config.json` → `email` | None. |
 | 15 | 🟢 **Social media accounts** | None shown. None were supplied and none have been invented. | — | Supply official profile URLs if you want them linked (footer + Schema.org `sameAs`). |
 | 16 | 🟢 **Company registration details** | Not shown. | Footer | Optional: company registration number, PAN/VAT number, if you want them displayed. |
 

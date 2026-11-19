@@ -7,8 +7,7 @@ Plain HTML, CSS and vanilla JavaScript, with no runtime dependencies, no framewo
 It is deployed as static files on **Cloudflare Pages** from a GitHub repository.
 
 > **Before launch:** work through [`COMPANY-CONTENT-CHECKLIST.md`](COMPANY-CONTENT-CHECKLIST.md).
-> The 🔴 items include the domain spelling (`sorucing` vs `sourcing`), the phone country code,
-> WhatsApp, the office address, service confirmation and setting the business email.
+> The 🔴 items include the phone country code, WhatsApp, the office address and service confirmation.
 
 ---
 
@@ -71,11 +70,12 @@ python3 tools/serve.py 8080          # → http://127.0.0.1:8080/
 # 4. Commit and push; Cloudflare Pages redeploys automatically
 ```
 
-### Set the business email (required once)
+### Business email
 
-Open `site.config.json`, set `"email"` to the company's business address, then run
-`python3 tools/build.py`. Until then the build uses the test address `inquiries@example.com`
-and prints a warning.
+The business email is set in `site.config.json` (`"email"`) and used everywhere: the contact page,
+footer, call-to-action bands, the inquiry form's `mailto:` target and Schema.org data. To change it,
+edit that value and run `python3 tools/build.py`. If it is ever left empty, the build falls back to
+the test address `inquiries@example.com` and prints a warning.
 
 ### Change the domain
 
@@ -163,9 +163,8 @@ paths, and applies `site/_headers`.
 
 ### 3. Connect the custom domain
 
-1. Confirm the correct domain spelling first (checklist item 1).
 2. Pages project → **Custom domains** → **Set up a custom domain** → enter the apex domain
-   (e.g. `nepalshippingandsorucing.com`).
+   (`nepalshippingandsourcing.com`).
 3. If the domain's DNS is already on Cloudflare, the record is created for you. Otherwise follow the
    prompt: either move the nameservers to Cloudflare (recommended, required for an apex domain) or add
    the CNAME it shows at your current DNS provider.

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nepalshippingandsorucing.com/sitemap.xml
+Sitemap: https://nepalshippingandsourcing.com/sitemap.xml
