@@ -25,7 +25,7 @@
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-mail"/></svg>
               <span class="contact-list__label">Email</span>
-              <span class="contact-list__value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></span>
+              <span class="contact-list__value"><a href="mailto:{{EMAIL}}">{{EMAIL_TEXT}}</a></span>
             </li>
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-phone"/></svg>
@@ -42,9 +42,8 @@
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-pin"/></svg>
               <span class="contact-list__label">Office</span>
-              <!-- PLACEHOLDER (COMPANY-CONTENT-CHECKLIST.md #4): replace with the registered office address. -->
-              <span class="contact-list__value" data-placeholder="Office address to confirm">Nepal</span>
-              <span class="contact-list__hint">Full office address shared on request. Please contact us before visiting.</span>
+              <address class="contact-list__value">{{ADDRESS}}</address>
+              <span class="contact-list__hint">Please contact us before visiting so we can make sure someone is available.</span>
             </li>
           </ul>
           <!-- PLACEHOLDER (COMPANY-CONTENT-CHECKLIST.md #5): add confirmed business hours and time zone. -->

@@ -513,6 +513,7 @@ p { text-wrap: pretty; }
 .contact-list__value { font-weight: 650; font-size: 1.125rem; overflow-wrap: anywhere; }
 .contact-list__value a { text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: .22em; }
 .contact-list__value a:hover { color: var(--crimson); text-decoration-color: currentColor; }
+address { font-style: normal; }
 .contact-list__hint { grid-column: 2; font-size: var(--step--1); color: var(--slate); }
 .contact-aside { margin-top: 2rem; }
 

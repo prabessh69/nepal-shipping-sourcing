@@ -7,7 +7,7 @@ Plain HTML, CSS and vanilla JavaScript, with no runtime dependencies, no framewo
 It is deployed as static files on **Cloudflare Pages** from a GitHub repository.
 
 > **Before launch:** work through [`COMPANY-CONTENT-CHECKLIST.md`](COMPANY-CONTENT-CHECKLIST.md).
-> The 🔴 items include the phone country code, WhatsApp, the office address and service confirmation.
+> The 🔴 items include the phone country code, WhatsApp and service confirmation.
 
 ---
 

@@ -55,9 +55,19 @@ def dump(data):
     return json.dumps(data, indent=2, ensure_ascii=False).replace("</", "<\\/")
 
 
+def postal_address(c):
+    a = c["address"]
+    return {
+        "@type": "PostalAddress",
+        "streetAddress": a["street"],
+        "addressLocality": a["locality"],
+        "addressCountry": a["country_code"],
+    }
+
+
 def organization_jsonld(c):
-    # Only information supplied by the client. Address, social profiles and
-    # founding date are deliberately omitted until verified (see checklist).
+    # Only information supplied by the client. Social profiles and founding
+    # date are deliberately omitted until verified (see checklist).
     return dump({
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -68,6 +78,7 @@ def organization_jsonld(c):
         "logo": c["site_url"] + "/assets/img/NSS_logo.png",
         "email": c["email"],
         "telephone": c["phone_e164"],
+        "address": postal_address(c),
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
@@ -138,9 +149,12 @@ def build_page(path, partials, c):
         "PRELOAD": meta.get("preload", ""),
         "NAV": render_nav(meta.get("nav", "")),
         "EMAIL": html.escape(c["email"]),
+        # Display form with a line-break opportunity before "@" so long addresses wrap cleanly.
+        "EMAIL_TEXT": html.escape(c["email"]).replace("@", "<wbr>@", 1),
         "PHONE_E164": c["phone_e164"],
         "PHONE_DISPLAY": html.escape(c["phone_display"]),
         "WHATSAPP_URL": c["whatsapp_url"],
+        "ADDRESS": html.escape(c["address"]["display"]),
         "YEAR": str(date.today().year),
         "PAGE": meta.get("nav", "page"),
     }

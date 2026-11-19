@@ -9,5 +9,11 @@
   "_phone_note": "VERIFY: supplied as 9740318224; +977 (Nepal) country code assumed.",
   "whatsapp_url": "https://wa.me/9779740318224",
   "_whatsapp_note": "VERIFY: confirm this number is active on WhatsApp.",
+  "address": {
+    "street": "Ghattekulo Chowk",
+    "locality": "Kathmandu",
+    "country_code": "NP",
+    "display": "Ghattekulo Chowk, Kathmandu, Nepal"
+  },
   "og_image": "/assets/img/og-image.png"
 }
