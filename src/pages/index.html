@@ -6,7 +6,7 @@
   "nav": "home",
   "order": 1,
   "organization": true,
-  "preload": "<link rel=\"preload\" href=\"/assets/img/hero-terrain.svg\" as=\"image\" type=\"image/svg+xml\">"
+  "preload": "<link rel=\"preload\" href=\"/assets/images/hero-terrain.svg\" as=\"image\" type=\"image/svg+xml\">"
 }
 -->
     <section class="hero" aria-labelledby="hero-title">
@@ -23,33 +23,7 @@
 
       <figure class="wrap hero__plate-wrap">
         <div class="plate hero__plate">
-          <svg class="route-map" viewBox="0 0 1600 760" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">Illustrated contour map of Nepal with outbound freight routes</title>
-            <desc id="map-desc">A stylised map of Nepal. Dotted air routes leave Kathmandu in both directions, a long-dash sea-freight route runs south toward the Indian seaports, and short-dash road routes run from Kathmandu to southern border crossings.</desc>
-            <image href="/assets/img/hero-terrain.svg" width="1600" height="760"/>
-            <defs>
-              <mask id="m1" maskUnits="userSpaceOnUse"><path class="reveal reveal--1" pathLength="1" d="M965 513C900 300 520 130 -20 70"/></mask>
-              <mask id="m2" maskUnits="userSpaceOnUse"><path class="reveal reveal--2" pathLength="1" d="M965 513C1080 280 1350 110 1640 40"/></mask>
-              <mask id="m3" maskUnits="userSpaceOnUse"><path class="reveal reveal--3" pathLength="1" d="M965 513L906 620C960 700 1090 745 1230 800"/></mask>
-              <mask id="m4" maskUnits="userSpaceOnUse"><path class="reveal reveal--4" pathLength="1" d="M965 513C870 540 790 530 712 545C700 620 690 700 680 800"/></mask>
-              <mask id="m5" maskUnits="userSpaceOnUse"><path class="reveal reveal--5" pathLength="1" d="M965 513C1060 560 1170 640 1231 706L1250 800"/></mask>
-            </defs>
-            <g class="route route--air">
-              <path mask="url(#m1)" d="M965 513C900 300 520 130 -20 70"/>
-              <path mask="url(#m2)" d="M965 513C1080 280 1350 110 1640 40"/>
-            </g>
-            <g class="route route--sea"><path mask="url(#m3)" d="M965 513L906 620C960 700 1090 745 1230 800"/></g>
-            <g class="route route--road">
-              <path mask="url(#m4)" d="M965 513C870 540 790 530 712 545C700 620 690 700 680 800"/>
-              <path mask="url(#m5)" d="M965 513C1060 560 1170 640 1231 706L1250 800"/>
-            </g>
-            <g class="route-map__points">
-              <circle cx="906" cy="620" r="6"/><circle cx="712" cy="545" r="6"/><circle cx="1231" cy="706" r="6"/>
-            </g>
-            <circle class="route-map__origin" cx="965" cy="513" r="10"/>
-            <text class="route-map__label" x="990" y="500">Kathmandu</text>
-          </svg>
-        </div>
+{{INCLUDE:hero-map}}        </div>
         <figcaption class="map-legend">
           <span class="map-legend__title">Nepal&rsquo;s routes to market</span>
           <ul class="map-legend__list">
@@ -57,14 +31,20 @@
             <li><svg class="swatch swatch--sea" viewBox="0 0 40 8" aria-hidden="true"><path d="M2 4h36"/></svg>Ocean freight through Indian seaports</li>
             <li><svg class="swatch swatch--road" viewBox="0 0 40 8" aria-hidden="true"><path d="M2 4h36"/></svg>Road and rail through border crossings</li>
           </ul>
-          <span class="map-legend__note">Illustration, not to scale.</span>
+          <span class="map-legend__note">Boundary: Open Data Nepal via geoBoundaries (CC BY 4.0). Routes indicative; terrain stylised.</span>
         </figcaption>
       </figure>
     </section>
 
     <section class="section intro" aria-labelledby="intro-title">
       <div class="wrap split">
-        <h2 class="split__lead display-2" id="intro-title">A Nepal-based partner for moving goods, and for finding them.</h2>
+        <div class="split__lead">
+          <h2 class="display-2" id="intro-title">A Nepal-based partner for moving goods, and for finding them.</h2>
+          <figure class="feature-figure">
+            <img src="/assets/images/feature-air-cargo.svg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Illustration: an aircraft on the apron being loaded with cargo containers and cartons, with snow-capped Himalayan peaks behind.">
+          </figure>
+        </div>
         <div class="split__body prose">
           <p>Nepal is landlocked, and most of its trade depends on careful coordination: airline capacity out of Kathmandu, trucking to the border, transit through India and onward booking from the seaports. Paperwork, timing and packing all have to line up.</p>
           <p>We work on both sides of that problem. For shippers, we coordinate freight and documents from pickup to departure and beyond. For international buyers, we help locate Nepalese producers, check what they make and bring the goods to the point of export.</p>
@@ -121,6 +101,10 @@
           <h2 class="display-2" id="sourcing-title">Sourcing in Nepal, with someone on the ground.</h2>
           <p class="lead">Buying from small producers abroad is hard to manage remotely. We help you find the right workshop, confirm it can deliver, and keep watch until the goods are packed and on their way.</p>
           <p><a class="btn btn--leaf" href="/sourcing/">How sourcing works</a></p>
+          <figure class="feature-figure">
+            <img src="/assets/images/feature-textiles.svg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Illustration: dhaka cloth being woven on a hand loom, beside folded pashmina and a basket of felt balls.">
+          </figure>
         </div>
         <dl class="capability-list">
           <div><dt>Supplier identification</dt><dd>Shortlisting producers that match your product, volume and standards.</dd></div>
@@ -168,22 +152,27 @@
         </div>
         <ol class="steps">
           <li class="steps__item">
+            <svg class="steps__icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-chat"/></svg>
             <h3>Tell us what you need</h3>
             <p>Product, quantity, origin, destination and timing. Rough figures are fine to start.</p>
           </li>
           <li class="steps__item">
+            <svg class="steps__icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-docs"/></svg>
             <h3>Plan and quotation</h3>
             <p>We recommend a route and mode, list the documents required and send a written quote.</p>
           </li>
           <li class="steps__item">
+            <svg class="steps__icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-search"/></svg>
             <h3>Sourcing and checks</h3>
             <p>For sourcing orders, we identify suppliers, arrange samples and inspect goods before dispatch.</p>
           </li>
           <li class="steps__item">
+            <svg class="steps__icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-calendar"/></svg>
             <h3>Booking and documents</h3>
             <p>Space is booked with carriers, and export paperwork is prepared with the relevant agents.</p>
           </li>
           <li class="steps__item">
+            <svg class="steps__icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-plane"/></svg>
             <h3>Dispatch and updates</h3>
             <p>Cargo departs and you receive milestone updates until it reaches the agreed destination.</p>
           </li>
@@ -198,14 +187,14 @@
           <p class="section-head__text">Nepal&rsquo;s export strengths lie in handmade goods and natural products. These are the categories buyers most often ask us about.</p>
         </div>
         <ul class="category-grid">
-          <li><h3>Handicrafts</h3><p>Metalwork, woodcarving, ceramics and ritual objects.</p></li>
-          <li><h3>Handmade felt</h3><p>Wool felt homeware, toys, footwear and accessories.</p></li>
-          <li><h3>Herbs and spices</h3><p>Dried herbs, spices and botanical raw materials.</p></li>
-          <li><h3>Agricultural products</h3><p>Tea, coffee, cardamom, ginger and other produce.</p></li>
-          <li><h3>Food and beverages</h3><p>Packaged and shelf-stable foods for export markets.</p></li>
-          <li><h3>Apparel and textiles</h3><p>Pashmina, hemp, cotton and knitwear.</p></li>
-          <li><h3>Home decor</h3><p>Lokta paper, rugs, cushions, lighting and tableware.</p></li>
-          <li><h3>Custom requests</h3><p>Something else in mind? Describe it and we will look into it.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-bowl"/></svg><h3>Handicrafts</h3><p>Metalwork, woodcarving, ceramics and ritual objects.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-felt"/></svg><h3>Handmade felt</h3><p>Wool felt homeware, toys, footwear and accessories.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-leaf"/></svg><h3>Herbs and spices</h3><p>Dried herbs, spices and botanical raw materials.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-tea"/></svg><h3>Agricultural products</h3><p>Tea, coffee, cardamom, ginger and other produce.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-jar"/></svg><h3>Food and beverages</h3><p>Packaged and shelf-stable foods for export markets.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-textile"/></svg><h3>Apparel and textiles</h3><p>Pashmina, hemp, cotton and knitwear.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-lamp"/></svg><h3>Home decor</h3><p>Lokta paper, rugs, cushions, lighting and tableware.</p></li>
+          <li><svg class="cat-icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-plus"/></svg><h3>Custom requests</h3><p>Something else in mind? Describe it and we will look into it.</p></li>
         </ul>
         <p class="section-foot"><a class="btn btn--secondary" href="/sourcing/#categories">Browse product categories</a></p>
       </div>

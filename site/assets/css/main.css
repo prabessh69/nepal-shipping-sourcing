@@ -96,7 +96,7 @@ main:focus { outline: none; }
 .skip-link:focus { top: 1rem; }
 
 :focus-visible { outline: 3px solid var(--crimson); outline-offset: 3px; border-radius: 2px; }
-.section--forest :focus-visible, .cta-band :focus-visible, .page-hero__plate :focus-visible { outline-color: var(--rose); }
+.section--forest :focus-visible, .cta-band :focus-visible { outline-color: var(--rose); }
 
 /* ---------- Typography ---------- */
 .display-1, .display-2, h1, h2 {
@@ -275,7 +275,11 @@ p { text-wrap: pretty; }
   fill: var(--ivory); font-family: var(--font); font-size: 30px; font-weight: 650; font-stretch: 90%;
   paint-order: stroke; stroke: var(--forest); stroke-width: 6px; stroke-linejoin: round;
 }
-@media (max-width: 47.99rem) { .route-map__label { font-size: 42px; } }
+.route-map__town {
+  fill: var(--mist); font-family: var(--font); font-size: 22px; font-weight: 560;
+  paint-order: stroke; stroke: var(--forest); stroke-width: 5px; stroke-linejoin: round;
+}
+@media (max-width: 47.99rem) { .route-map__label { font-size: 42px; } .route-map__town { font-size: 32px; } }
 
 /* The page's one orchestrated motion: routes draw out from Kathmandu once. */
 @media (prefers-reduced-motion: no-preference) {
@@ -359,6 +363,7 @@ p { text-wrap: pretty; }
 .steps__item:last-child { padding-bottom: 0; }
 .steps__item:last-child::after { display: none; }
 .steps__item h3 { color: var(--ivory); margin-bottom: .4rem; }
+.steps__icon { width: 1.75rem; height: 1.75rem; color: var(--rose); margin-bottom: .6rem; }
 .steps__item p { color: var(--mist); }
 @media (min-width: 62rem) {
   .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; }
@@ -403,13 +408,41 @@ p { text-wrap: pretty; }
 @media (min-width: 56rem) {
   .page-hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: 4rem; }
 }
-.page-hero__plate {
-  height: clamp(5.5rem, 4rem + 6vw, 10rem);
-  background: var(--forest) url("/assets/img/hero-terrain.svg") center 42% / 1600px auto no-repeat;
+/* Full-width, uncropped page banner: the image keeps its own aspect ratio. */
+.page-banner img { width: 100%; height: auto; border-radius: var(--radius); background: var(--tint); }
+
+/* Illustrations placed inside content sections */
+.feature-figure { margin-top: clamp(1.75rem, 1.25rem + 2vw, 2.75rem); }
+.feature-figure img { width: 100%; height: auto; border-radius: var(--radius); }
+
+/* Small category / values icons */
+.cat-icon { width: 2rem; height: 2rem; color: var(--crimson); margin-bottom: .6rem; }
+.icon-heading { display: flex; align-items: center; gap: .65rem; }
+.icon-heading .cat-icon { flex: none; width: 1.75rem; height: 1.75rem; margin: 0; }
+.values .cat-icon, .category-detail .cat-icon { color: var(--leaf); }
+
+/* Sourcing pipeline diagram: eight connected stages (scrolls sideways on small screens) */
+.pipeline { margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem); }
+.pipeline__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 1.5rem; position: relative; counter-reset: pipe; }
+.pipeline__list::before { display: none;
+  content: ""; position: absolute; left: 6.25%; right: 6.25%; top: 2rem;
+  border-top: 2px dashed var(--leaf); opacity: .55;
 }
-@media (min-width: 100rem) { .page-hero__plate { background-size: cover; } }
-.page-hero__plate--east { background-position: 72% 55%; }
-.page-hero__plate--west { background-position: 28% 30%; }
+.pipeline__list li { counter-increment: pipe; display: grid; justify-items: center; gap: .55rem; text-align: center; position: relative; }
+.pipeline__icon {
+  width: 3.25rem; height: 3.25rem; padding: .8rem; box-sizing: border-box; position: relative; z-index: 1;
+  border-radius: 50%; background: var(--ivory); border: 2px solid var(--leaf); color: var(--leaf);
+}
+.pipeline__list li:last-child .pipeline__icon { background: var(--leaf); color: var(--ivory); }
+.pipeline__list span { font-weight: 650; font-stretch: 90%; font-size: .9375rem; }
+@media (min-width: 56rem) {
+  .pipeline__list { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .pipeline__list::before { display: block; }
+  .pipeline__icon { width: 4rem; height: 4rem; padding: 1.05rem; }
+}
+.pipeline__list span { font-size: .875rem; line-height: 1.3; }
+@media (min-width: 56rem) { .pipeline__list span { font-size: .9375rem; } }
+.pipeline__list span::before { content: counter(pipe, decimal-leading-zero) " "; color: var(--slate); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 /* ---------- Two-column feature blocks (about) ---------- */
 .pair { display: grid; gap: 2.5rem; }
@@ -442,7 +475,17 @@ p { text-wrap: pretty; }
   }
   .service-toc a:hover { color: var(--ink); border-left-color: var(--crimson); }
 }
-.service { padding-block: 2.5rem; border-top: 2px solid var(--ink); }
+.service { padding-block: 2.5rem; border-top: 2px solid var(--ink); display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 2.5rem; }
+.service__media { margin-bottom: 1.5rem; order: 2; }
+.service__head { order: 1; }
+.service__body { order: 3; }
+.service__media img { width: 100%; height: auto; border-radius: var(--radius); }
+@media (min-width: 48rem) {
+  .service { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); }
+  .service__media { grid-column: 2; grid-row: 1 / span 2; margin: .25rem 0 0; order: 0; }
+  .service__head, .service__body { grid-column: 1; }
+}
+@media (min-width: 75rem) { .service { grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); } }
 .service:first-child { padding-top: 1.5rem; }
 .service__head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
 .service__icon {
@@ -462,8 +505,8 @@ p { text-wrap: pretty; }
 }
 .service__note { font-size: var(--step--1); color: var(--slate); border-left: 3px solid var(--tint-deep); padding-left: .9rem; max-width: 40rem; }
 .service__cta { margin-top: .5rem; }
-@media (min-width: 48rem) {
-  .service__body { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 3rem; }
+@media (min-width: 75rem) {
+  .service__body { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 2.5rem; }
   .service__body > p, .service__note, .service__cta { grid-column: 1 / -1; }
 }
 

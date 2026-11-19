@@ -30,8 +30,9 @@ Nepal Shipping/
 ├── favicon.zip                  original favicon pack — untouched (extracted into site/)
 ├── site.config.json             ← company details + domain (single source of truth)
 ├── src/                         ← edit content here
-│   ├── partials/                layout, <head>, header, footer (shared by every page)
-│   └── pages/                   one file per page (body content + <!--meta {...}--> block)
+│   ├── partials/                layout, <head>, header, footer; hero-map.html is generated
+│   ├── pages/                   one file per page (body content + <!--meta {...}--> block)
+│   └── assets/images/           illustrations + map artwork (copied to site/assets/images/)
 ├── site/                        ← the published website (Cloudflare Pages output directory)
 │   ├── index.html, about/, services/, sourcing/, contact/, 404.html   (generated)
 │   ├── sitemap.xml, robots.txt                                       (generated)
@@ -41,11 +42,14 @@ Nepal Shipping/
 │       ├── css/main.css         all styles (edit directly)
 │       ├── js/main.js           menu, inquiry form, ?review mode (edit directly)
 │       ├── fonts/               Archivo variable font (self-hosted, SIL Open Font Licence)
-│       └── img/                 NSS_logo.png (copy), hero-terrain.svg, icons.svg, og-image.png
+│       ├── images/              (generated copy of src/assets/images/; do not edit here)
+│       └── img/                 NSS_logo.png (copy), icons.svg, og-image.png
 ├── tools/
 │   ├── build.py                 assembles src/ → site/ (Python 3 standard library only)
 │   ├── serve.py                 local preview server that applies _headers like Cloudflare
-│   ├── build_hero_map.py        regenerates the contour map illustration
+│   ├── build_hero_map.py        hero map, route overlay, contact banner (from tools/data/)
+│   ├── build_illustrations.py   all other editorial illustrations
+│   ├── data/nepal-adm0.geojson  Nepal boundary (geoBoundaries / Open Data Nepal, CC BY 4.0)
 │   ├── qa_check.py              automated browser QA (optional, needs Playwright)
 │   └── og/                      source + renderer for the social share image
 ├── README.md  SECURITY.md  COMPANY-CONTENT-CHECKLIST.md  TESTING-REPORT.md
@@ -198,4 +202,9 @@ See [`TESTING-REPORT.md`](TESTING-REPORT.md) for the results from the final QA p
 
 - Logo and favicons: supplied by the company.
 - Font: [Archivo](https://fonts.google.com/specimen/Archivo) by Omnibus-Type, SIL Open Font Licence 1.1, self-hosted.
-- Contour map illustration, icons and all copy: created for this project.
+- Nepal boundary: [geoBoundaries](https://www.geoboundaries.org/) gbOpen NPL ADM0, sourced from
+  Open Data Nepal, CC BY 4.0. It includes Nepal's official 2020 boundary (Kalapani, Lipulekh,
+  Limpiyadhura). Attribution appears under the home-page map.
+- Contour terrain (stylised, not survey data), illustrations, icons and all copy: created for this project.
+  Regenerate with `python3 tools/build_hero_map.py` and `python3 tools/build_illustrations.py`,
+  then `python3 tools/build.py`.

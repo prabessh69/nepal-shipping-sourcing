@@ -100,6 +100,15 @@ sizes will be noticeably smaller. The contour map SVG (117 KB raw) compresses es
 - `favicon.zip` is unchanged and passes an integrity test. Every extracted favicon file is
   byte-identical to the zip. Only `site.webmanifest` was edited, to replace "MyWebSite".
 
+## Visual update (accurate map, page banners, illustrations)
+
+After the hero map was rebuilt from real boundary data, the cropped subpage strips were replaced with
+full banners, and illustrations and icons were added across the pages, the full suite was re-run:
+**222 passed, 0 failed**, with zero axe violations at 375px and 1440px. New layouts were checked
+visually at 375px and 1440px: the hero map, the four page banners, the service illustrations (heading
+first on mobile), the sourcing pipeline (4×2 grid on mobile, single row on desktop) and the category
+and value icons. The screenshots in `docs/screenshots/` predate this update.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

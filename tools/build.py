@@ -4,8 +4,11 @@
     python3 tools/build.py
 
 - site.config.json     company contact details + domain (single source of truth)
-- src/partials/*.html  shared layout, head, header and footer
+- src/partials/*.html  shared layout, head, header and footer; any partial can be
+                       pulled into a page with {{INCLUDE:name}}
 - src/pages/*.html     page bodies, each starting with a <!--meta {...} --> JSON block
+- src/assets/          images etc., copied to site/assets/ (src/assets/images/ is
+                       mirrored exactly, so deleted source images are removed too)
 - Writes site/<path>/index.html, site/404.html, site/sitemap.xml, site/robots.txt
 
 Standard library only. Cloudflare Pages serves the committed site/ folder
@@ -15,6 +18,7 @@ editing anything in src/ or site.config.json, then commit site/.
 import html
 import json
 import re
+import shutil
 import sys
 from datetime import date
 from pathlib import Path
@@ -164,6 +168,7 @@ def build_page(path, partials, c):
            .replace("{{HEADER}}", partials["header"])
            .replace("{{MAIN}}", body)
            .replace("{{FOOTER}}", partials["footer"]))
+    doc = re.sub(r"\{\{INCLUDE:([a-z0-9-]+)\}\}", lambda m: partials[m.group(1)], doc)
     for k, v in vars_.items():
         doc = doc.replace("{{" + k + "}}", v)
     leftover = set(re.findall(r"\{\{[A-Z_]+\}\}", doc))
@@ -176,8 +181,23 @@ def build_page(path, partials, c):
     return meta, dest
 
 
+def copy_assets():
+    src = SRC / "assets"
+    if not src.exists():
+        return
+    for d in src.iterdir():
+        if not d.is_dir():
+            continue
+        dest = OUT / "assets" / d.name
+        if d.name == "images" and dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(d, dest, dirs_exist_ok=True)
+        print(f"copied src/assets/{d.name}/ -> site/assets/{d.name}/")
+
+
 def main():
     c = load_config()
+    copy_assets()
     partials = {p.stem: p.read_text(encoding="utf-8") for p in (SRC / "partials").glob("*.html")}
     pages = []
     for p in sorted((SRC / "pages").glob("*.html")):
