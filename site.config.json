@@ -17,5 +17,7 @@
     "country_code": "NP",
     "display": "Kathmandu, 44600, Nepal"
   },
+  "form_token": "8f5b656b55e7647eefe2d13750f55edf",
+  "_form_token_note": "FormSubmit private alias for the business inbox (verified). Used instead of the raw email in form endpoints.",
   "og_image": "/assets/img/og-image.png"
 }

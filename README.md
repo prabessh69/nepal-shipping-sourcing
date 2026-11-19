@@ -137,11 +137,11 @@ Use `loading="lazy"` for anything below the first screen. Never hotlink stock im
 The form sends inquiries **in the background** to the business inbox through
 [FormSubmit](https://formsubmit.co). After validation, `main.js`:
 
-1. POSTs the fields as `FormData` to `https://formsubmit.co/ajax/<business email>` with
+1. POSTs the fields as `FormData` to `https://formsubmit.co/ajax/<form_token>` with
    `Accept: application/json` and no manual `Content-Type` (a CORS "simple" request, so no preflight).
    A reply of `success: true` or `"true"` counts as sent.
 2. On any other reply (for example, activation still pending) or a network error, it submits a hidden
-   standard form (`method="POST"`, `action="https://formsubmit.co/<business email>"`, `_captcha=false`)
+   standard form (`method="POST"`, `action="https://formsubmit.co/<form_token>"`, `_captcha=false`)
    into a hidden iframe. The visitor never leaves the page, and on a fresh address this triggers
    FormSubmit's activation email.
 3. The visitor sees "Sending...", then "Message sent!", and the form resets. If both routes fail (no
@@ -152,7 +152,8 @@ Fields sent: name, email, company, country, topic, message, `_subject` ("New Inq
 
 - **One-time activation (required):** the first submission sends an "Activate Form" email to the business
   Gmail inbox. Click the link once. **Messages sent before activation are not delivered.**
-- The endpoints are built from `email` in `site.config.json`. The CSP allows `https://formsubmit.co` in
+- The endpoints use the verified FormSubmit private alias `form_token` in `site.config.json`, not the
+  raw email address. If you ever change inboxes, generate a new alias in FormSubmit and update it. The CSP allows `https://formsubmit.co` in
   `connect-src`, `form-action` and `frame-src`.
 - Without JavaScript, the form posts to FormSubmit's standard endpoint and shows its thank-you page.
 
