@@ -190,6 +190,16 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   fallback and the payload fields, all under the real CSP (with `frame-src https://formsubmit.co` added).
 - QA: **288 passed, 0 failed**, with zero axe violations.
 
+## Gmail links, handicraft photo, copyright check
+
+- Every clickable email address opens Gmail compose (`https://mail.google.com/mail/?view=cm&fs=1&to=…`)
+  in a new tab, with `noopener noreferrer`. No `mailto:` links remain, and QA checks this.
+- The Handicrafts & handmade felt card shows a gilded metal statue (Wikimedia Commons, CC BY-SA 4.0,
+  3264×2448 source, downscaled).
+- The footer copyright is generated from the build year and reads "© 2026"; QA checks it. 2018 appears
+  only as the founding year on the About page.
+- QA: **292 passed, 0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

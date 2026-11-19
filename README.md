@@ -156,6 +156,8 @@ Fields sent: name, email, company, country, topic, message, `_subject` ("New Inq
   raw email address. If you ever change inboxes, generate a new alias in FormSubmit and update it. The CSP allows `https://formsubmit.co` in
   `connect-src`, `form-action` and `frame-src`.
 - Without JavaScript, the form posts to FormSubmit's standard endpoint and shows its thank-you page.
+- Clickable email addresses open Gmail's web compose window (`GMAIL_COMPOSE` in `tools/build.py`)
+  in a new tab, not a desktop mail app.
 
 ---
 

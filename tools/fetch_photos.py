@@ -40,6 +40,7 @@ UA = "NSSWebsiteImageFetcher/1.0 (static website build script; python-urllib)"
 # slot: (search query or None, output size (w, h), pinned title or None)
 PHOTOS = {
     # Home page product categories (4:3)
+    "cat-handicrafts-felt": (None, (800, 600), "File:मूर्ति.JPG"),  # gilded metal statue, Nepali metalwork
     "cat-herbs-spices": ("spices market Kathmandu", (800, 600), None),
     "cat-agriculture": ("Ilam tea garden", (800, 600), None),
     "cat-food": ("Nepal grocery shop", (800, 600), None),
@@ -99,7 +100,6 @@ PHOTOS = {
 # Photos supplied by the company (originals kept locally, git-ignored; only WebP copies are committed).
 # slot: (file in project root, output size, crop centering (x, y))
 LOCAL = {
-    "cat-handicrafts-felt": ("about_us1.JPG", (800, 600), (0.5, 0.5)),
     # Tight 4:3 crop on the two reindeer on the left (source region 2644x1983 px, downscaled, never upscaled).
     "item-felt-toys": ("about_us2.JPG", (480, 360), (0.5, 0.5), (0.0388, 0.18, 0.501, 0.70)),
     # Close crop on the felt dog. VERIFY with the company (checklist #11): a felt figure, not a cat cave.

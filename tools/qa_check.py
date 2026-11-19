@@ -272,6 +272,18 @@ def main():
         check(len(standard) == 2, "network failure also uses the iframe fallback")
         ctx.unroute("**/*")
 
+        # Email address links open Gmail compose in a new tab, never a desktop mail app.
+        for path in ["/", "/contact/"]:
+            page.goto(base + path)
+            links = page.evaluate("""() => [...document.querySelectorAll('a')].filter(a => a.textContent.includes('@'))
+                .map(a => ({href: a.getAttribute('href'), target: a.target, rel: a.rel}))""")
+            ok = bool(links) and all(l["href"].startswith("https://mail.google.com/mail/?view=cm&fs=1&to=") and l["target"] == "_blank"
+                                     and "noopener" in l["rel"] for l in links)
+            check(ok, f"email links on {path} open Gmail compose in a new tab ({len(links)})")
+        check(page.locator('a[href^="mailto:"]').count() == 0, "no mailto: links remain")
+        footer = page.locator(".site-footer__base").inner_text()
+        check("\u00a9 2026 Nepal Shipping" in footer, "footer copyright reads \u00a9 2026")
+
         page.goto(base + "/contact/?review")
         check(page.locator(".review-banner").is_visible(), "?review mode highlights placeholders")
         ctx.close()

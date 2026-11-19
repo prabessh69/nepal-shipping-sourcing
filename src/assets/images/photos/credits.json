@@ -494,16 +494,6 @@
     "query": "pallets warehouse",
     "toned": true
   },
-  "cat-handicrafts-felt": {
-    "author": "Nepal Shipping & Sourcing",
-    "license": "Company photograph",
-    "license_url": "",
-    "source": "",
-    "title": "about_us1.JPG",
-    "w": 800,
-    "h": 600,
-    "toned": true
-  },
   "item-hemp": {
     "title": "File:Hemp Hats in Nepal 01.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Hemp_Hats_in_Nepal_01.jpg",
@@ -596,6 +586,27 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 1200,
     "h": 800,
+    "query": null,
+    "toned": true
+  },
+  "item-felt-toys": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us2.JPG",
+    "w": 480,
+    "h": 360,
+    "toned": true
+  },
+  "cat-handicrafts-felt": {
+    "title": "File:मूर्ति.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:%E0%A4%AE%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A4%BF.JPG",
+    "author": "Ananda Adhikari Tanahun",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
     "query": null,
     "toned": true
   }

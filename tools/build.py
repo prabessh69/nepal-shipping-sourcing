@@ -240,6 +240,7 @@ def build_page(path, partials, c):
         "PRELOAD": meta.get("preload", ""),
         "NAV": render_nav(meta.get("nav", "")),
         "EMAIL": html.escape(c["email"]),
+        "GMAIL_COMPOSE": "https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=" + html.escape(c["email"]),
         # Display form with a line-break opportunity before "@" so long addresses wrap cleanly.
         "EMAIL_TEXT": html.escape(c["email"]).replace("@", "<wbr>@", 1),
         "PHONE_E164": c["phone_e164"],
