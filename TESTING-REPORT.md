@@ -109,6 +109,22 @@ visually at 375px and 1440px: the hero map, the four page banners, the service i
 first on mobile), the sourcing pipeline (4×2 grid on mobile, single row on desktop) and the category
 and value icons. The screenshots in `docs/screenshots/` predate this update.
 
+## Photos, icons and asset verification update
+
+- **Blank icon slots** (process step 4, About values, sourcing Sample and Monitor) were caused by browsers
+  caching the old 12-icon sprite for 7 days; every icon was present in the current sprite. Fixed with
+  content-hash `?v=` URLs on every `/assets/` reference, which also allows one-year immutable caching.
+- 41 freely licensed photos added from Wikimedia Commons. Each automated pick was reviewed visually:
+  11 were rejected (billiards, a concert, a damaged ship, military aircraft, third-party branding, a
+  duplicate and others).
+- `tools/verify_assets.py`: 7 pages, 99 images, 58 icons, 157 asset references and 7 fallback tiles,
+  all resolving.
+- The QA suite gained a browser render check (every visible icon and image draws at non-zero size) and
+  the new `/credits/` page.
+- Final run: **269 passed, 0 failed**, with zero axe violations on all 6 pages at 375px and 1440px. One
+  issue was found and fixed along the way: on mobile, screen-reader-only text inside the credits table
+  caused sideways scrolling.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

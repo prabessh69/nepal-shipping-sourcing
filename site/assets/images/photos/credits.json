@@ -1,0 +1,457 @@
+{
+  "cat-herbs-spices": {
+    "title": "File:Asan Spice Market,Kathmandu,Nepal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Asan_Spice_Market,Kathmandu,Nepal.jpg",
+    "author": "Dr.Nishant Bhatt",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "spices market Kathmandu"
+  },
+  "cat-agriculture": {
+    "title": "File:Ilam tea garden.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ilam_tea_garden.jpg",
+    "author": "Pravinchapagain",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "Ilam tea garden"
+  },
+  "cat-home-decor": {
+    "rejected": [
+      "File:Handmade wildcrafted lokta paper packaging.png"
+    ]
+  },
+  "cat-custom": {
+    "title": "File:Asan Bazaar woman selling vegetables in front of Jwalamai temple Kathmandu Nepal 20Apr2008.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Asan_Bazaar_woman_selling_vegetables_in_front_of_Jwalamai_temple_Kathmandu_Nepal_20Apr2008.jpg",
+    "author": "Everhard van Eimeren",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "Asan bazaar Kathmandu"
+  },
+  "item-singing-bowls": {
+    "title": "File:Nepal singing bowl.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nepal_singing_bowl.jpg",
+    "author": "PLBechly",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "Nepalese singing bowl"
+  },
+  "item-wood-carvings": {
+    "title": "File:Carved wooden window at Bhaktapur, Nepal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Carved_wooden_window_at_Bhaktapur,_Nepal.jpg",
+    "author": "Nyeta",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "Bhaktapur wood carving window"
+  },
+  "item-pottery": {
+    "title": "File:Potier au travail (Bhaktapur) (8560018739).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Potier_au_travail_(Bhaktapur)_(8560018739).jpg",
+    "author": "Jean-Pierre Dalbéra from Paris, France",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "Bhaktapur potter",
+    "rejected": [
+      "File:In and around Bhaktapur Pottery Square 41.jpg"
+    ]
+  },
+  "item-thangka": {
+    "title": "File:Nepal, thangka con la dea chundhaa, su seta, 1698, 03.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nepal,_thangka_con_la_dea_chundhaa,_su_seta,_1698,_03.jpg",
+    "author": "Sailko",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "w": 480,
+    "h": 360,
+    "query": "thangka painting Nepal"
+  },
+  "cat-handicrafts": {
+    "title": "File:A man and the felt dolls, Thamel, Kathmandu Nepal-8313.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:A_man_and_the_felt_dolls,_Thamel,_Kathmandu_Nepal-8313.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "Nepal handicrafts shop"
+  },
+  "cat-felt": {
+    "title": "File:Tennis Ball Felt Zoom-In View.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Tennis_Ball_Felt_Zoom-In_View.jpg",
+    "author": "Horia Varlan",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 800,
+    "h": 600,
+    "query": "felt balls"
+  },
+  "cat-food": {
+    "title": "File:Kathmandu grocery store.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kathmandu_grocery_store.jpg",
+    "author": "Wonderlane",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 800,
+    "h": 600,
+    "query": "Nepal grocery shop"
+  },
+  "item-metal-statues": {
+    "title": "File:Large Buddha statues found as we climbed Swayambhunath (17209379394).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Large_Buddha_statues_found_as_we_climbed_Swayambhunath_(17209379394).jpg",
+    "author": "Jorge Láscar from Melbourne, Australia",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "Buddha statues shop Kathmandu"
+  },
+  "item-felt-balls": {
+    "rejected": [
+      "File:DFC 0931 A focused player leans over a blue pool table lining up a shot with her cue as colorful balls sit ready on the felt.jpg"
+    ]
+  },
+  "item-felt-slippers": {
+    "title": "File:Felt Slippers (20457766195).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Felt_Slippers_(20457766195).jpg",
+    "author": "Rob Oo from NL",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "felt slippers"
+  },
+  "item-felt-toys": {
+    "title": "File:Little red fox.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Little_red_fox.jpg",
+    "author": "Gabrielle",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "felted wool toy",
+    "rejected": [
+      "File:Flowers, doll's (AM 2013.51.1.16-2).jpg"
+    ]
+  },
+  "item-turmeric": {
+    "title": "File:Curcuma longa roots.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Curcuma_longa_roots.jpg",
+    "author": "Simon A. Eugster",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "w": 480,
+    "h": 360,
+    "query": "turmeric powder"
+  },
+  "item-dried-herbs": {
+    "title": "File:Armenian herbs in market.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Armenian_herbs_in_market.jpg",
+    "author": "Grasshalm",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "w": 480,
+    "h": 360,
+    "query": "dried herbs market"
+  },
+  "item-botanicals": {
+    "title": "File:Eklebire, medicinal herb - panoramio.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Eklebire,_medicinal_herb_-_panoramio.jpg",
+    "author": "aabhash",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "w": 480,
+    "h": 360,
+    "query": "medicinal plants Nepal"
+  },
+  "cat-textiles": {
+    "title": "File:Pashmina scarf with woven elephant design 02.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pashmina_scarf_with_woven_elephant_design_02.jpg",
+    "author": "Kritzolina",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "pashmina shawls"
+  },
+  "item-felt-rugs": {
+    "title": "File:Farwayart-handmade-felt-rug3.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Farwayart-handmade-felt-rug3.jpg",
+    "author": "Sr3207",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "felt rug"
+  },
+  "item-timur": {
+    "title": "File:Zanthoxylum armatum var. subtrifoliatum s4.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Zanthoxylum_armatum_var._subtrifoliatum_s4.jpg",
+    "author": "Alpsdake",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "Zanthoxylum armatum"
+  },
+  "item-orthodox-tea": {
+    "title": "File:Darjeeling, India, Darjeeling tea, Black tea.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Darjeeling,_India,_Darjeeling_tea,_Black_tea.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "black tea leaves"
+  },
+  "item-coffee": {
+    "title": "File:Roasted coffee beans.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Roasted_coffee_beans.jpg",
+    "author": "MarkSweep",
+    "license": "Public domain",
+    "license_url": "",
+    "w": 480,
+    "h": 360,
+    "query": "coffee beans"
+  },
+  "item-cardamom": {
+    "title": "File:Amomum subulatum MHNT.BOT.2021.17.28.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Amomum_subulatum_MHNT.BOT.2021.17.28.jpg",
+    "author": "Roger Culos",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "black cardamom"
+  },
+  "item-ginger": {
+    "title": "File:Fresh ginger (20240131).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fresh_ginger_(20240131).jpg",
+    "author": "Fumikas Sagisavas",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "w": 480,
+    "h": 360,
+    "query": "fresh ginger",
+    "rejected": [
+      "File:GingerRoot Novo Los Angeles.jpg"
+    ]
+  },
+  "item-honey": {
+    "title": "File:Honey (Italian-miele) in a jar.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Honey_(Italian-miele)_in_a_jar.jpg",
+    "author": "davide vizzini from Milano, Italy",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "honey in glass jar",
+    "rejected": [
+      "File:Antique Glass Honey Jar With Rusted Metal Cap (31009798197).jpg"
+    ]
+  },
+  "item-snacks": {
+    "title": "File:Poha.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Poha.jpg",
+    "author": "Sanjay Acharya, aka Sanjay ach at en.wikipedia",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "w": 480,
+    "h": 360,
+    "query": "beaten rice chiura"
+  },
+  "item-pickles": {
+    "title": "File:Chickpea Peanut Mango Pickle Recipe By Sonia Goyal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chickpea_Peanut_Mango_Pickle_Recipe_By_Sonia_Goyal.jpg",
+    "author": "Sonia Goyal Jaipur",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "achar pickle jar"
+  },
+  "item-packaged-tea": {
+    "title": "File:Packaging tea bags.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Packaging_tea_bags.jpg",
+    "author": "Prosper ISHIMWE",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "tea packaging"
+  },
+  "item-pashmina": {
+    "title": "File:Pashmina Shop in Thamel, Kathmandu-8255.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pashmina_Shop_in_Thamel,_Kathmandu-8255.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "pashmina",
+    "rejected": [
+      "File:Pashmina scarf with woven elephant design 02.jpg"
+    ]
+  },
+  "item-knitwear": {
+    "rejected": [
+      "File:WW2 Norway Red pointed cap knitted mittens national protest symbols Andre verdenskrig tyskokkupert Norge Ulovlige nasjonalsymboler rød topplue nisselue strikkevotter med H7 Haakon VII mønster Alt for Norge etc Lofoten Krigsminnemuseum.jpg"
+    ]
+  },
+  "item-dhaka": {
+    "title": "File:Old Nepali Newar Peoples wearing traditional hat- Dhaka Topi-Patan Durbar Square-2061.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Old_Nepali_Newar_Peoples_wearing_traditional_hat-_Dhaka_Topi-Patan_Durbar_Square-2061.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "Dhaka topi"
+  },
+  "item-lokta": {
+    "rejected": [
+      "File:Lokta nepali paper menu.JPG",
+      "File:Handmade wildcrafted lokta paper packaging.png"
+    ]
+  },
+  "item-cushions": {
+    "title": "File:Mirror-embroidered-pillow4.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Mirror-embroidered-pillow4.jpg",
+    "author": "Sr3207",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "embroidered cushion"
+  },
+  "item-lamps": {
+    "title": "File:Courtyard of colorful paper lanterns and shadow patterns at Bulguksa temple Gyeongju South Korea.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Courtyard_of_colorful_paper_lanterns_and_shadow_patterns_at_Bulguksa_temple_Gyeongju_South_Korea.jpg",
+    "author": "Basile Morin",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": "paper lanterns"
+  },
+  "banner-about": {
+    "title": "File:Kathmandu Valley panorama.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kathmandu_Valley_panorama.jpg",
+    "author": "Mike from Vancouver, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "w": 1600,
+    "h": 720,
+    "query": "Kathmandu Valley panorama"
+  },
+  "banner-services": {
+    "title": "File:MSC HARMONY III (container ship, 2006) in Port Koper (SIKOP, 2024).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:MSC_HARMONY_III_(container_ship,_2006)_in_Port_Koper_(SIKOP,_2024).jpg",
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 1600,
+    "h": 720,
+    "query": "container ship at sea",
+    "rejected": [
+      "File:2021-11-19 Damaged container ship, MV ZIM KINGSTON - IMO 9389693.jpg"
+    ]
+  },
+  "banner-sourcing": {
+    "title": "File:Kathmandu, Nepal, Thamel shops.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kathmandu,_Nepal,_Thamel_shops.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "w": 1600,
+    "h": 720,
+    "query": "Thamel shop"
+  },
+  "feature-air-cargo": {
+    "rejected": [
+      "File:Packing pallets.jpg",
+      "File:ASML air freight containers in Tainan May 2025 1.jpg"
+    ]
+  },
+  "svc-air-freight": {
+    "title": "File:Aircraft cargo loader at ZRH.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Aircraft_cargo_loader_at_ZRH.jpg",
+    "author": "Anidaat",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "cargo aircraft loading"
+  },
+  "svc-sea-freight": {
+    "title": "File:MAERSK HANOI Container Ship (Port Koper SIKOP, 2023).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:MAERSK_HANOI_Container_Ship_(Port_Koper_SIKOP,_2023).jpg",
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "container ship port"
+  },
+  "svc-land-transport": {
+    "title": "File:Truck Pulled over due to lockdown in Nepal-Shambhunath Municipality , Nepal-4553.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Truck_Pulled_over_due_to_lockdown_in_Nepal-Shambhunath_Municipality_,_Nepal-4553.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "Nepal truck"
+  },
+  "svc-freight-forwarding": {
+    "title": "File:Container-Terminal Bremerhaven 02.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Container-Terminal_Bremerhaven_02.jpg",
+    "author": "H. Zell",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "w": 720,
+    "h": 480,
+    "query": "container terminal cranes"
+  },
+  "svc-import-export": {
+    "title": "File:Line3174 - Shipping Containers at the terminal at Port Elizabeth, New Jersey - NOAA.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Line3174_-_Shipping_Containers_at_the_terminal_at_Port_Elizabeth,_New_Jersey_-_NOAA.jpg",
+    "author": "Captain Albert E. Theberge, NOAA Corps (ret.)",
+    "license": "Public domain",
+    "license_url": "",
+    "w": 720,
+    "h": 480,
+    "query": "shipping containers"
+  },
+  "svc-customs": {
+    "title": "File:Border Bridge Connecting Raxaul, Bihar, India, and Birgunj, Nepal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Border_Bridge_Connecting_Raxaul,_Bihar,_India,_and_Birgunj,_Nepal.jpg",
+    "author": "Muhammad Saddam Hussain",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "Birgunj border"
+  },
+  "svc-cargo-handling": {
+    "title": "File:Modern warehouse with pallet rack storage system.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Modern_warehouse_with_pallet_rack_storage_system.jpg",
+    "author": "Axisadman",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "w": 720,
+    "h": 480,
+    "query": "pallets warehouse"
+  }
+}

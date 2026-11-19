@@ -23,7 +23,7 @@ from urllib.parse import urljoin, urlparse, parse_qs, unquote
 
 from playwright.sync_api import sync_playwright
 
-PAGES = ["/", "/about/", "/services/", "/sourcing/", "/contact/", "/this-page-does-not-exist"]
+PAGES = ["/", "/about/", "/services/", "/sourcing/", "/contact/", "/credits/", "/this-page-does-not-exist"]
 VIEWPORTS = [(375, 812), (768, 1024), (1440, 900)]
 FAVICONS = ["/favicon-96x96.png", "/favicon.svg", "/favicon.ico", "/apple-touch-icon.png",
             "/site.webmanifest", "/web-app-manifest-192x192.png", "/web-app-manifest-512x512.png"]
@@ -72,6 +72,20 @@ def page_checks(browser_name, page, base, path, vw, links):
     check(overflow <= 0, f"{tag} no horizontal scroll (overflow {overflow}px)")
     broken = page.evaluate("[...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src)")
     check(not broken, f"{tag} all images loaded {broken}")
+    blank = page.evaluate("""() => {
+        const visible = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden'; };
+        const out = [];
+        document.querySelectorAll('svg use').forEach(u => {
+            const svg = u.closest('svg');
+            if (!visible(svg)) return;               // e.g. icons inside a closed mobile menu
+            let b; try { b = u.getBBox(); } catch (e) { b = {width: 0, height: 0}; }
+            if (!(b.width > 0 && b.height > 0)) out.push('icon ' + u.getAttribute('href').split('#')[1]);
+        });
+        document.querySelectorAll('img').forEach(i => { if (visible(i) && i.naturalWidth === 0) out.push('img ' + i.src); });
+        document.querySelectorAll('.photo-fallback').forEach(f => { if (!f.querySelector('svg use')) out.push('empty fallback'); });
+        return out;
+    }""")
+    check(not blank, f"{tag} every visible icon/image renders with non-zero size {blank[:4]}")
     if vw == 1440:
         meta = page.evaluate("""() => ({
             h1: document.querySelectorAll('h1').length,

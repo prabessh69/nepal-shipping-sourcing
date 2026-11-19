@@ -411,6 +411,33 @@ p { text-wrap: pretty; }
 /* Full-width, uncropped page banner: the image keeps its own aspect ratio. */
 .page-banner img { width: 100%; height: auto; border-radius: var(--radius); background: var(--tint); }
 
+/* Photos and their designed fallbacks share one footprint per slot type. */
+.photo { display: block; width: 100%; height: auto; border-radius: var(--radius); background: var(--tint-deep); object-fit: cover; }
+.photo--cat, .photo--item { aspect-ratio: 4 / 3; }
+.photo--svc, .photo--feature { aspect-ratio: 3 / 2; }
+.photo--banner { aspect-ratio: 20 / 9; }
+.photo-fallback {
+  display: grid; place-items: center; width: 100%; border-radius: var(--radius);
+  background: var(--tint-deep); color: var(--leaf);
+}
+.photo-fallback--cat, .photo-fallback--item { aspect-ratio: 4 / 3; }
+.photo-fallback--svc { aspect-ratio: 3 / 2; }
+.photo-fallback svg { width: 38%; height: 38%; max-width: 4rem; max-height: 4rem; }
+.section--tint .photo-fallback { background: var(--ivory); }
+.category-grid .photo, .category-grid .photo-fallback { margin-bottom: 1rem; }
+.category-grid .icon-heading .cat-icon { width: 1.35rem; height: 1.35rem; margin: 0; }
+
+/* Credits page */
+.credits__notes { margin-bottom: 2.5rem; }
+.table-scroll { overflow-x: auto; position: relative; } /* contains the absolutely positioned visually-hidden text */
+.credits-table { width: 100%; border-collapse: collapse; font-size: .9375rem; min-width: 40rem; }
+.credits-table th, .credits-table td { text-align: left; vertical-align: middle; padding: .7rem .75rem; border-bottom: 1px solid var(--rule); }
+.credits-table th { font-weight: 650; border-bottom: 2px solid var(--ink); }
+.credits-table td:first-child { width: 6.5rem; }
+.credits-table img { width: 6rem; height: auto; border-radius: 2px; }
+.credits-table a { overflow-wrap: anywhere; }
+.site-footer__base a { color: inherit; }
+
 /* Illustrations placed inside content sections */
 .feature-figure { margin-top: clamp(1.75rem, 1.25rem + 2vw, 2.75rem); }
 .feature-figure img { width: 100%; height: auto; border-radius: var(--radius); }
@@ -533,8 +560,10 @@ p { text-wrap: pretty; }
 .category-detail > li { padding-block: 1.75rem; border-bottom: 1px solid var(--rule-strong); display: grid; gap: .6rem; }
 .category-detail h3 { font-size: var(--step-2); font-stretch: 86%; }
 .category-detail p { color: var(--slate); max-width: 40rem; }
-.tag-list { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .25rem; }
-.tag-list li { font-size: .875rem; padding: .25rem .6rem; background: var(--ivory); border-radius: 2px; color: var(--ink); }
+/* Product item cards (photo + label) */
+.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr)); gap: 1rem .85rem; margin-top: .5rem; }
+.item-grid li { display: grid; gap: .45rem; align-content: start; }
+.item-grid span { font-size: .875rem; font-weight: 600; line-height: 1.3; }
 @media (min-width: 56rem) {
   .category-detail > li { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: 3rem; }
   .category-detail > li > :not(h3) { grid-column: 2; }

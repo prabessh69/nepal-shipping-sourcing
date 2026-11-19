@@ -15,6 +15,7 @@ Standard library only. Cloudflare Pages serves the committed site/ folder
 directly, so no build step is needed at deploy time; run this locally after
 editing anything in src/ or site.config.json, then commit site/.
 """
+import hashlib
 import html
 import json
 import re
@@ -122,6 +123,68 @@ def render_nav(current):
     return "\n            ".join(items)
 
 
+# ---------- photos ----------
+# {{PHOTO:slot|alt text}} -> <img> for src/assets/images/photos/<slot>.webp (see
+# tools/fetch_photos.py). If the photo is missing, a designed fallback is used so a
+# slot is never empty: the matching illustration, or an icon tile for product items.
+PHOTO_DIR = SRC / "assets" / "images" / "photos"
+PHOTO_SIZES = {"cat": (800, 600), "item": (480, 360), "banner": (1600, 720), "feature": (1200, 800), "svc": (720, 480)}
+FALLBACK_ICONS = {
+    "cat-handicrafts": "bowl", "cat-felt": "felt", "cat-herbs-spices": "leaf", "cat-agriculture": "tea",
+    "cat-food": "jar", "cat-textiles": "textile", "cat-home-decor": "lamp", "cat-custom": "plus",
+    "item-felt-balls": "felt", "item-felt-rugs": "felt", "item-felt-slippers": "felt", "item-felt-toys": "felt",
+    "item-pet-products": "felt", "item-hemp": "textile", "item-knitwear": "textile", "item-pashmina": "textile",
+    "item-dhaka": "textile", "item-lokta": "docs", "item-carpets": "textile", "item-cushions": "textile",
+    "item-lamps": "lamp",
+}
+PHOTO_RE = re.compile(r"\{\{PHOTO:([a-z0-9-]+)\|([^}]*)\}\}")
+
+
+def photo_html(slot, alt):
+    kind = slot.split("-", 1)[0]
+    w, h = PHOTO_SIZES[kind]
+    eager = kind == "banner"
+    loading = 'decoding="async" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
+    alt_attr = html.escape(alt, quote=True)
+    if (PHOTO_DIR / f"{slot}.webp").is_file():
+        return (f'<img class="photo photo--{kind}" src="/assets/images/photos/{slot}.webp" width="{w}" height="{h}" '
+                f'{loading} alt="{alt_attr}">')
+    # Fallbacks
+    name = slot.split("-", 1)[1]
+    svg = {"banner": f"banner-{name}.svg", "feature": f"feature-{name}.svg", "svc": f"spot-{name}.svg"}.get(kind)
+    if svg and (SRC / "assets" / "images" / svg).is_file():
+        sw, sh = {"banner": (1600, 720), "feature": (1200, 800), "svc": (480, 320)}[kind]
+        return (f'<img class="photo photo--{kind}" src="/assets/images/{svg}" width="{sw}" height="{sh}" '
+                f'{loading} alt="{alt_attr}">')
+    icon = FALLBACK_ICONS.get(slot, "box")
+    label = f' role="img" aria-label="{alt_attr}"' if alt else ' aria-hidden="true"'
+    return (f'<span class="photo-fallback photo-fallback--{kind}"{label}>'
+            f'<svg aria-hidden="true"><use href="/assets/img/icons.svg#i-{icon}"/></svg></span>')
+
+
+_hashes = {}
+
+
+def asset_version(url_path):
+    """Short content hash for a file under site/, used as a cache-busting ?v= value."""
+    if url_path not in _hashes:
+        f = OUT / url_path.lstrip("/")
+        _hashes[url_path] = hashlib.sha256(f.read_bytes()).hexdigest()[:10] if f.is_file() else None
+    return _hashes[url_path]
+
+
+ASSET_REF = re.compile(r'((?:src|href)=")(/assets/[^"#?]+)((?:#[^"]*)?")')
+
+
+def version_assets(doc):
+    """Append ?v=<hash> to every /assets/ reference so changed files always get a new URL.
+    (Browsers otherwise keep serving cached copies, e.g. an old icon sprite missing new icons.)"""
+    def sub(m):
+        v = asset_version(m.group(2))
+        return f"{m.group(1)}{m.group(2)}?v={v}{m.group(3)}" if v else m.group(0)
+    return ASSET_REF.sub(sub, doc)
+
+
 def build_page(path, partials, c):
     raw = path.read_text(encoding="utf-8")
     m = META_RE.match(raw)
@@ -169,8 +232,10 @@ def build_page(path, partials, c):
            .replace("{{MAIN}}", body)
            .replace("{{FOOTER}}", partials["footer"]))
     doc = re.sub(r"\{\{INCLUDE:([a-z0-9-]+)\}\}", lambda m: partials[m.group(1)], doc)
+    doc = PHOTO_RE.sub(lambda m: photo_html(m.group(1), m.group(2)), doc)
     for k, v in vars_.items():
         doc = doc.replace("{{" + k + "}}", v)
+    doc = version_assets(doc)
     leftover = set(re.findall(r"\{\{[A-Z_]+\}\}", doc))
     if leftover:
         sys.exit(f"{path}: unresolved template variables {leftover}")

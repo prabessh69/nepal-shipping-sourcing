@@ -33,6 +33,7 @@ Nepal Shipping/
 │   ├── partials/                layout, <head>, header, footer; hero-map.html is generated
 │   ├── pages/                   one file per page (body content + <!--meta {...}--> block)
 │   └── assets/images/           illustrations + map artwork (copied to site/assets/images/)
+│       └── photos/              Wikimedia Commons photos (WebP) + credits.json
 ├── site/                        ← the published website (Cloudflare Pages output directory)
 │   ├── index.html, about/, services/, sourcing/, contact/, 404.html   (generated)
 │   ├── sitemap.xml, robots.txt                                       (generated)
@@ -48,7 +49,9 @@ Nepal Shipping/
 │   ├── build.py                 assembles src/ → site/ (Python 3 standard library only)
 │   ├── serve.py                 local preview server that applies _headers like Cloudflare
 │   ├── build_hero_map.py        hero map, route overlay, contact banner (from tools/data/)
-│   ├── build_illustrations.py   all other editorial illustrations
+│   ├── build_illustrations.py   all other editorial illustrations (also photo fallbacks)
+│   ├── fetch_photos.py          downloads + crops freely licensed photos (dev-only: Pillow)
+│   ├── verify_assets.py         checks every image/icon in site/ resolves (run before deploy)
 │   ├── data/nepal-adm0.geojson  Nepal boundary (geoBoundaries / Open Data Nepal, CC BY 4.0)
 │   ├── qa_check.py              automated browser QA (optional, needs Playwright)
 │   └── og/                      source + renderer for the social share image
@@ -89,6 +92,21 @@ Schema.org data, `sitemap.xml` and `robots.txt` together.
 ### Content review mode
 
 Add `?review` to any page URL to highlight every placeholder that still needs confirming.
+
+### Photos and image credits
+
+Photos come from Wikimedia Commons under CC0, public domain, CC BY or CC BY-SA licences, via
+`tools/fetch_photos.py` (dev-only dependency: Pillow). Each slot in its `PHOTOS` list maps to a
+`{{PHOTO:slot|alt text}}` marker in the page sources. If a slot has no photo, the build uses a designed
+fallback (the matching illustration, or an icon tile), so a slot is never empty or broken.
+
+CC BY and CC BY-SA require attribution. The `/credits/` page, generated from
+`src/assets/images/photos/credits.json` and linked in the footer, provides it, so keep it published.
+To replace a photo with your own, save it as `src/assets/images/photos/<slot>.webp` at the slot's size,
+remove that slot from `credits.json`, re-run `fetch_photos.py` to refresh the credits table, then rebuild.
+
+Every `/assets/` URL in the built HTML carries a content-hash `?v=` parameter, so browsers always get the
+latest version of changed files (this is what fixes icons appearing blank after an update).
 
 ### Adding photography
 
@@ -205,6 +223,7 @@ See [`TESTING-REPORT.md`](TESTING-REPORT.md) for the results from the final QA p
 - Nepal boundary: [geoBoundaries](https://www.geoboundaries.org/) gbOpen NPL ADM0, sourced from
   Open Data Nepal, CC BY 4.0. It includes Nepal's official 2020 boundary (Kalapani, Lipulekh,
   Limpiyadhura). Attribution appears under the home-page map.
+- Photographs: Wikimedia Commons contributors; see `/credits/` for each author and licence.
 - Contour terrain (stylised, not survey data), illustrations, icons and all copy: created for this project.
   Regenerate with `python3 tools/build_hero_map.py` and `python3 tools/build_illustrations.py`,
   then `python3 tools/build.py`.
