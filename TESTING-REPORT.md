@@ -163,6 +163,14 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   and a Thamel felt-goods shop (Product Sourcing). All were cropped from sources large enough that
   nothing is upscaled.
 
+## Global-markets hero map
+
+- Nepal is centred, with arrowed routes from Kathmandu to US, CAN, UK, EU, AUS and NZ. There are two
+  compositions: wide with full country names (768px and up), and a taller phone version with large
+  codes, so nothing is cropped. Checked at 375px (3×), 768px (2×) and 1440px: no text or arrow overlaps,
+  and nothing is clipped.
+- `verify_assets.py`: OK. QA: **275 passed, 0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |
