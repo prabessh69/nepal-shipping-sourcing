@@ -214,6 +214,62 @@ def terrain_groups(proj, step, n_levels, start, gap, outer_levels=0):
     return "".join(inner), "".join(outer)
 
 
+# ---------- route geometry helpers ----------
+def _sample(d, t):
+    """Point and unit direction at fraction t (by length) along an M/C/L path string."""
+    import re as _re
+    toks = _re.findall(r"[MCL]|-?\d+(?:\.\d+)?", d)
+    pts, i, cur, cmd = [], 0, None, None
+    while i < len(toks):
+        if toks[i] in "MCL":
+            cmd = toks[i]; i += 1; continue
+        if cmd == "M":
+            cur = (float(toks[i]), float(toks[i + 1])); pts.append(cur); i += 2
+        elif cmd == "L":
+            cur = (float(toks[i]), float(toks[i + 1])); pts.append(cur); i += 2
+        elif cmd == "C":
+            c1 = (float(toks[i]), float(toks[i + 1])); c2 = (float(toks[i + 2]), float(toks[i + 3]))
+            end = (float(toks[i + 4]), float(toks[i + 5])); i += 6
+            for k in range(1, 41):
+                u = k / 40
+                pts.append(tuple((1 - u) ** 3 * cur[j] + 3 * (1 - u) ** 2 * u * c1[j] + 3 * (1 - u) * u * u * c2[j] + u ** 3 * end[j] for j in (0, 1)))
+            cur = end
+    seg = [math.dist(pts[k], pts[k + 1]) for k in range(len(pts) - 1)]
+    target, acc = sum(seg) * t, 0.0
+    for k, L in enumerate(seg):
+        if acc + L >= target:
+            f = (target - acc) / L if L else 0
+            (x1, y1), (x2, y2) = pts[k], pts[k + 1]
+            return (x1 + (x2 - x1) * f, y1 + (y2 - y1) * f), ((x2 - x1) / (L or 1), (y2 - y1) / (L or 1))
+        acc += L
+    return pts[-1], (0, 1)
+
+
+def _at_y(d, y_target):
+    """First point along the path whose y reaches y_target (used to keep badges inside the frame)."""
+    for k in range(1, 400):
+        pt, _ = _sample(d, k / 400)
+        if pt[1] >= y_target:
+            return pt
+    return _sample(d, 0.8)[0]
+
+
+MODE_GLYPH = {  # drawn in a 24-unit box centred on 0,0
+    "air": '<path d="M0-10c1 0 1.6 1 1.6 2v4.6l8 4.4v2.2l-8-2.4v4.8l2.3 1.7v1.6L0 18l-3.9 1v-1.6l2.3-1.7V10.8l-8 2.4V11l8-4.4V-8c0-1 .6-2 1.6-2z" transform="translate(0 -4)"/>',
+    "sea": '<path d="M-11 3h22l-3 6.5h-16z"/><path d="M-7 3v-5h4v5M-1.5 3v-8h4v8M4 3v-5h4v5"/>',
+    "road": '<path d="M-11-6h12v11h-12zM1-2h5l4 4v3H1z"/><circle cx="-6" cy="7" r="2.2"/><circle cx="5" cy="7" r="2.2"/>',
+}
+
+
+def corridor_badge(pt, mode, label=None, anchor="start", dx=34, dy=7):
+    x, y = pt
+    out = (f'<g class="route-map__badge route-map__badge--{mode}" transform="translate({x:.0f} {y:.0f})">'
+           f'<circle r="25"/><g class="route-map__glyph" transform="scale(1.25)">{MODE_GLYPH[mode]}</g></g>')
+    if label:
+        out += f'<text class="route-map__corridor" x="{x + dx:.0f}" y="{y + dy:.0f}" text-anchor="{anchor}">{label}</text>'
+    return out
+
+
 # ---------- outputs ----------
 def hero():
     W, H = 1600, 760
@@ -241,7 +297,7 @@ def hero():
         "air-e": f"M{f(ktm)}C{kx+110:.0f} {ky-250:.0f} {kx+380:.0f} {ky-420:.0f} 1620 {ky-460:.0f}",
         # Ocean freight: Kathmandu -> Birgunj/Raxaul -> south to Kolkata/Haldia
         "sea": f"M{f(ktm)}C{kx-10:.0f} {ky+40:.0f} {bir[0]+20:.0f} {bir[1]-50:.0f} {f(bir)}"
-               f"C{bir[0]+40:.0f} {bir[1]+50:.0f} {bir[0]+230:.0f} {H-20} {bir[0]+330:.0f} {H+30}",
+               f"C{bir[0]+30:.0f} {bir[1]+50:.0f} {bir[0]+120:.0f} {H-30} {bir[0]+175:.0f} {H+30}",
         # Road and rail: Kathmandu -> Bhairahawa/Sunauli and -> Biratnagar/Jogbani
         "road-w": f"M{f(ktm)}C{kx-90:.0f} {ky+50:.0f} {bhr[0]+90:.0f} {bhr[1]-30:.0f} {f(bhr)}L{bhr[0]-10:.0f} {H+30}",
         "road-e": f"M{f(ktm)}C{kx+110:.0f} {ky+40:.0f} {brt[0]-120:.0f} {brt[1]-70:.0f} {f(brt)}L{brt[0]+10:.0f} {H+30}",
@@ -253,6 +309,14 @@ def hero():
     paths = "\n".join(
         f'            <g class="route route--{kind}"><path mask="url(#m{i})" d="{routes[k]}"/></g>'
         for i, (k, kind) in enumerate(order, 1))
+
+    badges = "".join([
+        corridor_badge(_sample(routes["air-w"], 0.58)[0], "air", "Global air hubs", "end", -34),
+        corridor_badge(_sample(routes["air-e"], 0.6)[0], "air"),
+        corridor_badge(_at_y(routes["sea"], 680), "sea", "Kolkata &amp; Haldia", "end", -34),
+        corridor_badge(_at_y(routes["road-w"], 680), "road"),
+        corridor_badge(_at_y(routes["road-e"], 690), "road", "India road &amp; rail"),
+    ])
 
     def town(p, name, dx, anchor="start"):
         return (f'<circle cx="{p[0]:.0f}" cy="{p[1]:.0f}" r="6"/>'
@@ -267,6 +331,8 @@ def hero():
             </defs>
 {paths}
             <g class="route-map__points">{town(bir, "Birgunj", 14)}{town(bhr, "Bhairahawa", -14, "end")}{town(brt, "Biratnagar", 14)}</g>
+            <g class="route-map__badges">{badges}</g>
+            <circle class="route-map__hub" cx="{kx:.0f}" cy="{ky:.0f}" r="22"/>
             <circle class="route-map__origin" cx="{kx:.0f}" cy="{ky:.0f}" r="10"/>
             <text class="route-map__label" x="{kx+22:.0f}" y="{ky-14:.0f}">Kathmandu</text>
           </svg>

@@ -148,6 +148,21 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   the 2400 px file and a 2× phone loads the 1200 px file.
 - `verify_assets.py`: OK. QA: **273 passed, 0 failed**, with zero axe violations.
 
+## Services, form, map and photo update
+
+- The hero map now has corridor badges (air, sea, road), a Kathmandu hub ring and gateway labels (shown
+  on desktop; on phones the legend carries them). There are no overlaps at 375px or 1440px, and the
+  legend reads "Nepal's routes to global market".
+- "Your gateway to Nepal" appears under the company name in the header and footer.
+- Services: Product Sourcing first, Quality Check and Control last, with Title Case names in every list.
+- The contact form opens Gmail's compose window, with an instant confirmation and fallbacks. QA covers
+  the Gmail URL (recipient, subject, body) and the fallback `mailto:` link.
+- Address "Kathmandu, 44600, Nepal"; the reply note reads "We reply in all languages."
+- The sourcing chain has 10 steps, with Sample approve and Feedback added.
+- New photos: Patan Durbar Square and Annapurna (About gallery), Bhaktapur pots (home sourcing section)
+  and a Thamel felt-goods shop (Product Sourcing). All were cropped from sources large enough that
+  nothing is upscaled.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

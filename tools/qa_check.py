@@ -201,7 +201,7 @@ def main():
         check(page.locator("#f-topic").input_value() == "sea-freight", "?topic=sea-freight preselects topic")
         page.goto(base + "/contact/?topic=%3Cscript%3Ealert(1)%3C/script%3E")
         check(page.locator("#f-topic").input_value() == "", "?topic with unknown/malicious value is ignored")
-        page.get_by_role("button", name="Create email").click()
+        page.get_by_role("button", name="Send with Gmail").click()
         n_err = page.locator("#form-errors li").count()
         check(n_err == 4 and page.locator("#form-errors").is_visible(), f"empty submit shows error summary ({n_err} errors)")
         check(page.locator("#f-email").get_attribute("aria-invalid") == "true", "invalid field gets aria-invalid")
@@ -209,26 +209,27 @@ def main():
         page.fill("#f-email", "not-an-email")
         page.select_option("#f-topic", "sourcing")
         page.fill("#f-message", "We need 2,000 felt balls in 12 colours, shipped to Hamburg.")
-        page.get_by_role("button", name="Create email").click()
+        page.get_by_role("button", name="Send with Gmail").click()
         errs = page.locator("#form-errors li").all_text_contents()
         check(len(errs) == 1 and "email" in errs[0].lower(), f"bad email alone is flagged {errs}")
         page.fill("#f-email", "buyer@example.org")
         page.fill("#f-message", "We need 2,000 felt balls & <b>12</b> colours\nshipped to Hamburg.")
 
-        cdp = ctx.new_cdp_session(page)
-        cdp.send("Page.enable")
-        navs = []
-        cdp.on("Page.frameRequestedNavigation", lambda e: navs.append(e["url"]))
-        page.get_by_role("button", name="Create email").click()
-        page.wait_for_timeout(500)
-        mail = next((u for u in navs if u.startswith("mailto:")), "")
-        check(bool(mail), f"submit opens a mailto: URL")
-        if mail:
-            q = parse_qs(urlparse(mail).query)
-            body = q.get("body", [""])[0]
-            check("Website inquiry: Product sourcing (Test Buyer)" in q.get("subject", [""])[0], "mailto subject correct")
-            check("buyer@example.org" in body and "<b>12</b>" in body, "mailto body carries the message verbatim (as plain text)")
-        check(page.locator("#form-status").is_visible(), "status panel shown after submit")
+        # Submitting opens Gmail's compose window in a new tab (blocked here so the test stays offline).
+        gmail_requests = []
+        ctx.route("https://mail.google.com/**", lambda route: (gmail_requests.append(route.request.url), route.abort()))
+        page.get_by_role("button", name="Send with Gmail").click()
+        page.wait_for_timeout(800)
+        gmail = next((u for u in gmail_requests if "view=cm" in u), "")
+        check(bool(gmail), "submit opens Gmail compose in a new tab")
+        if gmail:
+            q = parse_qs(urlparse(gmail).query)
+            check("Website inquiry: Product Sourcing (Test Buyer)" in q.get("su", [""])[0], "Gmail subject correct")
+            check("buyer@example.org" in q.get("body", [""])[0] and "<b>12</b>" in q.get("body", [""])[0], "Gmail body carries the message verbatim (as plain text)")
+            check(q.get("to", [""])[0] == page.locator("#inquiry-form").get_attribute("data-recipient"), "Gmail compose addressed to the business email")
+        check(page.locator("#form-status").is_visible(), "confirmation panel shown after submit")
+        mailto = page.locator("#open-mailto").get_attribute("href") or ""
+        check(mailto.startswith("mailto:") and "subject=" in mailto, "fallback 'another email app' link is prepared")
 
         page.goto(base + "/contact/?review")
         check(page.locator(".review-banner").is_visible(), "?review mode highlights placeholders")

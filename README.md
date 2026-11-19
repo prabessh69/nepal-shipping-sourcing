@@ -134,13 +134,16 @@ Use `loading="lazy"` for anything below the first screen. Never hotlink stock im
 
 ## The inquiry form
 
-The form is **mailto-based**: it validates input, then opens the visitor's own email app with a
-pre-filled message to the business address. Nothing is sent to or stored on any server, so there is
-no backend, database, API key or third-party script.
+The form validates input, then opens **Gmail's web compose window** in a new tab, with the message
+written and addressed to the business Gmail account; the visitor presses Send. Visitors who don't
+use Gmail get an instant on-page confirmation with "Use another email app" (`mailto:`) and "Copy
+message" fallbacks. Nothing is sent to or stored on this site's server, so there is no backend,
+database, API key or third-party script.
 
 - Without JavaScript, the form still submits as a plain `mailto:` post.
-- If no email app opens, the visitor gets a "Copy message" button and the address to write to.
-- Limitation: visitors without a configured email app need that copy-and-paste step.
+- If the browser blocks the new tab, the confirmation panel offers an "Open in Gmail" link instead.
+- Limitation: the visitor still presses Send in Gmail (or their own email app). For fully automatic
+  delivery, use a hosted form service (below).
 
 **Optional upgrade to a hosted form service** (such as Formspree, Basin or Web3Forms): point the form's
 `action` at the service endpoint, remove the `submit` handler's `mailto:` logic, and add the service's

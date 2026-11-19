@@ -514,26 +514,6 @@
     "h": 360,
     "toned": true
   },
-  "about-felt-1": {
-    "author": "Nepal Shipping & Sourcing",
-    "license": "Company photograph",
-    "license_url": "",
-    "source": "",
-    "title": "about_us1.JPG",
-    "w": 1200,
-    "h": 800,
-    "toned": true
-  },
-  "about-felt-2": {
-    "author": "Nepal Shipping & Sourcing",
-    "license": "Company photograph",
-    "license_url": "",
-    "source": "",
-    "title": "about_us2.JPG",
-    "w": 1200,
-    "h": 800,
-    "toned": true
-  },
   "item-hemp": {
     "title": "File:Hemp Hats in Nepal 01.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Hemp_Hats_in_Nepal_01.jpg",
@@ -583,6 +563,50 @@
     "title": "about_us2.JPG",
     "w": 480,
     "h": 360,
+    "toned": true
+  },
+  "about-2": {
+    "title": "File:The Annapurna range from Pokhara.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Annapurna_range_from_Pokhara.jpg",
+    "author": "Jmhullot",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "w": 1200,
+    "h": 800,
+    "query": null,
+    "toned": true
+  },
+  "svc-product-sourcing": {
+    "title": "File:A man and the felt dolls, Thamel, Kathmandu Nepal-8313.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:A_man_and_the_felt_dolls,_Thamel,_Kathmandu_Nepal-8313.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "handicraft shop Nepal",
+    "toned": true
+  },
+  "about-1": {
+    "title": "File:Patan Durbar Square-2644.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Patan_Durbar_Square-2644.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 1200,
+    "h": 800,
+    "query": null,
+    "toned": true
+  },
+  "feature-sourcing": {
+    "title": "File:Pot rows.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pot_rows.jpg",
+    "author": "Nikesh Tandukar",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 1200,
+    "h": 800,
+    "query": null,
     "toned": true
   }
 }

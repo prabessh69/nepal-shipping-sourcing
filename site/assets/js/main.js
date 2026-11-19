@@ -56,15 +56,15 @@
   if (!form) return;
 
   var TOPICS = {
-    "air-freight": "Air freight",
-    "sea-freight": "Sea freight",
-    "land-transport": "Land transport",
-    "freight-forwarding": "Freight forwarding",
-    "import-export": "Import and export assistance",
-    "customs": "Customs coordination",
-    "quality-inspection": "Quality check and inspection",
-    "cargo-handling": "Cargo handling, packaging and branding",
-    "sourcing": "Product sourcing",
+    "sourcing": "Product Sourcing",
+    "air-freight": "Air Freight",
+    "sea-freight": "Sea Freight",
+    "land-transport": "Land Transport",
+    "freight-forwarding": "Freight Forwarding",
+    "import-export": "Import and Export Assistance",
+    "customs": "Customs Coordination",
+    "cargo-handling": "Cargo Handling, Packaging and Branding",
+    "quality-control": "Quality Check and Control",
     "other": "Something else"
   };
 
@@ -189,19 +189,35 @@
     ].filter(function (l) { return l !== null; });
     lastMessage = "To: " + recipient + "\nSubject: " + subject + "\n\n" + lines.join("\n");
 
-    var href = "mailto:" + recipient +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(lines.join("\r\n"));
+    var encSubject = encodeURIComponent(subject);
+    var encBody = encodeURIComponent(lines.join("\r\n"));
+    // Primary route: Gmail's web compose window (no desktop mail app needed).
+    var gmailHref = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(recipient) +
+      "&su=" + encSubject + "&body=" + encBody;
+    var mailtoHref = "mailto:" + recipient + "?subject=" + encSubject + "&body=" + encBody;
+
+    var gmailLink = document.getElementById("open-gmail");
+    var mailtoLink = document.getElementById("open-mailto");
+    if (gmailLink) gmailLink.setAttribute("href", gmailHref);
+    if (mailtoLink) mailtoLink.setAttribute("href", mailtoHref);
+
+    var win = null;
+    try { win = window.open(gmailHref, "_blank"); } catch (err) { win = null; }
+    if (win) { try { win.opener = null; } catch (err) { /* ignore */ } }
 
     if (status) {
       status.hidden = false;
       status.classList.remove("form-status--error");
-      statusTitle.textContent = "Your email is ready to send";
-      statusText.textContent = "Your email app should now show the message addressed to " + recipient +
-        ". Check it and press send. If no email app opened, copy the message and send it from your usual email account.";
+      if (win) {
+        statusTitle.textContent = "Your message is ready in Gmail";
+        statusText.textContent = "Gmail has opened in a new tab with your message to " + recipient +
+          ". Check it and press Send. If you do not use Gmail, choose another email app or copy the message below.";
+      } else {
+        statusTitle.textContent = "Your message is ready to send";
+        statusText.textContent = "Your browser did not open a new tab. Use Open in Gmail, choose another email app, or copy the message and send it to " + recipient + ".";
+      }
       status.focus();
     }
-    window.location.href = href;
   });
 
   if (copyBtn) {

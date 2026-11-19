@@ -13,7 +13,7 @@
 
   <link rel="preload" href="/assets/fonts/archivo-latin-var.woff2?v=4c98b9d490" as="font" type="font/woff2" crossorigin>
   
-  <link rel="stylesheet" href="/assets/css/main.css?v=c6a0884539">
+  <link rel="stylesheet" href="/assets/css/main.css?v=9b2722d440">
 
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -63,7 +63,10 @@
     <div class="wrap site-header__inner">
       <a class="brand" href="/">
         <img class="brand__mark" src="/web-app-manifest-192x192.png" width="64" height="64" alt="">
-        <span class="brand__name">Nepal Shipping <span class="brand__amp">&amp;</span> Sourcing</span>
+        <span class="brand__text">
+          <span class="brand__name">Nepal Shipping <span class="brand__amp">&amp;</span> Sourcing</span>
+          <span class="brand__tagline">Your gateway to Nepal</span>
+        </span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle__bars" aria-hidden="true"></span>
@@ -99,23 +102,53 @@
         <nav class="service-toc" aria-label="Services on this page">
           <h2>On this page</h2>
           <ol class="service-toc__list" role="list">
-            <li><a href="#air-freight">Air freight</a></li>
-            <li><a href="#sea-freight">Sea freight</a></li>
-            <li><a href="#land-transport">Land transport</a></li>
-            <li><a href="#freight-forwarding">Freight forwarding</a></li>
-            <li><a href="#import-export">Import and export assistance</a></li>
-            <li><a href="#customs">Customs coordination</a></li>
-            <li><a href="#quality-inspection">Quality check and inspection</a></li>
-            <li><a href="#cargo-handling">Cargo handling, packaging and branding</a></li>
+            <li><a href="#product-sourcing">Product Sourcing</a></li>
+            <li><a href="#air-freight">Air Freight</a></li>
+            <li><a href="#sea-freight">Sea Freight</a></li>
+            <li><a href="#land-transport">Land Transport</a></li>
+            <li><a href="#freight-forwarding">Freight Forwarding</a></li>
+            <li><a href="#import-export">Import and Export Assistance</a></li>
+            <li><a href="#customs">Customs Coordination</a></li>
+            <li><a href="#cargo-handling">Cargo Handling, Packaging and Branding</a></li>
+            <li><a href="#quality-control">Quality Check and Control</a></li>
           </ol>
         </nav>
 
         <div class="service-list">
+          <article class="service" id="product-sourcing" aria-labelledby="product-sourcing-title">
+            <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-product-sourcing.webp?v=1814d37078" width="720" height="480" loading="lazy" decoding="async" alt="A shopfront in Thamel, Kathmandu, with racks of handmade felt figures and woollen goods."></figure>
+            <div class="service__head">
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-search"/></svg></span>
+              <h2 id="product-sourcing-title">Product Sourcing</h2>
+            </div>
+            <div class="service__body">
+              <p>Find the right Nepalese producer without travelling. We shortlist and verify suppliers, arrange and approve samples, follow production and check goods before they ship, then move them with our freight team.</p>
+              <div>
+                <h3 class="service__list-title">What we coordinate</h3>
+                <ul class="check-list">
+                  <li>Supplier identification and verification</li>
+                  <li>Quotations, samples and sample approval</li>
+                  <li>Production follow-up and quality checks</li>
+                  <li>Packing, branding and export shipping</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="service__list-title">Well suited to</h3>
+                <ul class="check-list">
+                  <li>Handicrafts and handmade felt</li>
+                  <li>Textiles, herbs, tea and food products</li>
+                  <li>Buyers new to Nepal</li>
+                </ul>
+              </div>
+              <p class="service__cta"><a class="btn btn--primary" href="/contact/?topic=sourcing#inquiry">Ask about product sourcing</a> <a class="btn btn--secondary" href="/sourcing/">How sourcing works</a></p>
+            </div>
+          </article>
+
           <article class="service" id="air-freight" aria-labelledby="air-freight-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-air-freight.webp?v=e8a039b4d0" width="720" height="480" loading="lazy" decoding="async" alt="An aircraft cargo loader on an airport apron."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-plane"/></svg></span>
-              <h2 id="air-freight-title">Air freight</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-plane"/></svg></span>
+              <h2 id="air-freight-title">Air Freight</h2>
             </div>
             <div class="service__body">
               <p>The fastest way out of a landlocked country. Air freight suits samples, urgent orders, perishables and high-value goods where transit time matters more than cost per kilo.</p>
@@ -143,8 +176,8 @@
           <article class="service" id="sea-freight" aria-labelledby="sea-freight-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-sea-freight.webp?v=3e85e9b73a" width="720" height="480" loading="lazy" decoding="async" alt="A container ship moored beside gantry cranes at a port."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-ship"/></svg></span>
-              <h2 id="sea-freight-title">Sea freight</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-ship"/></svg></span>
+              <h2 id="sea-freight-title">Sea Freight</h2>
             </div>
             <div class="service__body">
               <p>For larger volumes, ocean freight is usually the most economical choice. Cargo travels overland from Nepal to an Indian seaport and onward by ocean carrier, so the road and sea legs need to be planned together.</p>
@@ -172,8 +205,8 @@
           <article class="service" id="land-transport" aria-labelledby="land-transport-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-land-transport.webp?v=0872b3d9f6" width="720" height="480" loading="lazy" decoding="async" alt="A painted Nepali cargo truck parked beside a road."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-truck"/></svg></span>
-              <h2 id="land-transport-title">Land transport</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-truck"/></svg></span>
+              <h2 id="land-transport-title">Land Transport</h2>
             </div>
             <div class="service__body">
               <p>Road transport connects producers across Nepal to airports, seaports and neighbouring markets. We arrange trucking for collection, domestic movement and cross-border delivery.</p>
@@ -201,8 +234,8 @@
           <article class="service" id="freight-forwarding" aria-labelledby="freight-forwarding-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-freight-forwarding.webp?v=c77ca1881d" width="720" height="480" loading="lazy" decoding="async" alt="Container gantry cranes at a port terminal."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-route"/></svg></span>
-              <h2 id="freight-forwarding-title">Freight forwarding</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-route"/></svg></span>
+              <h2 id="freight-forwarding-title">Freight Forwarding</h2>
             </div>
             <div class="service__body">
               <p>A shipment from Nepal often involves a trucker, a customs agent, a port or airport handler and an international carrier. As your forwarder, we bring those parties together and act as your single point of contact.</p>
@@ -230,8 +263,8 @@
           <article class="service" id="import-export" aria-labelledby="import-export-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-import-export.webp?v=99ba2059f4" width="720" height="480" loading="lazy" decoding="async" alt="Rows of shipping containers stacked at a port terminal."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-docs"/></svg></span>
-              <h2 id="import-export-title">Import and export assistance</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-docs"/></svg></span>
+              <h2 id="import-export-title">Import and Export Assistance</h2>
             </div>
             <div class="service__body">
               <p>Missing or inconsistent paperwork is one of the most common causes of delay. We help you work out which documents your goods and destination need, and help prepare them correctly.</p>
@@ -260,8 +293,8 @@
           <article class="service" id="customs" aria-labelledby="customs-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-customs.webp?v=3194fbf249" width="720" height="480" loading="lazy" decoding="async" alt="The road bridge on the Nepal–India border between Birgunj and Raxaul, lit at night."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-shield"/></svg></span>
-              <h2 id="customs-title">Customs coordination</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-shield"/></svg></span>
+              <h2 id="customs-title">Customs Coordination</h2>
             </div>
             <div class="service__body">
               <p>Customs clearance is filed by licensed agents. We coordinate with them on your behalf so declarations, supporting documents and inspections are handled without loose ends.</p>
@@ -284,42 +317,11 @@
             </div>
           </article>
 
-          <article class="service" id="quality-inspection" aria-labelledby="quality-inspection-title">
-            <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-quality-inspection.webp?v=75c112e880" width="720" height="480" loading="lazy" decoding="async" alt="A worker inspecting finished ceramic mugs on a production line."></figure>
-            <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-eye"/></svg></span>
-              <h2 id="quality-inspection-title">Quality check and inspection</h2>
-            </div>
-            <div class="service__body">
-              <p>Problems are cheapest to fix before goods leave the workshop. We check your order against the approved sample and specification, and send you a written report with photos or video before anything is dispatched.</p>
-              <div>
-                <h3 class="service__list-title">What we check</h3>
-                <ul class="check-list">
-                  <li>Pre-shipment inspection of finished goods</li>
-                  <li>Comparison against the approved sample</li>
-                  <li>Quantity counts, defects, sizes and colours</li>
-                  <li>Labels, packing and carton marks</li>
-                  <li>Photo and video inspection reports</li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="service__list-title">Well suited to</h3>
-                <ul class="check-list">
-                  <li>First orders with a new supplier</li>
-                  <li>Handmade goods where pieces vary</li>
-                  <li>Buyers who cannot visit Nepal</li>
-                </ul>
-              </div>
-              <p class="service__note">We report what we find. Where a problem is found, we agree the next step with you and the producer before goods are shipped.</p>
-              <p class="service__cta"><a class="btn btn--primary" href="/contact/?topic=quality-inspection#inquiry">Ask about quality inspection</a></p>
-            </div>
-          </article>
-
           <article class="service" id="cargo-handling" aria-labelledby="cargo-handling-title">
             <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-cargo-handling.webp?v=813180a5a2" width="720" height="480" loading="lazy" decoding="async" alt="Pallet racks and stacked cartons inside a large warehouse."></figure>
             <div class="service__head">
-              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-box"/></svg></span>
-              <h2 id="cargo-handling-title">Cargo handling, packaging and branding</h2>
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-box"/></svg></span>
+              <h2 id="cargo-handling-title">Cargo Handling, Packaging and Branding</h2>
             </div>
             <div class="service__body">
               <p>Handmade and natural goods are easily damaged in transit, and retail buyers often need products shelf-ready on arrival. We coordinate export-grade packing and your own branded packaging at the source, so cargo arrives intact and ready to sell.</p>
@@ -343,6 +345,37 @@
                 </ul>
               </div>
               <p class="service__cta"><a class="btn btn--primary" href="/contact/?topic=cargo-handling#inquiry">Ask about packaging and branding</a></p>
+            </div>
+          </article>
+
+          <article class="service" id="quality-control" aria-labelledby="quality-control-title">
+            <figure class="service__media"><img class="photo photo--svc" src="/assets/images/photos/svc-quality-inspection.webp?v=75c112e880" width="720" height="480" loading="lazy" decoding="async" alt="A worker inspecting finished ceramic mugs on a production line."></figure>
+            <div class="service__head">
+              <span class="service__icon"><svg aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-eye"/></svg></span>
+              <h2 id="quality-control-title">Quality Check and Control</h2>
+            </div>
+            <div class="service__body">
+              <p>Problems are cheapest to fix before goods leave the workshop. We check your order against the approved sample and specification, and send you a written report with photos or video before anything is dispatched.</p>
+              <div>
+                <h3 class="service__list-title">What we check</h3>
+                <ul class="check-list">
+                  <li>Pre-shipment inspection of finished goods</li>
+                  <li>Comparison against the approved sample</li>
+                  <li>Quantity counts, defects, sizes and colours</li>
+                  <li>Labels, packing and carton marks</li>
+                  <li>Photo and video inspection reports</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="service__list-title">Well suited to</h3>
+                <ul class="check-list">
+                  <li>First orders with a new supplier</li>
+                  <li>Handmade goods where pieces vary</li>
+                  <li>Buyers who cannot visit Nepal</li>
+                </ul>
+              </div>
+              <p class="service__note">We report what we find. Where a problem is found, we agree the next step with you and the producer before goods are shipped.</p>
+              <p class="service__cta"><a class="btn btn--primary" href="/contact/?topic=quality-control#inquiry">Ask about quality check and control</a></p>
             </div>
           </article>
 
@@ -381,6 +414,7 @@
         <img src="/web-app-manifest-512x512.png" width="512" height="512" loading="lazy" decoding="async"
              alt="Nepal Shipping and Sourcing logo: a globe centred on Nepal, ringed by a truck, aircraft, ship and train, with the line Your Gateway to Nepal">
         <p class="site-footer__name">Nepal Shipping &amp; Sourcing Pvt. Ltd.</p>
+        <p class="site-footer__tagline">Your gateway to Nepal</p>
         <p class="site-footer__line">International shipping, freight coordination and product sourcing from Nepal.</p>
       </div>
 
@@ -397,12 +431,12 @@
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Services</h2>
         <ul>
-          <li><a href="/services/#air-freight">Air freight</a></li>
-          <li><a href="/services/#sea-freight">Sea freight</a></li>
-          <li><a href="/services/#land-transport">Land transport</a></li>
-          <li><a href="/services/#freight-forwarding">Freight forwarding</a></li>
-          <li><a href="/services/#quality-inspection">Quality inspection</a></li>
-          <li><a href="/sourcing/#how-sourcing-works">Product sourcing</a></li>
+          <li><a href="/services/#product-sourcing">Product Sourcing</a></li>
+          <li><a href="/services/#air-freight">Air Freight</a></li>
+          <li><a href="/services/#sea-freight">Sea Freight</a></li>
+          <li><a href="/services/#land-transport">Land Transport</a></li>
+          <li><a href="/services/#freight-forwarding">Freight Forwarding</a></li>
+          <li><a href="/services/#quality-control">Quality Check and Control</a></li>
         </ul>
       </div>
 
@@ -413,7 +447,7 @@
           <li>Landline <a href="tel:+97715918009">+977 1-5918009</a></li>
           <li>Mobile / WhatsApp <a href="tel:+9779740318224">+977 974-031-8224</a></li>
           <li><a href="https://wa.me/9779740318224" target="_blank" rel="noopener noreferrer">Chat on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></li>
-          <li><address>Kathmandu 44600, Nepal</address></li>
+          <li><address>Kathmandu, 44600, Nepal</address></li>
         </ul>
       </div>
     </div>
@@ -423,6 +457,6 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=06d8f780aa" defer></script>
+  <script src="/assets/js/main.js?v=388a7e5517" defer></script>
 </body>
 </html>

@@ -29,7 +29,9 @@ it is static files only, with no server code, database, login, cookies, analytic
   checked against the allowlist. Values are placed in the `mailto:` URL only through
   `encodeURIComponent`, so they cannot inject extra headers or recipients.
 - **Spam awareness:** a hidden honeypot field (`website`) silently drops automated submissions.
-  Because the form only opens the visitor's own email app, it cannot be abused to send mail from this site.
+  Because the form only opens a compose window (Gmail web, or the visitor's own email app) that the
+  visitor sends themselves, it cannot be abused to send mail from this site. The Gmail tab is opened
+  with `opener` cleared.
 
 ### Personal data
 - The form collects only what a reply needs: name, email and message are required; company and
@@ -95,8 +97,9 @@ No other third-party services are loaded. Fonts are self-hosted, so there are no
 
 ## Known limitations
 
-- **Mailto form:** depends on the visitor having an email app set up. A "copy message" fallback is
-  provided. Messages land in an ordinary inbox, so apply normal phishing caution to inquiries that
+- **Compose-based form:** the visitor must press Send in Gmail or their own email app. "Another email
+  app" and "copy message" fallbacks are provided. Using Gmail shares the message with Google, as for any
+  Gmail user. Messages land in an ordinary inbox, so apply normal phishing caution to inquiries that
   contain links or attachments.
 - **Public contact details:** the email and phone are shown in plain text and will attract some spam.
   That is the trade-off for a site with no backend. A hosted form service with spam filtering is the

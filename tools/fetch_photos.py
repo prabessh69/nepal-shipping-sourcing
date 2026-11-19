@@ -79,7 +79,13 @@ PHOTOS = {
     "banner-about": (None, (2400, 1080), "File:Boudhanath Stupa-IMG 7048.jpg"),
     "banner-services": ("container ship at sea", (1600, 720), None),
     "banner-sourcing": ("Thamel shop", (1600, 720), None),
+    # About gallery (3:2, sharp enough for 2x screens at ~600 CSS px)
+    "about-1": (None, (1200, 800), "File:Patan Durbar Square-2644.jpg"),
+    "about-2": (None, (1200, 800), "File:The Annapurna range from Pokhara.jpg"),
+    # Home "Sourcing in Nepal" section (3:2)
+    "feature-sourcing": (None, (1200, 800), "File:Pot rows.jpg"),
     # Services cards (3:2)
+    "svc-product-sourcing": ("handicraft shop Nepal", (720, 480), None),
     "svc-air-freight": ("cargo aircraft loading", (720, 480), None),
     "svc-sea-freight": ("container ship port", (720, 480), None),
     "svc-land-transport": ("Nepal truck", (720, 480), None),
@@ -97,8 +103,6 @@ LOCAL = {
     "item-felt-toys": ("about_us2.JPG", (480, 360), (0.5, 0.55)),
     # Close crop on the felt dog. VERIFY with the company (checklist #11): a felt figure, not a cat cave.
     "item-pet-products": ("about_us2.JPG", (480, 360), (0.5, 0.5), (0.60, 0.50, 0.92, 0.95)),
-    "about-felt-1": ("about_us1.JPG", (1200, 800), (0.5, 0.5)),
-    "about-felt-2": ("about_us2.JPG", (1200, 800), (0.5, 0.5)),
 }
 COMPANY_CREDIT = {"author": "Nepal Shipping & Sourcing", "license": "Company photograph", "license_url": "", "source": ""}
 
@@ -106,6 +110,9 @@ COMPANY_CREDIT = {"author": "Nepal Shipping & Sourcing", "license": "Company pho
 # Retina screens, so they are saved at 2400 px (quality 88) with a 1200 px variant for phones.
 HIRES = {
     "banner-about": {"quality": 88, "centering": (0.5, 0.3), "variants": [1200]},
+    "about-1": {"quality": 85, "fetch_width": 2400},
+    "about-2": {"quality": 85, "centering": (0.5, 0.45), "fetch_width": 2400},
+    "feature-sourcing": {"quality": 85, "fetch_width": 2400},
 }
 
 OK_LICENSE = re.compile(r"^(cc0|public domain|pd\b|cc[- ]by(-sa)?[- ]\d(\.\d)?)", re.I)
@@ -295,7 +302,7 @@ def main():
         skip |= {c["title"] for k, c in credits.items() if k != slot and "title" in c}  # no duplicates across slots
         chosen, reasons = None, []
         try:
-            for page in candidates(query, max(size[0], 800), title):
+            for page in candidates(query, HIRES.get(slot, {}).get("fetch_width", max(size[0], 800)), title):
                 if page["title"] in skip:
                     continue
                 info, why = acceptable(page, size, bool(title))

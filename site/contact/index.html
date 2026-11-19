@@ -13,7 +13,7 @@
 
   <link rel="preload" href="/assets/fonts/archivo-latin-var.woff2?v=4c98b9d490" as="font" type="font/woff2" crossorigin>
   
-  <link rel="stylesheet" href="/assets/css/main.css?v=c6a0884539">
+  <link rel="stylesheet" href="/assets/css/main.css?v=9b2722d440">
 
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -113,7 +113,10 @@
     <div class="wrap site-header__inner">
       <a class="brand" href="/">
         <img class="brand__mark" src="/web-app-manifest-192x192.png" width="64" height="64" alt="">
-        <span class="brand__name">Nepal Shipping <span class="brand__amp">&amp;</span> Sourcing</span>
+        <span class="brand__text">
+          <span class="brand__name">Nepal Shipping <span class="brand__amp">&amp;</span> Sourcing</span>
+          <span class="brand__tagline">Your gateway to Nepal</span>
+        </span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle__bars" aria-hidden="true"></span>
@@ -153,40 +156,40 @@
           <h2 class="display-2">Contact details</h2>
           <ul class="contact-list contact-aside">
             <li>
-              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-mail"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-mail"/></svg>
               <span class="contact-list__label">Email</span>
               <span class="contact-list__value"><a href="mailto:nepalshippingandsourcing@gmail.com">nepalshippingandsourcing<wbr>@gmail.com</a></span>
             </li>
             <li>
-              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-phone"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-phone"/></svg>
               <span class="contact-list__label">Landline</span>
               <span class="contact-list__value"><a href="tel:+97715918009">+977 1-5918009</a></span>
               <span class="contact-list__hint">Within Nepal: 01-5918009</span>
             </li>
             <li>
-              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-phone"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-phone"/></svg>
               <span class="contact-list__label">Mobile / WhatsApp</span>
               <span class="contact-list__value"><a href="tel:+9779740318224">+977 974-031-8224</a></span>
             </li>
             <li>
-              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-chat"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-chat"/></svg>
               <span class="contact-list__label">WhatsApp</span>
               <span class="contact-list__value"><a href="https://wa.me/9779740318224" target="_blank" rel="noopener noreferrer">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></span>
             </li>
             <li>
-              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=6059893208#i-pin"/></svg>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg?v=c5aeae2518#i-pin"/></svg>
               <span class="contact-list__label">Office</span>
-              <address class="contact-list__value">Kathmandu 44600, Nepal</address>
+              <address class="contact-list__value">Kathmandu, 44600, Nepal</address>
               <span class="contact-list__hint">Please contact us before visiting so we can make sure someone is available.</span>
             </li>
           </ul>
           <!-- PLACEHOLDER (COMPANY-CONTENT-CHECKLIST.md #5): add confirmed business hours and time zone. -->
-          <p class="field__hint contact-aside" data-placeholder="Business hours to confirm">We reply to inquiries in English. Times are Nepal Time (UTC+5:45).</p>
+          <p class="field__hint contact-aside" data-placeholder="Business hours to confirm">We reply in all languages. Times are Nepal Time (UTC+5:45).</p>
         </div>
 
         <div class="form-panel" id="inquiry" tabindex="-1">
           <h2>Send an inquiry</h2>
-          <p class="form-panel__intro">This form opens a pre-filled email in your own email app, so nothing is stored on this website. Fields marked <span class="field__req">required</span> are needed so we can reply.</p>
+          <p class="form-panel__intro">Fill in the form and press Send with Gmail. Your message opens in Gmail, already written and addressed to us, ready to send. Nothing is stored on this website. Fields marked <span class="field__req">required</span> are needed so we can reply.</p>
 
           <div class="form-error-summary" id="form-errors" tabindex="-1" role="alert" hidden>
             <h3>Please fix the following</h3>
@@ -217,15 +220,15 @@
                 <label for="f-topic">What is your inquiry about? <span class="field__req">required</span></label>
                 <select id="f-topic" name="topic" required aria-describedby="f-topic-error">
                   <option value="">Choose a topic</option>
-                  <option value="air-freight">Air freight</option>
-                  <option value="sea-freight">Sea freight</option>
-                  <option value="land-transport">Land transport</option>
-                  <option value="freight-forwarding">Freight forwarding</option>
-                  <option value="import-export">Import and export assistance</option>
-                  <option value="customs">Customs coordination</option>
-                  <option value="quality-inspection">Quality check and inspection</option>
-                  <option value="cargo-handling">Cargo handling, packaging and branding</option>
-                  <option value="sourcing">Product sourcing</option>
+                  <option value="sourcing">Product Sourcing</option>
+                  <option value="air-freight">Air Freight</option>
+                  <option value="sea-freight">Sea Freight</option>
+                  <option value="land-transport">Land Transport</option>
+                  <option value="freight-forwarding">Freight Forwarding</option>
+                  <option value="import-export">Import and Export Assistance</option>
+                  <option value="customs">Customs Coordination</option>
+                  <option value="cargo-handling">Cargo Handling, Packaging and Branding</option>
+                  <option value="quality-control">Quality Check and Control</option>
                   <option value="other">Something else</option>
                 </select>
                 <p class="field__error" id="f-topic-error"></p>
@@ -242,8 +245,8 @@
               </div>
             </div>
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Create email</button>
-              <p class="form-privacy">Your details go only into the email you send us. Please do not include passwords, payment card numbers or other sensitive personal data.</p>
+              <button class="btn btn--primary" type="submit">Send with Gmail</button>
+              <p class="form-privacy">Gmail opens in a new tab with your message ready to send. Not a Gmail user? You can choose another email app next. Please do not include passwords, payment card numbers or other sensitive personal data.</p>
             </div>
           </form>
 
@@ -251,6 +254,8 @@
             <h3 data-status-title></h3>
             <p data-status-text></p>
             <div class="btn-row">
+              <a class="btn btn--primary btn--small" id="open-gmail" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer">Open in Gmail<span class="visually-hidden"> (opens in a new tab)</span></a>
+              <a class="btn btn--secondary btn--small" id="open-mailto" href="mailto:nepalshippingandsourcing@gmail.com">Use another email app</a>
               <button class="btn btn--secondary btn--small" type="button" id="copy-message">Copy message</button>
             </div>
           </div>
@@ -265,6 +270,7 @@
         <img src="/web-app-manifest-512x512.png" width="512" height="512" loading="lazy" decoding="async"
              alt="Nepal Shipping and Sourcing logo: a globe centred on Nepal, ringed by a truck, aircraft, ship and train, with the line Your Gateway to Nepal">
         <p class="site-footer__name">Nepal Shipping &amp; Sourcing Pvt. Ltd.</p>
+        <p class="site-footer__tagline">Your gateway to Nepal</p>
         <p class="site-footer__line">International shipping, freight coordination and product sourcing from Nepal.</p>
       </div>
 
@@ -281,12 +287,12 @@
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Services</h2>
         <ul>
-          <li><a href="/services/#air-freight">Air freight</a></li>
-          <li><a href="/services/#sea-freight">Sea freight</a></li>
-          <li><a href="/services/#land-transport">Land transport</a></li>
-          <li><a href="/services/#freight-forwarding">Freight forwarding</a></li>
-          <li><a href="/services/#quality-inspection">Quality inspection</a></li>
-          <li><a href="/sourcing/#how-sourcing-works">Product sourcing</a></li>
+          <li><a href="/services/#product-sourcing">Product Sourcing</a></li>
+          <li><a href="/services/#air-freight">Air Freight</a></li>
+          <li><a href="/services/#sea-freight">Sea Freight</a></li>
+          <li><a href="/services/#land-transport">Land Transport</a></li>
+          <li><a href="/services/#freight-forwarding">Freight Forwarding</a></li>
+          <li><a href="/services/#quality-control">Quality Check and Control</a></li>
         </ul>
       </div>
 
@@ -297,7 +303,7 @@
           <li>Landline <a href="tel:+97715918009">+977 1-5918009</a></li>
           <li>Mobile / WhatsApp <a href="tel:+9779740318224">+977 974-031-8224</a></li>
           <li><a href="https://wa.me/9779740318224" target="_blank" rel="noopener noreferrer">Chat on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></li>
-          <li><address>Kathmandu 44600, Nepal</address></li>
+          <li><address>Kathmandu, 44600, Nepal</address></li>
         </ul>
       </div>
     </div>
@@ -307,6 +313,6 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js?v=06d8f780aa" defer></script>
+  <script src="/assets/js/main.js?v=388a7e5517" defer></script>
 </body>
 </html>
