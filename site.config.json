@@ -6,9 +6,11 @@
   "email": "nepalshippingandsourcing@gmail.com",
   "phone_e164": "+9779740318224",
   "phone_display": "+977 974-031-8224",
-  "_phone_note": "VERIFY: supplied as 9740318224; +977 (Nepal) country code assumed.",
+  "_phone_note": "Mobile and WhatsApp number, confirmed by the company.",
+  "landline_e164": "+97715918009",
+  "landline_display": "+977 1-5918009",
+  "landline_local": "01-5918009",
   "whatsapp_url": "https://wa.me/9779740318224",
-  "_whatsapp_note": "VERIFY: confirm this number is active on WhatsApp.",
   "address": {
     "locality": "Kathmandu",
     "postal_code": "44600",

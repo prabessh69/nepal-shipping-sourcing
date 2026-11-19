@@ -76,7 +76,7 @@ PHOTOS = {
     "item-cushions": ("embroidered cushion", (480, 360), None),
     "item-lamps": ("paper lanterns", (480, 360), None),
     # Page banners (20:9) and home feature images (3:2)
-    "banner-about": ("Kathmandu Valley panorama", (1600, 720), None),
+    "banner-about": (None, (2400, 1080), "File:Boudhanath Stupa-IMG 7048.jpg"),
     "banner-services": ("container ship at sea", (1600, 720), None),
     "banner-sourcing": ("Thamel shop", (1600, 720), None),
     # Services cards (3:2)
@@ -101,6 +101,12 @@ LOCAL = {
     "about-felt-2": ("about_us2.JPG", (1200, 800), (0.5, 0.5)),
 }
 COMPANY_CREDIT = {"author": "Nepal Shipping & Sourcing", "license": "Company photograph", "license_url": "", "source": ""}
+
+# Per-slot overrides. Full-width banners are rendered ~1240 CSS px wide, i.e. ~2480 device px on
+# Retina screens, so they are saved at 2400 px (quality 88) with a 1200 px variant for phones.
+HIRES = {
+    "banner-about": {"quality": 88, "centering": (0.5, 0.3), "variants": [1200]},
+}
 
 OK_LICENSE = re.compile(r"^(cc0|public domain|pd\b|cc[- ]by(-sa)?[- ]\d(\.\d)?)", re.I)
 BAD_TITLE = re.compile(r"\b(map|logo|diagram|chart|flag|coat of arms|seal|stamp|icon|svg|audio|recording|scan|document|text|poster|"
@@ -192,11 +198,16 @@ def tone(img):
     return Image.blend(img, Image.new("RGB", img.size, IVORY), 0.04)
 
 
-def process(raw, size, dest, centering=(0.5, 0.5)):
+def process(raw, size, dest, centering=(0.5, 0.5), quality=80, variants=()):
     img = raw if isinstance(raw, Image.Image) else Image.open(io.BytesIO(raw) if isinstance(raw, bytes) else raw)
     img = ImageOps.exif_transpose(img).convert("RGB")
-    img = ImageOps.fit(img, size, method=Image.LANCZOS, centering=centering)
-    tone(img).save(dest, "WEBP", quality=80, method=6)
+    if img.width < size[0] or img.height < size[1]:
+        print(f"    note: source {img.width}x{img.height} is smaller than {size[0]}x{size[1]} and will be upscaled", file=sys.stderr)
+    img = tone(ImageOps.fit(img, size, method=Image.LANCZOS, centering=centering))
+    img.save(dest, "WEBP", quality=quality, method=6)
+    for w in variants:  # smaller copies for srcset, e.g. <slot>-1200.webp
+        h = round(size[1] * w / size[0])
+        img.resize((w, h), Image.LANCZOS).save(dest.with_name(f"{dest.stem}-{w}.webp"), "WEBP", quality=quality - 4, method=6)
 
 
 def openverse(query, size):
@@ -299,7 +310,9 @@ def main():
                         break
             if not chosen:
                 raise FetchFailed(f"no acceptable result on Commons ({len(reasons)} rejected) or Openverse")
-            process(download(chosen["thumb"]), size, dest)
+            opts = HIRES.get(slot, {})
+            process(download(chosen["thumb"]), size, dest, opts.get("centering", (0.5, 0.5)),
+                    opts.get("quality", 80), opts.get("variants", ()))
         except FetchFailed as e:
             failed.append(slot)
             print(f"  - {slot}: skipped ({e}); build.py will use the fallback asset", file=sys.stderr)

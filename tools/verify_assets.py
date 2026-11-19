@@ -36,6 +36,8 @@ class Collector(HTMLParser):
         if tag == "img":
             self.imgs.append(a)
             self.refs.append(a.get("src", ""))
+            if a.get("srcset"):
+                self.refs += [e.strip().split()[0] for e in a["srcset"].split(",")]
         elif tag in ("image", "use"):
             href = a.get("href", "")
             (self.uses if tag == "use" else self.refs).append(href)
@@ -44,7 +46,7 @@ class Collector(HTMLParser):
         elif tag == "link" and a.get("rel") in ("stylesheet", "preload", "icon", "shortcut icon", "apple-touch-icon", "manifest"):
             self.refs.append(a.get("href", ""))
         elif tag == "source" and a.get("srcset"):
-            self.refs.append(a["srcset"].split()[0])
+            self.refs += [e.strip().split()[0] for e in a["srcset"].split(",")]
         elif tag == "script" and a.get("src"):
             self.refs.append(a["src"])
         if "photo-fallback" in (a.get("class") or "").split():

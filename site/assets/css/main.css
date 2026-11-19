@@ -79,6 +79,7 @@ img { height: auto; }
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
 ul[class], ol[class] { list-style: none; padding: 0; }
 a { color: inherit; }
+a[href^="tel:"] { white-space: nowrap; } /* never split a phone number across lines */
 button, input, select, textarea { font: inherit; color: inherit; }
 main:focus { outline: none; }
 

@@ -84,14 +84,14 @@ def organization_jsonld(c):
         "url": c["site_url"] + "/",
         "logo": c["site_url"] + "/assets/img/NSS_logo.png",
         "email": c["email"],
-        "telephone": c["phone_e164"],
+        "telephone": [c["landline_e164"], c["phone_e164"]],
         "address": postal_address(c),
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "customer service",
-            "email": c["email"],
-            "telephone": c["phone_e164"],
-        },
+        "contactPoint": [
+            {"@type": "ContactPoint", "contactType": "customer service", "email": c["email"],
+             "telephone": c["landline_e164"], "name": "Office landline"},
+            {"@type": "ContactPoint", "contactType": "customer service", "email": c["email"],
+             "telephone": c["phone_e164"], "name": "Mobile and WhatsApp"},
+        ],
     })
 
 
@@ -139,6 +139,8 @@ FALLBACK_ICONS = {
     "item-dhaka": "textile", "item-lokta": "docs", "item-carpets": "textile", "item-cushions": "textile",
     "item-lamps": "lamp",
 }
+_credits_file = PHOTO_DIR / "credits.json"
+PHOTO_CREDITS = json.loads(_credits_file.read_text()) if _credits_file.is_file() else {}
 PHOTO_RE = re.compile(r"\{\{PHOTO:([a-z0-9-]+)\|([^}]*)\}\}")
 
 
@@ -149,7 +151,17 @@ def photo_html(slot, alt):
     loading = 'decoding="async" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
     alt_attr = html.escape(alt, quote=True)
     if (PHOTO_DIR / f"{slot}.webp").is_file():
-        return (f'<img class="photo photo--{kind}" src="/assets/images/photos/{slot}.webp" width="{w}" height="{h}" '
+        meta = PHOTO_CREDITS.get(slot, {})
+        w, h = meta.get("w", w), meta.get("h", h)
+        # Smaller copies (<slot>-<width>.webp) become a srcset so phones don't download desktop files.
+        variants = sorted((int(f.stem.rsplit("-", 1)[1]), f.name) for f in PHOTO_DIR.glob(f"{slot}-*.webp")
+                          if f.stem.rsplit("-", 1)[1].isdigit())
+        srcset = ""
+        if variants:
+            entries = [f"/assets/images/photos/{name} {vw}w" for vw, name in variants]
+            entries.append(f"/assets/images/photos/{slot}.webp {w}w")
+            srcset = f' srcset="{", ".join(entries)}" sizes="(min-width: 78rem) 1240px, calc(100vw - 2.5rem)"'
+        return (f'<img class="photo photo--{kind}" src="/assets/images/photos/{slot}.webp"{srcset} width="{w}" height="{h}" '
                 f'{loading} alt="{alt_attr}">')
     # Fallbacks
     name = slot.split("-", 1)[1]
@@ -176,6 +188,7 @@ def asset_version(url_path):
 
 
 ASSET_REF = re.compile(r'((?:src|href|srcset)=")(/assets/[^"#?\s]+)((?:#[^"]*)?")')
+SRCSET = re.compile(r'srcset="([^"]*,[^"]*)"')
 
 
 def version_assets(doc):
@@ -184,7 +197,16 @@ def version_assets(doc):
     def sub(m):
         v = asset_version(m.group(2))
         return f"{m.group(1)}{m.group(2)}?v={v}{m.group(3)}" if v else m.group(0)
-    return ASSET_REF.sub(sub, doc)
+    doc = ASSET_REF.sub(sub, doc)
+
+    def sub_srcset(m):  # multi-entry srcset: version every URL in the list
+        parts = []
+        for entry in m.group(1).split(","):
+            url, *desc = entry.strip().split()
+            v = asset_version(url) if url.startswith("/assets/") else None
+            parts.append(" ".join([f"{url}?v={v}" if v else url] + desc))
+        return f'srcset="{", ".join(parts)}"'
+    return SRCSET.sub(sub_srcset, doc)
 
 
 def build_page(path, partials, c):
@@ -222,6 +244,9 @@ def build_page(path, partials, c):
         "EMAIL_TEXT": html.escape(c["email"]).replace("@", "<wbr>@", 1),
         "PHONE_E164": c["phone_e164"],
         "PHONE_DISPLAY": html.escape(c["phone_display"]),
+        "LANDLINE_E164": c["landline_e164"],
+        "LANDLINE_DISPLAY": html.escape(c["landline_display"]),
+        "LANDLINE_LOCAL": html.escape(c["landline_local"]),
         "WHATSAPP_URL": c["whatsapp_url"],
         "ADDRESS": html.escape(c["address"]["display"]),
         "YEAR": str(date.today().year),

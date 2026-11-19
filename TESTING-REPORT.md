@@ -137,6 +137,17 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
 - `verify_assets.py`: 117 images, 50 icons and 176 asset references, all resolving. QA: **273 passed,
   0 failed**, with zero axe violations.
 
+## Landline and sharper About banner
+
+- Landline +977 1-5918009 (01-5918009 within Nepal) added beside Mobile / WhatsApp +977 974-031-8224 on
+  the Contact page, the Contact banner, the footer and the call-to-action bands, and to Schema.org (a
+  `telephone` array plus one `ContactPoint` per number). Phone links no longer wrap mid-number.
+- The About banner was blurry because it was saved at 1600 px but shown about 1240 CSS px wide, which
+  needs about 2480 device px on Retina screens. It is now Boudhanath Stupa (original 8224 × 5140), saved
+  at 2400 × 1080 WebP, quality 88, with a 1200 px copy served via `srcset`. Checked: a 2× desktop loads
+  the 2400 px file and a 2× phone loads the 1200 px file.
+- `verify_assets.py`: OK. QA: **273 passed, 0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

@@ -379,15 +379,18 @@
     "toned": true
   },
   "banner-about": {
-    "title": "File:Kathmandu Valley panorama.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Kathmandu_Valley_panorama.jpg",
-    "author": "Mike from Vancouver, Canada",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "w": 1600,
-    "h": 720,
-    "query": "Kathmandu Valley panorama",
-    "toned": true
+    "title": "File:Boudhanath Stupa-IMG 7048.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Boudhanath_Stupa-IMG_7048.jpg",
+    "author": "Bijay Chaurasia",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 2400,
+    "h": 1080,
+    "query": null,
+    "toned": true,
+    "rejected": [
+      "File:Kathmandu Valley panorama.jpg"
+    ]
   },
   "banner-services": {
     "title": "File:MSC HARMONY III (container ship, 2006) in Port Koper (SIKOP, 2024).jpg",

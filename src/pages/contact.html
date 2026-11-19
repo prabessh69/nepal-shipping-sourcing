@@ -35,15 +35,19 @@
             </li>
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-phone"/></svg>
-              <span class="contact-list__label">Phone</span>
-              <!-- VERIFY (COMPANY-CONTENT-CHECKLIST.md #2): number supplied as 9740318224; +977 country code assumed. -->
-              <span class="contact-list__value"><a href="tel:{{PHONE_E164}}" data-placeholder="Confirm country code">{{PHONE_DISPLAY}}</a></span>
+              <span class="contact-list__label">Landline</span>
+              <span class="contact-list__value"><a href="tel:{{LANDLINE_E164}}">{{LANDLINE_DISPLAY}}</a></span>
+              <span class="contact-list__hint">Within Nepal: {{LANDLINE_LOCAL}}</span>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-phone"/></svg>
+              <span class="contact-list__label">Mobile / WhatsApp</span>
+              <span class="contact-list__value"><a href="tel:{{PHONE_E164}}">{{PHONE_DISPLAY}}</a></span>
             </li>
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-chat"/></svg>
               <span class="contact-list__label">WhatsApp</span>
-              <!-- VERIFY (COMPANY-CONTENT-CHECKLIST.md #3): confirm this number is active on WhatsApp. -->
-              <span class="contact-list__value"><a href="{{WHATSAPP_URL}}" target="_blank" rel="noopener noreferrer" data-placeholder="Confirm WhatsApp number">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></span>
+              <span class="contact-list__value"><a href="{{WHATSAPP_URL}}" target="_blank" rel="noopener noreferrer">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a></span>
             </li>
             <li>
               <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#i-pin"/></svg>
