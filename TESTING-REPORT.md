@@ -171,6 +171,17 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   and nothing is clipped.
 - `verify_assets.py`: OK. QA: **275 passed, 0 failed**, with zero axe violations.
 
+## Background form submission and Toys crop
+
+- The form POSTs JSON to FormSubmit's AJAX endpoint. QA intercepts the request and checks the URL,
+  JSON headers, payload (name, email, `_replyto`, topic, message, `_subject`, `_honey`), that no
+  tab or popup opens, the confirmation, the form reset, and the failure path (error plus copy fallback,
+  message kept). A real delivery test needs the one-time FormSubmit activation (see README).
+- Fixed: `.btn-row` overrode the `hidden` attribute, so the copy fallback showed after a successful send.
+  A global `[hidden]` rule now wins.
+- The Toys photo is a tight crop on two reindeer: 2644×1983 source region downscaled to 480×360.
+- QA: **281 passed, 0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

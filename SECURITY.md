@@ -29,9 +29,7 @@ it is static files only, with no server code, database, login, cookies, analytic
   checked against the allowlist. Values are placed in the `mailto:` URL only through
   `encodeURIComponent`, so they cannot inject extra headers or recipients.
 - **Spam awareness:** a hidden honeypot field (`website`) silently drops automated submissions.
-  Because the form only opens a compose window (Gmail web, or the visitor's own email app) that the
-  visitor sends themselves, it cannot be abused to send mail from this site. The Gmail tab is opened
-  with `opener` cleared.
+  Form data is sent only as JSON to the FormSubmit endpoint over HTTPS; the CSP allows no other destination.
 
 ### Personal data
 - The form collects only what a reply needs: name, email and message are required; company and
@@ -52,7 +50,7 @@ Cloudflare Pages applies these to every response:
 
 | Header | Value | Purpose |
 |---|---|---|
-| `Content-Security-Policy` | `default-src 'none'; script-src 'self' 'sha256-…'; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self'; form-action mailto:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'` | Only first-party resources can load. Blocks injected scripts, styles and plug-ins, and stops the site being framed. |
+| `Content-Security-Policy` | `default-src 'none'; script-src 'self' 'sha256-…'; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self'; frame-ancestors 'none'; object-src 'none'` | Only first-party resources can load. Blocks injected scripts, styles and plug-ins, and stops the site being framed. |
 | `X-Content-Type-Options` | `nosniff` | Stops MIME sniffing. |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Sends only the origin to other sites. |
 | `X-Frame-Options` | `DENY` | Clickjacking protection for older browsers (CSP `frame-ancestors` covers modern ones). |
@@ -83,7 +81,7 @@ set. Only add it, and submit to hstspreload.org, once you are sure, because it i
 | Cloudflare Pages | Hosting, TLS, CDN | Standard request logs held by Cloudflare |
 | GitHub | Source repository | Site source code (keep the repository private if preferred) |
 | WhatsApp (`wa.me`) | Optional contact link, only if the visitor clicks | Whatever the visitor chooses to send |
-| Visitor's own email app | Delivering inquiries | The inquiry the visitor sends |
+| FormSubmit (formsubmit.co) | Delivering inquiry-form messages to the business inbox | Name, email, company, country, topic and message the visitor submits |
 
 No other third-party services are loaded. Fonts are self-hosted, so there are no Google Fonts requests.
 
@@ -97,10 +95,7 @@ No other third-party services are loaded. Fonts are self-hosted, so there are no
 
 ## Known limitations
 
-- **Compose-based form:** the visitor must press Send in Gmail or their own email app. "Another email
-  app" and "copy message" fallbacks are provided. Using Gmail shares the message with Google, as for any
-  Gmail user. Messages land in an ordinary inbox, so apply normal phishing caution to inquiries that
-  contain links or attachments.
+- **Form delivery depends on FormSubmit:** messages pass through a third-party service, which must be activated once from the business inbox. If it is unavailable, visitors get an error and a copy-message fallback. The honeypot reduces, but does not eliminate, spam.
 - **Public contact details:** the email and phone are shown in plain text and will attract some spam.
   That is the trade-off for a site with no backend. A hosted form service with spam filtering is the
   upgrade path (see README).

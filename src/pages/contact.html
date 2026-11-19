@@ -62,14 +62,15 @@
 
         <div class="form-panel" id="inquiry" tabindex="-1">
           <h2>Send an inquiry</h2>
-          <p class="form-panel__intro">Fill in the form and press Send with Gmail. Your message opens in Gmail, already written and addressed to us, ready to send. Nothing is stored on this website. Fields marked <span class="field__req">required</span> are needed so we can reply.</p>
+          <p class="form-panel__intro">Send your inquiry straight from this page. It goes directly to our inbox, and we reply by email. Fields marked <span class="field__req">required</span> are needed so we can reply.</p>
 
           <div class="form-error-summary" id="form-errors" tabindex="-1" role="alert" hidden>
             <h3>Please fix the following</h3>
             <ul></ul>
           </div>
 
-          <form id="inquiry-form" action="mailto:{{EMAIL}}" method="post" enctype="text/plain" novalidate data-recipient="{{EMAIL}}">
+          <form id="inquiry-form" action="{{FORM_ACTION}}" method="post" novalidate data-endpoint="{{FORM_ENDPOINT}}" data-recipient="{{EMAIL}}">
+            <input type="hidden" name="_subject" value="New Inquiry — Nepal Shipping &amp; Sourcing">
             <div class="form-grid">
               <div class="field">
                 <label for="f-name">Your name <span class="field__req">required</span></label>
@@ -113,22 +114,20 @@
                 <p class="field__error" id="f-message-error"></p>
               </div>
               <div class="visually-hidden" aria-hidden="true">
-                <label for="f-website">Leave this field empty</label>
-                <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                <label for="f-honey">Leave this field empty</label>
+                <input id="f-honey" name="_honey" type="text" tabindex="-1" autocomplete="off">
               </div>
             </div>
             <div class="form-actions">
-              <button class="btn btn--primary" type="submit">Send with Gmail</button>
-              <p class="form-privacy">Gmail opens in a new tab with your message ready to send. Not a Gmail user? You can choose another email app next. Please do not include passwords, payment card numbers or other sensitive personal data.</p>
+              <button class="btn btn--primary" type="submit" id="send-button">Send Message</button>
+              <p class="form-privacy">Your inquiry is delivered to our inbox by the FormSubmit email service. We use your details only to reply. Please do not include passwords, payment card numbers or other sensitive personal data.</p>
             </div>
           </form>
 
           <div class="form-status" id="form-status" tabindex="-1" role="status" hidden>
             <h3 data-status-title></h3>
             <p data-status-text></p>
-            <div class="btn-row">
-              <a class="btn btn--primary btn--small" id="open-gmail" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer">Open in Gmail<span class="visually-hidden"> (opens in a new tab)</span></a>
-              <a class="btn btn--secondary btn--small" id="open-mailto" href="mailto:{{EMAIL}}">Use another email app</a>
+            <div class="btn-row" id="form-fallback" hidden>
               <button class="btn btn--secondary btn--small" type="button" id="copy-message">Copy message</button>
             </div>
           </div>

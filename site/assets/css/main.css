@@ -82,6 +82,7 @@ a { color: inherit; }
 a[href^="tel:"] { white-space: nowrap; } /* never split a phone number across lines */
 button, input, select, textarea { font: inherit; color: inherit; }
 main:focus { outline: none; }
+[hidden] { display: none !important; } /* the hidden attribute always wins over component display rules */
 
 /* ---------- Utilities ---------- */
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }

@@ -100,7 +100,8 @@ PHOTOS = {
 # slot: (file in project root, output size, crop centering (x, y))
 LOCAL = {
     "cat-handicrafts-felt": ("about_us1.JPG", (800, 600), (0.5, 0.5)),
-    "item-felt-toys": ("about_us2.JPG", (480, 360), (0.5, 0.55)),
+    # Tight 4:3 crop on the two reindeer on the left (source region 2644x1983 px, downscaled, never upscaled).
+    "item-felt-toys": ("about_us2.JPG", (480, 360), (0.5, 0.5), (0.0388, 0.18, 0.501, 0.70)),
     # Close crop on the felt dog. VERIFY with the company (checklist #11): a felt figure, not a cat cave.
     "item-pet-products": ("about_us2.JPG", (480, 360), (0.5, 0.5), (0.60, 0.50, 0.92, 0.95)),
 }

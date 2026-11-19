@@ -244,6 +244,8 @@ def build_page(path, partials, c):
         "EMAIL_TEXT": html.escape(c["email"]).replace("@", "<wbr>@", 1),
         "PHONE_E164": c["phone_e164"],
         "PHONE_DISPLAY": html.escape(c["phone_display"]),
+        "FORM_ENDPOINT": "https://formsubmit.co/ajax/" + c["email"],
+        "FORM_ACTION": "https://formsubmit.co/" + c["email"],
         "LANDLINE_E164": c["landline_e164"],
         "LANDLINE_DISPLAY": html.escape(c["landline_display"]),
         "LANDLINE_LOCAL": html.escape(c["landline_local"]),

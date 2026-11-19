@@ -161,7 +161,7 @@
     attempted = true;
 
     // Honeypot: real visitors never see or fill this field.
-    var trap = field("f-website");
+    var trap = field("f-honey");
     if (trap && trap.value) return;
 
     var errors = validate();
@@ -189,35 +189,71 @@
     ].filter(function (l) { return l !== null; });
     lastMessage = "To: " + recipient + "\nSubject: " + subject + "\n\n" + lines.join("\n");
 
-    var encSubject = encodeURIComponent(subject);
-    var encBody = encodeURIComponent(lines.join("\r\n"));
-    // Primary route: Gmail's web compose window (no desktop mail app needed).
-    var gmailHref = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(recipient) +
-      "&su=" + encSubject + "&body=" + encBody;
-    var mailtoHref = "mailto:" + recipient + "?subject=" + encSubject + "&body=" + encBody;
+    var endpoint = form.getAttribute("data-endpoint") || "";
+    var button = document.getElementById("send-button");
+    var fallback = document.getElementById("form-fallback");
+    var payload = {
+      name: name,
+      email: email,
+      company: company,
+      country: country,
+      topic: topic,
+      message: message,
+      _subject: "New Inquiry \u2014 Nepal Shipping & Sourcing",
+      _replyto: email,
+      _honey: ""
+    };
 
-    var gmailLink = document.getElementById("open-gmail");
-    var mailtoLink = document.getElementById("open-mailto");
-    if (gmailLink) gmailLink.setAttribute("href", gmailHref);
-    if (mailtoLink) mailtoLink.setAttribute("href", mailtoHref);
+    function setBusy(busy) {
+      if (!button) return;
+      button.disabled = busy;
+      button.setAttribute("aria-busy", String(busy));
+      button.textContent = busy ? "Sending..." : "Send Message";
+    }
 
-    var win = null;
-    try { win = window.open(gmailHref, "_blank"); } catch (err) { win = null; }
-    if (win) { try { win.opener = null; } catch (err) { /* ignore */ } }
-
-    if (status) {
+    function showResult(ok) {
+      if (!status) return;
       status.hidden = false;
-      status.classList.remove("form-status--error");
-      if (win) {
-        statusTitle.textContent = "Your message is ready in Gmail";
-        statusText.textContent = "Gmail has opened in a new tab with your message to " + recipient +
-          ". Check it and press Send. If you do not use Gmail, choose another email app or copy the message below.";
+      status.classList.toggle("form-status--error", !ok);
+      if (fallback) fallback.hidden = ok;
+      if (ok) {
+        statusTitle.textContent = "Message sent!";
+        statusText.textContent = "We've received your inquiry and will reply shortly.";
       } else {
-        statusTitle.textContent = "Your message is ready to send";
-        statusText.textContent = "Your browser did not open a new tab. Use Open in Gmail, choose another email app, or copy the message and send it to " + recipient + ".";
+        statusTitle.textContent = "Your message could not be sent";
+        statusText.textContent = "Please check your connection and try again, or copy your message and email it to " + recipient + ".";
       }
       status.focus();
     }
+
+    if (!window.fetch || !endpoint) { showResult(false); return; }
+    setBusy(true);
+    if (status) status.hidden = true;
+
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
+    fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller ? controller.signal : undefined
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        return res.ok && String(data.success) === "true";
+      });
+    }).then(function (ok) {
+      if (ok) {
+        form.reset();
+        attempted = false;
+        lastMessage = "";
+      }
+      showResult(ok);
+    }).catch(function () {
+      showResult(false);
+    }).then(function () {
+      if (timer) clearTimeout(timer);
+      setBusy(false);
+    });
   });
 
   if (copyBtn) {

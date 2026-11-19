@@ -134,21 +134,21 @@ Use `loading="lazy"` for anything below the first screen. Never hotlink stock im
 
 ## The inquiry form
 
-The form validates input, then opens **Gmail's web compose window** in a new tab, with the message
-written and addressed to the business Gmail account; the visitor presses Send. Visitors who don't
-use Gmail get an instant on-page confirmation with "Use another email app" (`mailto:`) and "Copy
-message" fallbacks. Nothing is sent to or stored on this site's server, so there is no backend,
-database, API key or third-party script.
+The form sends inquiries **in the background** to the business inbox through
+[FormSubmit](https://formsubmit.co). After validation, `main.js` POSTs JSON (`Content-Type` and `Accept:
+application/json`) to `https://formsubmit.co/ajax/<business email>`, with name, email, company, country,
+topic, message, `_subject` ("New Inquiry — Nepal Shipping & Sourcing"), `_replyto` (the visitor's
+email) and the `_honey` honeypot. The button shows "Sending...", then the page confirms "Message sent!"
+and resets the form. No tab, Gmail window or mail app opens. If the request fails, the visitor sees an
+error and a "Copy message" fallback.
 
-- Without JavaScript, the form still submits as a plain `mailto:` post.
-- If the browser blocks the new tab, the confirmation panel offers an "Open in Gmail" link instead.
-- Limitation: the visitor still presses Send in Gmail (or their own email app). For fully automatic
-  delivery, use a hosted form service (below).
-
-**Optional upgrade to a hosted form service** (such as Formspree, Basin or Web3Forms): point the form's
-`action` at the service endpoint, remove the `submit` handler's `mailto:` logic, and add the service's
-origin to `form-action` (and `connect-src`, if you submit with `fetch`) in `site/_headers`. Turn on the
-service's spam filtering and keep the existing honeypot field. Document the service in `SECURITY.md`.
+- **One-time activation (required):** the first submission to a new address makes FormSubmit send an
+  "Activate Form" email to the business Gmail inbox. Click the link once. Until then, submissions are
+  not delivered.
+- The endpoint is built from `email` in `site.config.json`. The CSP allows `https://formsubmit.co` in
+  `connect-src` and `form-action`.
+- Without JavaScript, the form posts to FormSubmit's standard endpoint and shows its thank-you page.
+- Inquiries pass through FormSubmit's servers on their way to the inbox (see SECURITY.md).
 
 ---
 
