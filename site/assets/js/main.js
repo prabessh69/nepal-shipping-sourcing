@@ -189,10 +189,11 @@
     ].filter(function (l) { return l !== null; });
     lastMessage = "To: " + recipient + "\nSubject: " + subject + "\n\n" + lines.join("\n");
 
-    var endpoint = form.getAttribute("data-endpoint") || "";
+    var endpoint = form.getAttribute("data-endpoint") || "";   // https://formsubmit.co/ajax/<inbox>
+    var standardAction = form.getAttribute("action") || "";     // https://formsubmit.co/<inbox>
     var button = document.getElementById("send-button");
     var fallback = document.getElementById("form-fallback");
-    var payload = {
+    var fields = {
       name: name,
       email: email,
       company: company,
@@ -211,7 +212,13 @@
       button.textContent = busy ? "Sending..." : "Send Message";
     }
 
-    function showResult(ok) {
+    function finish(ok) {
+      setBusy(false);
+      if (ok) {
+        form.reset();
+        attempted = false;
+        lastMessage = "";
+      }
       if (!status) return;
       status.hidden = false;
       status.classList.toggle("form-status--error", !ok);
@@ -226,33 +233,78 @@
       status.focus();
     }
 
-    if (!window.fetch || !endpoint) { showResult(false); return; }
+    // Fallback: a standard form POST into a hidden iframe. Works where the AJAX route is not
+    // yet available (e.g. before the inbox has been activated) and never leaves the page.
+    function iframeSubmit() {
+      if (!standardAction) { finish(false); return; }
+      var frameName = "inquiry-frame-" + Date.now();
+      var frame = document.createElement("iframe");
+      frame.name = frameName;
+      frame.title = "Form delivery";
+      frame.hidden = true;
+      frame.setAttribute("aria-hidden", "true");
+      frame.tabIndex = -1;
+      var hiddenForm = document.createElement("form");
+      hiddenForm.method = "POST";
+      hiddenForm.action = standardAction;
+      hiddenForm.target = frameName;
+      hiddenForm.hidden = true;
+      var extra = { _captcha: "false", _template: "table" };
+      Object.keys(fields).concat(Object.keys(extra)).forEach(function (key) {
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = key in fields ? fields[key] : extra[key];
+        hiddenForm.appendChild(input);
+      });
+      var settled = false;
+      var timer = setTimeout(function () { if (!settled) { settled = true; cleanup(); finish(false); } }, 15000);
+      function cleanup() {
+        setTimeout(function () {
+          if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm);
+          if (frame.parentNode) frame.parentNode.removeChild(frame);
+        }, 1000);
+      }
+      frame.addEventListener("load", function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        cleanup();
+        finish(true);
+      });
+      document.body.appendChild(frame);
+      document.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+    }
+
     setBusy(true);
     if (status) status.hidden = true;
 
+    if (!window.fetch || !window.FormData || !endpoint) { iframeSubmit(); return; }
+
+    // Primary: AJAX with FormData. No manual Content-Type, so the browser sends multipart/form-data
+    // (a CORS "simple" request, no preflight); we only ask for a JSON reply.
+    var data = new FormData();
+    Object.keys(fields).forEach(function (key) { data.append(key, fields[key]); });
     var controller = window.AbortController ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, 20000) : null;
     fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(payload),
+      headers: { "Accept": "application/json" },
+      body: data,
       signal: controller ? controller.signal : undefined
     }).then(function (res) {
-      return res.json().catch(function () { return {}; }).then(function (data) {
-        return res.ok && String(data.success) === "true";
-      });
-    }).then(function (ok) {
-      if (ok) {
-        form.reset();
-        attempted = false;
-        lastMessage = "";
-      }
-      showResult(ok);
-    }).catch(function () {
-      showResult(false);
-    }).then(function () {
+      return res.json().catch(function () { return {}; });
+    }).then(function (reply) {
       if (timer) clearTimeout(timer);
-      setBusy(false);
+      if (reply && (reply.success === true || reply.success === "true")) {
+        finish(true);
+      } else {
+        iframeSubmit();   // e.g. activation still pending: standard POST triggers the activation email
+      }
+    }).catch(function () {
+      if (timer) clearTimeout(timer);
+      iframeSubmit();
     });
   });
 

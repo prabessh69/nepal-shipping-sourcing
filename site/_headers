@@ -4,7 +4,7 @@
 #   printf '%s' 'document.documentElement.className="js"' | openssl dgst -sha256 -binary | base64
 
 /*
-  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-cvlem2Rlcb+inScVb7910PMAU98gRDEfAIUVUKXOWd4='; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-cvlem2Rlcb+inScVb7910PMAU98gRDEfAIUVUKXOWd4='; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; frame-src https://formsubmit.co; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY

@@ -182,6 +182,14 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
 - The Toys photo is a tight crop on two reindeer: 2644×1983 source region downscaled to 480×360.
 - QA: **281 passed, 0 failed**, with zero axe violations.
 
+## Form delivery hardening
+
+- The AJAX request now sends `FormData` (multipart, no preflight) with `Accept: application/json`. On a
+  non-success reply or a network error, a hidden standard POST is sent into a hidden iframe, so the page
+  never navigates. QA covers the success path, the activation-pending fallback, the network-failure
+  fallback and the payload fields, all under the real CSP (with `frame-src https://formsubmit.co` added).
+- QA: **288 passed, 0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |

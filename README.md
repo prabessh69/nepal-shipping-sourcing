@@ -135,20 +135,26 @@ Use `loading="lazy"` for anything below the first screen. Never hotlink stock im
 ## The inquiry form
 
 The form sends inquiries **in the background** to the business inbox through
-[FormSubmit](https://formsubmit.co). After validation, `main.js` POSTs JSON (`Content-Type` and `Accept:
-application/json`) to `https://formsubmit.co/ajax/<business email>`, with name, email, company, country,
-topic, message, `_subject` ("New Inquiry — Nepal Shipping & Sourcing"), `_replyto` (the visitor's
-email) and the `_honey` honeypot. The button shows "Sending...", then the page confirms "Message sent!"
-and resets the form. No tab, Gmail window or mail app opens. If the request fails, the visitor sees an
-error and a "Copy message" fallback.
+[FormSubmit](https://formsubmit.co). After validation, `main.js`:
 
-- **One-time activation (required):** the first submission to a new address makes FormSubmit send an
-  "Activate Form" email to the business Gmail inbox. Click the link once. Until then, submissions are
-  not delivered.
-- The endpoint is built from `email` in `site.config.json`. The CSP allows `https://formsubmit.co` in
-  `connect-src` and `form-action`.
+1. POSTs the fields as `FormData` to `https://formsubmit.co/ajax/<business email>` with
+   `Accept: application/json` and no manual `Content-Type` (a CORS "simple" request, so no preflight).
+   A reply of `success: true` or `"true"` counts as sent.
+2. On any other reply (for example, activation still pending) or a network error, it submits a hidden
+   standard form (`method="POST"`, `action="https://formsubmit.co/<business email>"`, `_captcha=false`)
+   into a hidden iframe. The visitor never leaves the page, and on a fresh address this triggers
+   FormSubmit's activation email.
+3. The visitor sees "Sending...", then "Message sent!", and the form resets. If both routes fail (no
+   response within 15 s), an error and a "Copy message" fallback appear.
+
+Fields sent: name, email, company, country, topic, message, `_subject` ("New Inquiry — Nepal Shipping
+& Sourcing"), `_replyto` and the `_honey` honeypot.
+
+- **One-time activation (required):** the first submission sends an "Activate Form" email to the business
+  Gmail inbox. Click the link once. **Messages sent before activation are not delivered.**
+- The endpoints are built from `email` in `site.config.json`. The CSP allows `https://formsubmit.co` in
+  `connect-src`, `form-action` and `frame-src`.
 - Without JavaScript, the form posts to FormSubmit's standard endpoint and shows its thank-you page.
-- Inquiries pass through FormSubmit's servers on their way to the inbox (see SECURITY.md).
 
 ---
 

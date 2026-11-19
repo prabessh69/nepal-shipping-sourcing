@@ -215,39 +215,62 @@ def main():
         page.fill("#f-email", "buyer@example.org")
         page.fill("#f-message", "We need 2,000 felt balls & <b>12</b> colours\nshipped to Hamburg.")
 
-        # Submitting POSTs JSON to FormSubmit in the background (intercepted here; nothing leaves the machine).
+        # Primary path: AJAX POST of FormData (intercepted; nothing leaves the machine).
         posted = []
-        def fake_formsubmit(route):
+        def fake_ajax(route):
             posted.append(route.request)
             route.fulfill(status=200, content_type="application/json", body='{"success":"true","message":"ok"}')
-        ctx.route("https://formsubmit.co/**", fake_formsubmit)
+        ctx.route("https://formsubmit.co/ajax/**", fake_ajax)
         popups = []
         ctx.on("page", lambda p: popups.append(p))
         page.get_by_role("button", name="Send Message").click()
         page.wait_for_timeout(800)
-        check(len(posted) == 1, f"submit sends one background POST ({len(posted)})")
+        check(len(posted) == 1, f"submit sends one background AJAX POST ({len(posted)})")
         if posted:
             req = posted[0]
-            body = json.loads(req.post_data or "{}")
+            ctype = req.headers.get("content-type", "")
+            body = req.post_data or ""
             check(req.method == "POST" and req.url.startswith("https://formsubmit.co/ajax/"), "POST goes to the FormSubmit AJAX endpoint")
-            check(req.headers.get("content-type") == "application/json" and req.headers.get("accept") == "application/json", "JSON Content-Type and Accept headers")
-            check(body.get("name") == "Test Buyer" and body.get("email") == "buyer@example.org" and body.get("_replyto") == "buyer@example.org", "payload has name, email and _replyto")
-            check(body.get("topic") == "Product Sourcing" and "<b>12</b>" in body.get("message", ""), "payload has topic and verbatim message")
-            check(body.get("_subject") == "New Inquiry \u2014 Nepal Shipping & Sourcing" and body.get("_honey") == "", "payload has _subject and empty _honey")
+            check(ctype.startswith("multipart/form-data") and req.headers.get("accept") == "application/json", f"FormData body (no JSON Content-Type), Accept JSON [{ctype[:30]}]")
+            for key, val in [("name", "Test Buyer"), ("email", "buyer@example.org"), ("_replyto", "buyer@example.org"), ("topic", "Product Sourcing"), ("_subject", "New Inquiry \u2014 Nepal Shipping & Sourcing")]:
+                check(f'name="{key}"' in body and val in body, f"payload field {key}")
+            check('name="_honey"' in body and "<b>12</b>" in body, "payload has _honey and the verbatim message")
         check(not popups, "no new tab or mail app is opened")
         check("Message sent!" in page.locator("#form-status").inner_text(), "on-page confirmation shown")
         check(page.locator("#f-name").input_value() == "" and page.locator("#f-message").input_value() == "", "form is reset after sending")
         check(page.locator("#form-fallback").is_hidden(), "copy fallback hidden on success")
 
-        # Network failure path: error message plus the copy-message fallback.
-        ctx.unroute("https://formsubmit.co/**")
-        ctx.route("https://formsubmit.co/**", lambda route: route.abort())
+        # Activation pending: AJAX says not yet, so a hidden standard POST is made into a hidden iframe.
+        ctx.unroute("https://formsubmit.co/ajax/**")
+        ctx.route("https://formsubmit.co/ajax/**", lambda r: r.fulfill(status=200, content_type="application/json",
+                  body='{"success":"false","message":"This form needs Activation."}'))
+        standard = []
+        def fake_standard(route):
+            standard.append(route.request)
+            route.fulfill(status=200, content_type="text/html", body="<p>ok</p>")
+        ctx.route(lambda url: url.startswith("https://formsubmit.co/") and "/ajax/" not in url, fake_standard)
+        url_before = page.url
         page.fill("#f-name", "Test Buyer"); page.fill("#f-email", "buyer@example.org")
-        page.select_option("#f-topic", "sourcing"); page.fill("#f-message", "Second message to test the failure path, please ignore.")
+        page.select_option("#f-topic", "sourcing"); page.fill("#f-message", "Second message to test the activation fallback.")
         page.get_by_role("button", name="Send Message").click()
-        page.wait_for_timeout(800)
-        check("could not be sent" in page.locator("#form-status").inner_text() and page.locator("#copy-message").is_visible(), "failure shows error and copy fallback")
-        check(page.locator("#f-message").input_value() != "", "form keeps the message when sending fails")
+        page.wait_for_timeout(1500)
+        check(len(standard) == 1 and standard[0].method == "POST", f"activation fallback posts the standard form ({len(standard)})")
+        if standard:
+            fb = standard[0].post_data or ""
+            check("_captcha=false" in fb and "_replyto=buyer%40example.org" in fb, "fallback carries fields incl. _captcha=false and _replyto")
+            check(standard[0].frame.name.startswith("inquiry-frame-"), "fallback targets a hidden iframe")
+        check(page.url == url_before and not popups, "page does not navigate or open tabs on fallback")
+        check("Message sent!" in page.locator("#form-status").inner_text(), "confirmation shown after fallback delivery")
+
+        # Network failure on AJAX also falls back to the iframe route.
+        ctx.unroute("https://formsubmit.co/ajax/**")
+        ctx.route("https://formsubmit.co/ajax/**", lambda r: r.abort())
+        page.fill("#f-name", "Test Buyer"); page.fill("#f-email", "buyer@example.org")
+        page.select_option("#f-topic", "sourcing"); page.fill("#f-message", "Third message to test the network-failure fallback.")
+        page.get_by_role("button", name="Send Message").click()
+        page.wait_for_timeout(1500)
+        check(len(standard) == 2, "network failure also uses the iframe fallback")
+        ctx.unroute("**/*")
 
         page.goto(base + "/contact/?review")
         check(page.locator(".review-banner").is_visible(), "?review mode highlights placeholders")

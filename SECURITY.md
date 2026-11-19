@@ -29,7 +29,7 @@ it is static files only, with no server code, database, login, cookies, analytic
   checked against the allowlist. Values are placed in the `mailto:` URL only through
   `encodeURIComponent`, so they cannot inject extra headers or recipients.
 - **Spam awareness:** a hidden honeypot field (`website`) silently drops automated submissions.
-  Form data is sent only as JSON to the FormSubmit endpoint over HTTPS; the CSP allows no other destination.
+  Form data is sent only to FormSubmit over HTTPS (AJAX FormData, or a standard POST into a hidden iframe as a fallback); the CSP allows no other destination.
 
 ### Personal data
 - The form collects only what a reply needs: name, email and message are required; company and
@@ -50,7 +50,7 @@ Cloudflare Pages applies these to every response:
 
 | Header | Value | Purpose |
 |---|---|---|
-| `Content-Security-Policy` | `default-src 'none'; script-src 'self' 'sha256-…'; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self'; frame-ancestors 'none'; object-src 'none'` | Only first-party resources can load. Blocks injected scripts, styles and plug-ins, and stops the site being framed. |
+| `Content-Security-Policy` | `default-src 'none'; script-src 'self' 'sha256-…'; style-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; frame-src https://formsubmit.co; base-uri 'self'; frame-ancestors 'none'; object-src 'none'` | Only first-party resources can load. Blocks injected scripts, styles and plug-ins, and stops the site being framed. |
 | `X-Content-Type-Options` | `nosniff` | Stops MIME sniffing. |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Sends only the origin to other sites. |
 | `X-Frame-Options` | `DENY` | Clickjacking protection for older browsers (CSP `frame-ancestors` covers modern ones). |
