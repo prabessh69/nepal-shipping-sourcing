@@ -27,25 +27,24 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageEnhance, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "src" / "assets" / "images" / "photos"
 CREDITS = OUT / "credits.json"
 PARTIAL = ROOT / "src" / "partials" / "photo-credits.html"
 API = "https://commons.wikimedia.org/w/api.php"
+OPENVERSE = "https://api.openverse.org/v1/images/"
 UA = "NSSWebsiteImageFetcher/1.0 (static website build script; python-urllib)"
 
 # slot: (search query or None, output size (w, h), pinned title or None)
 PHOTOS = {
     # Home page product categories (4:3)
-    "cat-handicrafts": ("Nepal handicrafts shop", (800, 600), None),
-    "cat-felt": ("felt balls", (800, 600), None),
     "cat-herbs-spices": ("spices market Kathmandu", (800, 600), None),
     "cat-agriculture": ("Ilam tea garden", (800, 600), None),
     "cat-food": ("Nepal grocery shop", (800, 600), None),
     "cat-textiles": ("pashmina shawls", (800, 600), None),
-    "cat-home-decor": ("Bhaktapur handicraft shop", (800, 600), None),
+    "cat-home-decor": ("handicraft shop Kathmandu", (800, 600), None),
     "cat-custom": ("Asan bazaar Kathmandu", (800, 600), None),
     # Products & Sourcing item thumbnails (4:3)
     "item-singing-bowls": ("Nepalese singing bowl", (480, 360), None),
@@ -53,11 +52,9 @@ PHOTOS = {
     "item-wood-carvings": ("Bhaktapur wood carving window", (480, 360), None),
     "item-pottery": ("Bhaktapur potter", (480, 360), None),
     "item-thangka": ("thangka painting Nepal", (480, 360), None),
-    "item-felt-balls": ("wool felt balls", (480, 360), None),
+    "item-felt-balls": (None, (480, 360), "File:Felted balls.jpg"),
     "item-felt-rugs": ("felt rug", (480, 360), None),
     "item-felt-slippers": ("felt slippers", (480, 360), None),
-    "item-felt-toys": ("felted wool toy", (480, 360), None),
-    "item-pet-products": ("felt cat bed", (480, 360), None),
     "item-timur": ("Zanthoxylum armatum", (480, 360), None),
     "item-turmeric": ("turmeric powder", (480, 360), None),
     "item-dried-herbs": ("dried herbs market", (480, 360), None),
@@ -71,18 +68,17 @@ PHOTOS = {
     "item-pickles": ("achar pickle jar", (480, 360), None),
     "item-packaged-tea": ("tea packaging", (480, 360), None),
     "item-pashmina": ("pashmina", (480, 360), None),
-    "item-hemp": ("hemp fabric", (480, 360), None),
-    "item-knitwear": ("hand knitted woollen sweater", (480, 360), None),
+    "item-hemp": (None, (480, 360), "File:Hemp Hats in Nepal 01.jpg"),
+    "item-knitwear": ("wool sweater knitting", (480, 360), None),
     "item-dhaka": ("Dhaka topi", (480, 360), None),
-    "item-lokta": ("handmade paper Nepal", (480, 360), None),
-    "item-carpets": ("Tibetan carpet", (480, 360), None),
+    "item-lokta": ("lokta paper", (480, 360), None),
+    "item-carpets": ("hand knotted carpet", (480, 360), None),
     "item-cushions": ("embroidered cushion", (480, 360), None),
     "item-lamps": ("paper lanterns", (480, 360), None),
     # Page banners (20:9) and home feature images (3:2)
     "banner-about": ("Kathmandu Valley panorama", (1600, 720), None),
     "banner-services": ("container ship at sea", (1600, 720), None),
     "banner-sourcing": ("Thamel shop", (1600, 720), None),
-    "feature-air-cargo": ("unit load device aircraft", (1200, 800), None),
     # Services cards (3:2)
     "svc-air-freight": ("cargo aircraft loading", (720, 480), None),
     "svc-sea-freight": ("container ship port", (720, 480), None),
@@ -91,11 +87,24 @@ PHOTOS = {
     "svc-import-export": ("shipping containers", (720, 480), None),
     "svc-customs": ("Birgunj border", (720, 480), None),
     "svc-cargo-handling": ("pallets warehouse", (720, 480), None),
+    "svc-quality-inspection": ("quality control inspection", (720, 480), None),
 }
+
+# Photos supplied by the company (originals kept locally, git-ignored; only WebP copies are committed).
+# slot: (file in project root, output size, crop centering (x, y))
+LOCAL = {
+    "cat-handicrafts-felt": ("about_us1.JPG", (800, 600), (0.5, 0.5)),
+    "item-felt-toys": ("about_us2.JPG", (480, 360), (0.5, 0.55)),
+    # Close crop on the felt dog. VERIFY with the company (checklist #11): a felt figure, not a cat cave.
+    "item-pet-products": ("about_us2.JPG", (480, 360), (0.5, 0.5), (0.60, 0.50, 0.92, 0.95)),
+    "about-felt-1": ("about_us1.JPG", (1200, 800), (0.5, 0.5)),
+    "about-felt-2": ("about_us2.JPG", (1200, 800), (0.5, 0.5)),
+}
+COMPANY_CREDIT = {"author": "Nepal Shipping & Sourcing", "license": "Company photograph", "license_url": "", "source": ""}
 
 OK_LICENSE = re.compile(r"^(cc0|public domain|pd\b|cc[- ]by(-sa)?[- ]\d(\.\d)?)", re.I)
 BAD_TITLE = re.compile(r"\b(map|logo|diagram|chart|flag|coat of arms|seal|stamp|icon|svg|audio|recording|scan|document|text|poster|"
-                       r"pool|billiards?|concert|band|menu|beer|military|army|air force|usaf|soldiers?|protest|damaged|wreck|fire|accident)\b", re.I)
+                       r"pool|billiards?|concert|band|menu|beer|military|army|air force|usaf|soldiers?|protest|damaged|wreck|fire|accident|tennis|plastic)\b", re.I)
 
 
 class FetchFailed(Exception):
@@ -172,29 +181,64 @@ def download(url):
     return fetch(url)
 
 
-def process(raw, size, dest):
-    img = Image.open(io.BytesIO(raw))
+IVORY = (250, 247, 242)
+
+
+def tone(img):
+    """Subtle palette match: a little more contrast, slightly gentler saturation and a
+    faint warm-ivory wash so photos sit comfortably on the site's warm surfaces."""
+    img = ImageEnhance.Contrast(img).enhance(1.05)
+    img = ImageEnhance.Color(img).enhance(0.94)
+    return Image.blend(img, Image.new("RGB", img.size, IVORY), 0.04)
+
+
+def process(raw, size, dest, centering=(0.5, 0.5)):
+    img = raw if isinstance(raw, Image.Image) else Image.open(io.BytesIO(raw) if isinstance(raw, bytes) else raw)
     img = ImageOps.exif_transpose(img).convert("RGB")
-    img = ImageOps.fit(img, size, method=Image.LANCZOS, centering=(0.5, 0.5))
-    img.save(dest, "WEBP", quality=80, method=6)
+    img = ImageOps.fit(img, size, method=Image.LANCZOS, centering=centering)
+    tone(img).save(dest, "WEBP", quality=80, method=6)
+
+
+def openverse(query, size):
+    """Second source: Openverse (CC-licensed images from Flickr, Wikimedia and others)."""
+    q = urllib.parse.urlencode({"q": query, "license": "cc0,pdm,by,by-sa", "page_size": "20", "mature": "false"})
+    data = json.loads(fetch(f"{OPENVERSE}?{q}"))
+    for r in data.get("results", []):
+        w, h = r.get("width") or 0, r.get("height") or 0
+        if w and h and (w < size[0] * 0.9 or h < size[1] * 0.9):
+            continue
+        if (r.get("filetype") or "jpg").lower() not in ("jpg", "jpeg", "png"):
+            continue
+        if BAD_TITLE.search(r.get("title") or ""):
+            continue
+        lic = r["license"].upper()
+        lic = "CC0" if lic == "CC0" else ("Public domain" if lic == "PDM" else f"CC {lic.replace('-', ' ').replace(' ', '-')} {r.get('license_version', '')}".strip())
+        yield {"title": r.get("title") or "Untitled", "source": r.get("foreign_landing_url"), "thumb": r["url"],
+               "author": r.get("creator") or "Unknown author", "license": lic, "license_url": r.get("license_url", ""),
+               "provider": r.get("source", "openverse")}
 
 
 def write_partial(credits):
     rows = []
-    for slot in PHOTOS:
+    for slot in list(LOCAL) + list(PHOTOS):
         c = credits.get(slot)
         if not c or "license" not in c or not (OUT / f"{slot}.webp").exists():
             continue
         lic = html.escape(c["license"])
-        lic_html = f'<a href="{html.escape(c["license_url"])}" rel="license noopener noreferrer" target="_blank">{lic}<span class="visually-hidden"> (opens in a new tab)</span></a>' if c["license_url"] else lic
+        if c.get("license_url"):
+            lic = (f'<a href="{html.escape(c["license_url"])}" rel="license noopener noreferrer" target="_blank">{lic}'
+                   f'<span class="visually-hidden"> (opens in a new tab)</span></a>')
         name = html.escape(c["title"].removeprefix("File:"))
+        if c.get("source"):
+            name = (f'<a href="{html.escape(c["source"])}" target="_blank" rel="noopener noreferrer">{name}'
+                    f'<span class="visually-hidden"> (opens in a new tab)</span></a>')
         rows.append(
-            f'          <tr>\n'
+            "          <tr>\n"
             f'            <td><img src="/assets/images/photos/{slot}.webp" width="{c["w"]}" height="{c["h"]}" loading="lazy" decoding="async" alt=""></td>\n'
-            f'            <td><a href="{html.escape(c["source"])}" target="_blank" rel="noopener noreferrer">{name}<span class="visually-hidden"> (opens in a new tab)</span></a></td>\n'
+            f"            <td>{name}</td>\n"
             f'            <td>{html.escape(c["author"])}</td>\n'
-            f'            <td>{lic_html}</td>\n'
-            f'          </tr>')
+            f"            <td>{lic}</td>\n"
+            "          </tr>")
     PARTIAL.write_text("<!-- Generated by tools/fetch_photos.py; do not edit by hand. -->\n" + "\n".join(rows) + "\n")
 
 
@@ -202,10 +246,33 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--refresh", action="store_true")
     ap.add_argument("--only", nargs="*")
+    ap.add_argument("--retone", action="store_true", help="apply the palette tone once to photos saved before toning existed")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     credits = json.loads(CREDITS.read_text()) if CREDITS.exists() else {}
     failed = []
+    for slot, (fname, size, centering, *box) in LOCAL.items():
+        src, dest = ROOT / fname, OUT / f"{slot}.webp"
+        if not src.exists():
+            if not dest.exists():
+                print(f"  - {slot}: source {fname} not found", file=sys.stderr)
+            continue
+        if dest.exists() and slot in credits and not args.refresh:
+            continue
+        img = ImageOps.exif_transpose(Image.open(src))
+        if box:
+            l, t, r, b = box[0]
+            img = img.crop((int(l * img.width), int(t * img.height), int(r * img.width), int(b * img.height)))
+        process(img, size, dest, centering)
+        credits[slot] = {**COMPANY_CREDIT, "title": fname, "w": size[0], "h": size[1], "toned": True}
+        print(f"  {slot}: company photo {fname} {dest.stat().st_size // 1024} KB")
+    if args.retone:
+        for slot, c in credits.items():
+            dest = OUT / f"{slot}.webp"
+            if dest.exists() and "license" in c and not c.get("toned"):
+                tone(Image.open(dest).convert("RGB")).save(dest, "WEBP", quality=82, method=6)
+                c["toned"] = True
+        print("  re-toned existing photos")
     for slot, (query, size, title) in PHOTOS.items():
         if args.only and slot not in args.only:
             continue
@@ -226,13 +293,18 @@ def main():
                     break
                 reasons.append(f"{page['title'][:50]}: {why}")
             if not chosen:
-                raise FetchFailed(f"no acceptable result ({len(reasons)} rejected)")
+                for cand in openverse(query, size):
+                    if cand["title"] not in skip and cand["source"] not in skip:
+                        chosen = cand
+                        break
+            if not chosen:
+                raise FetchFailed(f"no acceptable result on Commons ({len(reasons)} rejected) or Openverse")
             process(download(chosen["thumb"]), size, dest)
         except FetchFailed as e:
             failed.append(slot)
             print(f"  - {slot}: skipped ({e}); build.py will use the fallback asset", file=sys.stderr)
             continue
-        chosen.update({"w": size[0], "h": size[1], "query": query})
+        chosen.update({"w": size[0], "h": size[1], "query": query, "toned": True})
         if prev and prev.get("rejected"):
             chosen["rejected"] = prev["rejected"]
         chosen.pop("thumb")

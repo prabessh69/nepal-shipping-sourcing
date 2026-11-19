@@ -95,8 +95,11 @@ Add `?review` to any page URL to highlight every placeholder that still needs co
 
 ### Photos and image credits
 
-Photos come from Wikimedia Commons under CC0, public domain, CC BY or CC BY-SA licences, via
-`tools/fetch_photos.py` (dev-only dependency: Pillow). Each slot in its `PHOTOS` list maps to a
+Photos come from Wikimedia Commons or Openverse under CC0, public domain, CC BY or CC BY-SA licences,
+plus the company's own photos (`about_us1.JPG`, `about_us2.JPG` in the project root; the 20 MB originals
+are git-ignored and only optimised WebP copies are committed), via `tools/fetch_photos.py` (dev-only
+dependency: Pillow). Every photo is cropped to its slot, lightly tone-matched to the palette and saved
+as WebP. Each slot in its `PHOTOS` list maps to a
 `{{PHOTO:slot|alt text}}` marker in the page sources. If a slot has no photo, the build uses a designed
 fallback (the matching illustration, or an icon tile), so a slot is never empty or broken.
 

@@ -4,3 +4,7 @@ __pycache__/
 .venv/
 lighthouse-report*.json
 .claude/settings.local.json
+
+# Original company photos (20 MB each); optimised WebP copies live in src/assets/images/photos/
+about_us*.JPG
+about_us*.jpg

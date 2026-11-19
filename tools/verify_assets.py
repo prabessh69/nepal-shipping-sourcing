@@ -43,6 +43,8 @@ class Collector(HTMLParser):
                 self._fallback_has_graphic = True
         elif tag == "link" and a.get("rel") in ("stylesheet", "preload", "icon", "shortcut icon", "apple-touch-icon", "manifest"):
             self.refs.append(a.get("href", ""))
+        elif tag == "source" and a.get("srcset"):
+            self.refs.append(a["srcset"].split()[0])
         elif tag == "script" and a.get("src"):
             self.refs.append(a["src"])
         if "photo-fallback" in (a.get("class") or "").split():

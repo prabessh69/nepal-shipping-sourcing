@@ -62,12 +62,14 @@ def dump(data):
 
 def postal_address(c):
     a = c["address"]
-    return {
-        "@type": "PostalAddress",
-        "streetAddress": a["street"],
-        "addressLocality": a["locality"],
-        "addressCountry": a["country_code"],
-    }
+    addr = {"@type": "PostalAddress"}
+    if a.get("street"):
+        addr["streetAddress"] = a["street"]
+    addr["addressLocality"] = a["locality"]
+    if a.get("postal_code"):
+        addr["postalCode"] = a["postal_code"]
+    addr["addressCountry"] = a["country_code"]
+    return addr
 
 
 def organization_jsonld(c):
@@ -128,9 +130,9 @@ def render_nav(current):
 # tools/fetch_photos.py). If the photo is missing, a designed fallback is used so a
 # slot is never empty: the matching illustration, or an icon tile for product items.
 PHOTO_DIR = SRC / "assets" / "images" / "photos"
-PHOTO_SIZES = {"cat": (800, 600), "item": (480, 360), "banner": (1600, 720), "feature": (1200, 800), "svc": (720, 480)}
+PHOTO_SIZES = {"cat": (800, 600), "item": (480, 360), "banner": (1600, 720), "feature": (1200, 800), "svc": (720, 480), "about": (1200, 800)}
 FALLBACK_ICONS = {
-    "cat-handicrafts": "bowl", "cat-felt": "felt", "cat-herbs-spices": "leaf", "cat-agriculture": "tea",
+    "cat-handicrafts-felt": "bowl", "cat-herbs-spices": "leaf", "cat-agriculture": "tea",
     "cat-food": "jar", "cat-textiles": "textile", "cat-home-decor": "lamp", "cat-custom": "plus",
     "item-felt-balls": "felt", "item-felt-rugs": "felt", "item-felt-slippers": "felt", "item-felt-toys": "felt",
     "item-pet-products": "felt", "item-hemp": "textile", "item-knitwear": "textile", "item-pashmina": "textile",
@@ -173,7 +175,7 @@ def asset_version(url_path):
     return _hashes[url_path]
 
 
-ASSET_REF = re.compile(r'((?:src|href)=")(/assets/[^"#?]+)((?:#[^"]*)?")')
+ASSET_REF = re.compile(r'((?:src|href|srcset)=")(/assets/[^"#?\s]+)((?:#[^"]*)?")')
 
 
 def version_assets(doc):

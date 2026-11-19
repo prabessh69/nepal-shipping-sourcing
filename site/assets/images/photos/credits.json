@@ -7,7 +7,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 800,
     "h": 600,
-    "query": "spices market Kathmandu"
+    "query": "spices market Kathmandu",
+    "toned": true
   },
   "cat-agriculture": {
     "title": "File:Ilam tea garden.jpg",
@@ -17,9 +18,19 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 800,
     "h": 600,
-    "query": "Ilam tea garden"
+    "query": "Ilam tea garden",
+    "toned": true
   },
   "cat-home-decor": {
+    "title": "File:Handicraft shops in kathmandu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Handicraft_shops_in_kathmandu.jpg",
+    "author": "BhattaraiAbhishek",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 800,
+    "h": 600,
+    "query": "handicraft shop Kathmandu",
+    "toned": true,
     "rejected": [
       "File:Handmade wildcrafted lokta paper packaging.png"
     ]
@@ -32,7 +43,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 800,
     "h": 600,
-    "query": "Asan bazaar Kathmandu"
+    "query": "Asan bazaar Kathmandu",
+    "toned": true
   },
   "item-singing-bowls": {
     "title": "File:Nepal singing bowl.jpg",
@@ -42,7 +54,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "Nepalese singing bowl"
+    "query": "Nepalese singing bowl",
+    "toned": true
   },
   "item-wood-carvings": {
     "title": "File:Carved wooden window at Bhaktapur, Nepal.jpg",
@@ -52,7 +65,8 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0",
     "w": 480,
     "h": 360,
-    "query": "Bhaktapur wood carving window"
+    "query": "Bhaktapur wood carving window",
+    "toned": true
   },
   "item-pottery": {
     "title": "File:Potier au travail (Bhaktapur) (8560018739).jpg",
@@ -65,7 +79,8 @@
     "query": "Bhaktapur potter",
     "rejected": [
       "File:In and around Bhaktapur Pottery Square 41.jpg"
-    ]
+    ],
+    "toned": true
   },
   "item-thangka": {
     "title": "File:Nepal, thangka con la dea chundhaa, su seta, 1698, 03.jpg",
@@ -75,27 +90,8 @@
     "license_url": "https://creativecommons.org/licenses/by/3.0",
     "w": 480,
     "h": 360,
-    "query": "thangka painting Nepal"
-  },
-  "cat-handicrafts": {
-    "title": "File:A man and the felt dolls, Thamel, Kathmandu Nepal-8313.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:A_man_and_the_felt_dolls,_Thamel,_Kathmandu_Nepal-8313.jpg",
-    "author": "Bijay Chaurasia",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "w": 800,
-    "h": 600,
-    "query": "Nepal handicrafts shop"
-  },
-  "cat-felt": {
-    "title": "File:Tennis Ball Felt Zoom-In View.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Tennis_Ball_Felt_Zoom-In_View.jpg",
-    "author": "Horia Varlan",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "w": 800,
-    "h": 600,
-    "query": "felt balls"
+    "query": "thangka painting Nepal",
+    "toned": true
   },
   "cat-food": {
     "title": "File:Kathmandu grocery store.jpg",
@@ -105,7 +101,8 @@
     "license_url": "https://creativecommons.org/licenses/by/2.0",
     "w": 800,
     "h": 600,
-    "query": "Nepal grocery shop"
+    "query": "Nepal grocery shop",
+    "toned": true
   },
   "item-metal-statues": {
     "title": "File:Large Buddha statues found as we climbed Swayambhunath (17209379394).jpg",
@@ -115,11 +112,23 @@
     "license_url": "https://creativecommons.org/licenses/by/2.0",
     "w": 480,
     "h": 360,
-    "query": "Buddha statues shop Kathmandu"
+    "query": "Buddha statues shop Kathmandu",
+    "toned": true
   },
   "item-felt-balls": {
+    "title": "File:Felted balls.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Felted_balls.jpg",
+    "author": "Danielle Keller (Danielle_dk)",
+    "license": "Public domain",
+    "license_url": "",
+    "w": 480,
+    "h": 360,
+    "query": null,
+    "toned": true,
     "rejected": [
-      "File:DFC 0931 A focused player leans over a blue pool table lining up a shot with her cue as colorful balls sit ready on the felt.jpg"
+      "File:DFC 0931 A focused player leans over a blue pool table lining up a shot with her cue as colorful balls sit ready on the felt.jpg",
+      "File:Tennis Ball Felt Zoom-In View.jpg",
+      "https://commons.wikimedia.org/wiki/File:Tennis_Ball_Felt_Zoom-In_View.jpg"
     ]
   },
   "item-felt-slippers": {
@@ -130,20 +139,8 @@
     "license_url": "https://creativecommons.org/licenses/by/2.0",
     "w": 480,
     "h": 360,
-    "query": "felt slippers"
-  },
-  "item-felt-toys": {
-    "title": "File:Little red fox.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Little_red_fox.jpg",
-    "author": "Gabrielle",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "w": 480,
-    "h": 360,
-    "query": "felted wool toy",
-    "rejected": [
-      "File:Flowers, doll's (AM 2013.51.1.16-2).jpg"
-    ]
+    "query": "felt slippers",
+    "toned": true
   },
   "item-turmeric": {
     "title": "File:Curcuma longa roots.jpg",
@@ -153,7 +150,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
     "w": 480,
     "h": 360,
-    "query": "turmeric powder"
+    "query": "turmeric powder",
+    "toned": true
   },
   "item-dried-herbs": {
     "title": "File:Armenian herbs in market.jpg",
@@ -163,7 +161,8 @@
     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
     "w": 480,
     "h": 360,
-    "query": "dried herbs market"
+    "query": "dried herbs market",
+    "toned": true
   },
   "item-botanicals": {
     "title": "File:Eklebire, medicinal herb - panoramio.jpg",
@@ -173,7 +172,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
     "w": 480,
     "h": 360,
-    "query": "medicinal plants Nepal"
+    "query": "medicinal plants Nepal",
+    "toned": true
   },
   "cat-textiles": {
     "title": "File:Pashmina scarf with woven elephant design 02.jpg",
@@ -183,7 +183,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 800,
     "h": 600,
-    "query": "pashmina shawls"
+    "query": "pashmina shawls",
+    "toned": true
   },
   "item-felt-rugs": {
     "title": "File:Farwayart-handmade-felt-rug3.jpg",
@@ -193,7 +194,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "felt rug"
+    "query": "felt rug",
+    "toned": true
   },
   "item-timur": {
     "title": "File:Zanthoxylum armatum var. subtrifoliatum s4.jpg",
@@ -203,7 +205,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "Zanthoxylum armatum"
+    "query": "Zanthoxylum armatum",
+    "toned": true
   },
   "item-orthodox-tea": {
     "title": "File:Darjeeling, India, Darjeeling tea, Black tea.jpg",
@@ -213,7 +216,8 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0",
     "w": 480,
     "h": 360,
-    "query": "black tea leaves"
+    "query": "black tea leaves",
+    "toned": true
   },
   "item-coffee": {
     "title": "File:Roasted coffee beans.jpg",
@@ -223,7 +227,8 @@
     "license_url": "",
     "w": 480,
     "h": 360,
-    "query": "coffee beans"
+    "query": "coffee beans",
+    "toned": true
   },
   "item-cardamom": {
     "title": "File:Amomum subulatum MHNT.BOT.2021.17.28.jpg",
@@ -233,7 +238,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "black cardamom"
+    "query": "black cardamom",
+    "toned": true
   },
   "item-ginger": {
     "title": "File:Fresh ginger (20240131).jpg",
@@ -246,7 +252,8 @@
     "query": "fresh ginger",
     "rejected": [
       "File:GingerRoot Novo Los Angeles.jpg"
-    ]
+    ],
+    "toned": true
   },
   "item-honey": {
     "title": "File:Honey (Italian-miele) in a jar.jpg",
@@ -259,7 +266,8 @@
     "query": "honey in glass jar",
     "rejected": [
       "File:Antique Glass Honey Jar With Rusted Metal Cap (31009798197).jpg"
-    ]
+    ],
+    "toned": true
   },
   "item-snacks": {
     "title": "File:Poha.jpg",
@@ -269,7 +277,8 @@
     "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
     "w": 480,
     "h": 360,
-    "query": "beaten rice chiura"
+    "query": "beaten rice chiura",
+    "toned": true
   },
   "item-pickles": {
     "title": "File:Chickpea Peanut Mango Pickle Recipe By Sonia Goyal.jpg",
@@ -279,7 +288,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
     "w": 480,
     "h": 360,
-    "query": "achar pickle jar"
+    "query": "achar pickle jar",
+    "toned": true
   },
   "item-packaged-tea": {
     "title": "File:Packaging tea bags.jpg",
@@ -289,7 +299,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "tea packaging"
+    "query": "tea packaging",
+    "toned": true
   },
   "item-pashmina": {
     "title": "File:Pashmina Shop in Thamel, Kathmandu-8255.jpg",
@@ -302,9 +313,19 @@
     "query": "pashmina",
     "rejected": [
       "File:Pashmina scarf with woven elephant design 02.jpg"
-    ]
+    ],
+    "toned": true
   },
   "item-knitwear": {
+    "title": "File:WoolSweat.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:WoolSweat.jpg",
+    "author": "Liralen Li",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "wool sweater knitting",
+    "toned": true,
     "rejected": [
       "File:WW2 Norway Red pointed cap knitted mittens national protest symbols Andre verdenskrig tyskokkupert Norge Ulovlige nasjonalsymboler rød topplue nisselue strikkevotter med H7 Haakon VII mønster Alt for Norge etc Lofoten Krigsminnemuseum.jpg"
     ]
@@ -317,9 +338,19 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "Dhaka topi"
+    "query": "Dhaka topi",
+    "toned": true
   },
   "item-lokta": {
+    "title": "File:Lokta Paper Nepal.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Lokta_Paper_Nepal.jpg",
+    "author": "Lucaswhitehad",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "w": 480,
+    "h": 360,
+    "query": "lokta paper",
+    "toned": true,
     "rejected": [
       "File:Lokta nepali paper menu.JPG",
       "File:Handmade wildcrafted lokta paper packaging.png"
@@ -333,7 +364,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "embroidered cushion"
+    "query": "embroidered cushion",
+    "toned": true
   },
   "item-lamps": {
     "title": "File:Courtyard of colorful paper lanterns and shadow patterns at Bulguksa temple Gyeongju South Korea.jpg",
@@ -343,7 +375,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 480,
     "h": 360,
-    "query": "paper lanterns"
+    "query": "paper lanterns",
+    "toned": true
   },
   "banner-about": {
     "title": "File:Kathmandu Valley panorama.jpg",
@@ -353,7 +386,8 @@
     "license_url": "https://creativecommons.org/licenses/by/2.0",
     "w": 1600,
     "h": 720,
-    "query": "Kathmandu Valley panorama"
+    "query": "Kathmandu Valley panorama",
+    "toned": true
   },
   "banner-services": {
     "title": "File:MSC HARMONY III (container ship, 2006) in Port Koper (SIKOP, 2024).jpg",
@@ -366,7 +400,8 @@
     "query": "container ship at sea",
     "rejected": [
       "File:2021-11-19 Damaged container ship, MV ZIM KINGSTON - IMO 9389693.jpg"
-    ]
+    ],
+    "toned": true
   },
   "banner-sourcing": {
     "title": "File:Kathmandu, Nepal, Thamel shops.jpg",
@@ -376,13 +411,8 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0",
     "w": 1600,
     "h": 720,
-    "query": "Thamel shop"
-  },
-  "feature-air-cargo": {
-    "rejected": [
-      "File:Packing pallets.jpg",
-      "File:ASML air freight containers in Tainan May 2025 1.jpg"
-    ]
+    "query": "Thamel shop",
+    "toned": true
   },
   "svc-air-freight": {
     "title": "File:Aircraft cargo loader at ZRH.jpg",
@@ -392,7 +422,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 720,
     "h": 480,
-    "query": "cargo aircraft loading"
+    "query": "cargo aircraft loading",
+    "toned": true
   },
   "svc-sea-freight": {
     "title": "File:MAERSK HANOI Container Ship (Port Koper SIKOP, 2023).jpg",
@@ -402,7 +433,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 720,
     "h": 480,
-    "query": "container ship port"
+    "query": "container ship port",
+    "toned": true
   },
   "svc-land-transport": {
     "title": "File:Truck Pulled over due to lockdown in Nepal-Shambhunath Municipality , Nepal-4553.jpg",
@@ -412,7 +444,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "w": 720,
     "h": 480,
-    "query": "Nepal truck"
+    "query": "Nepal truck",
+    "toned": true
   },
   "svc-freight-forwarding": {
     "title": "File:Container-Terminal Bremerhaven 02.jpg",
@@ -422,7 +455,8 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
     "w": 720,
     "h": 480,
-    "query": "container terminal cranes"
+    "query": "container terminal cranes",
+    "toned": true
   },
   "svc-import-export": {
     "title": "File:Line3174 - Shipping Containers at the terminal at Port Elizabeth, New Jersey - NOAA.jpg",
@@ -432,7 +466,8 @@
     "license_url": "",
     "w": 720,
     "h": 480,
-    "query": "shipping containers"
+    "query": "shipping containers",
+    "toned": true
   },
   "svc-customs": {
     "title": "File:Border Bridge Connecting Raxaul, Bihar, India, and Birgunj, Nepal.jpg",
@@ -442,7 +477,8 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0",
     "w": 720,
     "h": 480,
-    "query": "Birgunj border"
+    "query": "Birgunj border",
+    "toned": true
   },
   "svc-cargo-handling": {
     "title": "File:Modern warehouse with pallet rack storage system.jpg",
@@ -452,6 +488,98 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
     "w": 720,
     "h": 480,
-    "query": "pallets warehouse"
+    "query": "pallets warehouse",
+    "toned": true
+  },
+  "cat-handicrafts-felt": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us1.JPG",
+    "w": 800,
+    "h": 600,
+    "toned": true
+  },
+  "item-felt-toys": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us2.JPG",
+    "w": 480,
+    "h": 360,
+    "toned": true
+  },
+  "about-felt-1": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us1.JPG",
+    "w": 1200,
+    "h": 800,
+    "toned": true
+  },
+  "about-felt-2": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us2.JPG",
+    "w": 1200,
+    "h": 800,
+    "toned": true
+  },
+  "item-hemp": {
+    "title": "File:Hemp Hats in Nepal 01.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Hemp_Hats_in_Nepal_01.jpg",
+    "author": "Sabina Bajracharya",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 480,
+    "h": 360,
+    "query": null,
+    "toned": true,
+    "rejected": [
+      "File:Plastic vs Hemp.jpg",
+      "https://commons.wikimedia.org/wiki/File:Plastic_vs_Hemp.jpg"
+    ]
+  },
+  "item-carpets": {
+    "title": "File:Donegal Carpets is the only remaining Donegal hand-knotted carpet factory.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Donegal_Carpets_is_the_only_remaining_Donegal_hand-knotted_carpet_factory.jpg",
+    "author": "Janspen",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "w": 480,
+    "h": 360,
+    "query": "hand knotted carpet",
+    "toned": true,
+    "rejected": [
+      "Traditional Tibetan Fabric",
+      "https://www.flickr.com/photos/9822107@N08/4709634172"
+    ]
+  },
+  "svc-quality-inspection": {
+    "title": "File:Quality Control of Ceramic Mugs.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Quality_Control_of_Ceramic_Mugs.jpg",
+    "author": "Encik Tekateki",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "w": 720,
+    "h": 480,
+    "query": "quality control inspection",
+    "toned": true
+  },
+  "item-pet-products": {
+    "author": "Nepal Shipping & Sourcing",
+    "license": "Company photograph",
+    "license_url": "",
+    "source": "",
+    "title": "about_us2.JPG",
+    "w": 480,
+    "h": 360,
+    "toned": true
   }
 }

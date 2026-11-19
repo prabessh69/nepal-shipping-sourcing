@@ -62,7 +62,8 @@
     "freight-forwarding": "Freight forwarding",
     "import-export": "Import and export assistance",
     "customs": "Customs coordination",
-    "cargo-handling": "Cargo handling and packing",
+    "quality-inspection": "Quality check and inspection",
+    "cargo-handling": "Cargo handling, packaging and branding",
     "sourcing": "Product sourcing",
     "other": "Something else"
   };

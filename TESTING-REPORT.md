@@ -125,6 +125,18 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   issue was found and fixed along the way: on mobile, screen-reader-only text inside the credits table
   caused sideways scrolling.
 
+## Content and photo update (merged category, new services, labelled contact banner)
+
+- Merged Handicrafts and Handmade felt into one category; added Branding and packaging (home), plus
+  Quality check and inspection and Cargo handling, packaging and branding (services, form topics).
+- Office address now reads "Kathmandu 44600, Nepal" everywhere, including Schema.org (`postalCode`).
+- The Contact banner has Email, Phone and Message labels. A separate mobile composition keeps them
+  legible at 375px, served with `<picture>`.
+- Every product slot now has a real photo, with 0 fallback tiles: 50 photos, 4 of them from the
+  company's own felt photos. All are tone-matched to the palette.
+- `verify_assets.py`: 117 images, 50 icons and 176 asset references, all resolving. QA: **273 passed,
+  0 failed**, with zero axe violations.
+
 ## Issues found during QA and fixed
 
 | Issue | Fix |
