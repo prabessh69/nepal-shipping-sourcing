@@ -302,35 +302,245 @@ def banner_sourcing():
 
 
 # ---------- feature images (1200 x 800) ----------
+# Extra materials for the air-cargo scene (warm woods and kraft board sit inside the palette's sand range).
+WOOD, WOOD_DARK, WOOD_LIGHT = "#C29A6B", "#94704A", "#D8B98F"
+KRAFT, KRAFT_SIDE, KRAFT_TOP, KRAFT_TAPE = "#CFAE7E", "#B08D5D", "#E1C79F", "#EBDBBE"
+FAR_SHADE, MID_SHADE, SNOW_SHADE = "#C5CDC7", "#A7B1AB", "#E1E6E2"
+LINE = f'stroke="{FOREST}" stroke-opacity=".5" stroke-width="2" stroke-linejoin="round"'
+
+
+def mountain_range(ridge, base, fill, shade, snow_peaks, depth=.32):
+    """Layered peaks: silhouette, shadowed west faces (sun to the east), two-tone snow caps."""
+    out = [poly(ridge + [(ridge[-1][0], base), (ridge[0][0], base)], fill)]
+    for i in range(1, len(ridge) - 1):
+        (lx, ly), (px, py), (rx, ry) = ridge[i - 1], ridge[i], ridge[i + 1]
+        if py < ly and py < ry:
+            out.append(poly([(px, py), (lx, ly), (px - (px - lx) * .12, py + (base - py) * .7)], shade))
+    for i in snow_peaks:
+        (lx, ly), (px, py), (rx, ry) = ridge[i - 1], ridge[i], ridge[i + 1]
+        a = (px + (lx - px) * depth, py + (ly - py) * depth)
+        b = (px + (rx - px) * depth, py + (ry - py) * depth)
+        jag = [(a[0] + (b[0] - a[0]) * k / 6, a[1] + (b[1] - a[1]) * k / 6 + (-6 if k % 2 else 5)) for k in range(1, 6)]
+        out.append(poly([a, (px, py), b] + jag[::-1], IVORY))
+        left = [q for q in jag if q[0] < px - 3]
+        out.append(poly([(px, py), a] + left + [(px - 2, (a[1] + b[1]) / 2 + 2)], SNOW_SHADE))
+    return "".join(out)
+
+
+def ground_shadow(cx, cy, rx, ry, op=.12):
+    return f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{FOREST}" opacity="{op}"/>'
+
+
+def freighter():
+    """Wide-body twin-engine freighter in side view, nose right, main-deck cargo door open aft of the wing."""
+    fus = ("M252 386L338 360H1000C1060 360 1104 384 1114 410C1118 428 1100 444 1050 444"
+           "H440C372 444 300 420 252 392Z")
+    fin = "M292 386L232 228H272L408 372Z"
+    return "".join([
+        ground_shadow(690, 481, 400, 6, .14),
+        # tail fin (behind the fuselage so the fillet reads cleanly), crimson livery with a peak emblem
+        f'<path d="{fin}" fill="{CRIMSON}" {LINE}/>',
+        f'<path d="M282 300l16-26 9 14 6-8 13 20z" fill="{IVORY}"/>',
+        # fuselage with belly shading, crown highlight and cheatline
+        f'<defs><clipPath id="fus"><path d="{fus}"/></clipPath>'
+        f'<pattern id="net" width="6" height="6" patternUnits="userSpaceOnUse">'
+        f'<path d="M0 6L6 0M0 0L6 6" stroke="{FOREST}" stroke-width=".8" stroke-opacity=".45"/></pattern></defs>',
+        f'<path d="{fus}" fill="{IVORY}"/>',
+        f'<g clip-path="url(#fus)">'
+        f'<rect x="240" y="424" width="900" height="24" fill="{TINT_DEEP}"/>'
+        f'<rect x="240" y="363" width="900" height="6" fill="#FFFFFF" opacity=".7"/>'
+        f'<rect x="240" y="415" width="900" height="4" fill="{CRIMSON}"/>'
+        f'<path d="M1098 386Q1090 412 1102 440" fill="none" stroke="{FOREST}" stroke-opacity=".25" stroke-width="1.5"/>'
+        f'<path d="M252 386L264 383V394L252 392Z" fill="{FOREST_3}"/>'
+        f'</g>',
+        f'<path d="{fus}" fill="none" {LINE}/>',
+        # cockpit glazing, crew door, forward lower-hold door
+        f'<path d="M1058 376L1080 377L1095 390L1062 390Z" fill="{FOREST_3}"/>',
+        f'<path d="M1069 376.5V390M1081 377.5V390" stroke="{IVORY}" stroke-width="2"/>',
+        f'<rect x="1018" y="374" width="14" height="30" rx="3" fill="none" stroke="{FOREST}" stroke-opacity=".35" stroke-width="1.5"/>',
+        f'<rect x="898" y="421" width="42" height="18" rx="2" fill="none" stroke="{FOREST}" stroke-opacity=".35" stroke-width="1.5"/>',
+        # main-deck side cargo door: opening plus the door raised on its upper hinge
+        f'<rect x="476" y="372" width="48" height="41" fill="{FOREST_3}"/>',
+        f'<rect x="476" y="372" width="48" height="10" fill="{FOREST}"/>',
+        f'<path d="M476 372L480 327H520L524 372Z" fill="{TINT}" {LINE}/>',
+        f'<path d="M485 336H515M484 350H516M483 364H517" stroke="{FOREST}" stroke-opacity=".2" stroke-width="1.5"/>',
+        # horizontal stabiliser
+        f'<path d="M356 398L270 424H250L300 398Z" fill="{IVORY}" {LINE}/>',
+        # swept wing, flap line, pylon and engine nacelle
+        f'<path d="M796 424L588 458L562 460L650 430Z" fill="{IVORY}" {LINE}/>',
+        f'<path d="M664 433L578 456" stroke="{FOREST}" stroke-opacity=".25" stroke-width="1.5"/>',
+        f'<path d="M726 432L758 424H788L772 432Z" fill="{IVORY}" {LINE}/>',
+        f'<path d="M700 444L678 448V456L700 460Z" fill="{MIST}" {LINE}/>',
+        f'<path d="M720 431H792Q806 431 806 452Q806 473 792 473H726Q712 473 706 462L700 452L706 442Q712 431 720 431Z" fill="{IVORY}"/>',
+        f'<path d="M704 458H806Q805 473 792 473H726Q713 473 706 462Z" fill="{TINT_DEEP}"/>',
+        f'<rect x="782" y="431" width="5" height="42" fill="{CRIMSON}"/>',
+        f'<path d="M720 431H792Q806 431 806 452Q806 473 792 473H726Q712 473 706 462L700 452L706 442Q712 431 720 431Z" fill="none" {LINE}/>',
+        f'<ellipse cx="804" cy="452" rx="5" ry="19" fill="{FOREST_3}"/><ellipse cx="805" cy="452" rx="2.5" ry="13" fill="{FOREST}"/>',
+        # main and nose landing gear
+        f'<rect x="651" y="440" width="6" height="24" fill="{FOREST_3}"/><rect x="620" y="461" width="68" height="4" rx="2" fill="{FOREST_3}"/>',
+        "".join(f'<circle cx="{x}" cy="468" r="11" fill="{FOREST}"/><circle cx="{x}" cy="468" r="4" fill="{MIST}"/>' for x in (630, 654, 678)),
+        f'<rect x="1035" y="440" width="5" height="24" fill="{FOREST_3}"/>',
+        f'<circle cx="1038" cy="468" r="11" fill="{FOREST}"/><circle cx="1038" cy="468" r="4" fill="{MIST}"/>',
+    ])
+
+
+def main_deck_loader():
+    """Scissor-lift main-deck loader seen end-on, platform level with the cargo-door sill (y=413)."""
+    x_pairs = "".join(f'<path d="M468 {y0}L532 {y1}M532 {y0}L468 {y1}"/>' for y0, y1 in ((421, 448), (448, 476)))
+    return "".join([
+        ground_shadow(500, 495, 62, 4, .16),
+        f'<g stroke="{FOREST_3}" stroke-width="4" stroke-linecap="round">{x_pairs}</g>',
+        "".join(f'<circle cx="500" cy="{y}" r="3" fill="{FOREST}"/>' for y in (434.5, 462)),
+        # netted main-deck pallet on the platform, in front of the open door
+        f'<rect x="477" y="409" width="46" height="4" fill="{MIST}"/>',
+        f'<path d="M480 409V392L487 383H513L520 392V409Z" fill="{SAND}"/>',
+        f'<path d="M480 409V392L487 383H513L520 392V409Z" fill="url(#net)" stroke="{FOREST}" stroke-opacity=".45" stroke-width="1.5"/>',
+        f'<rect x="460" y="413" width="80" height="8" rx="1.5" fill="{FOREST_3}"/>',
+        f'<path d="M464 413V393M536 413V393M461 395H469M531 395H539" stroke="{FOREST_3}" stroke-width="2.5" stroke-linecap="round"/>',
+        f'<rect x="450" y="476" width="100" height="10" rx="2" fill="{FOREST_3}"/>',
+        f'<rect x="540" y="456" width="20" height="24" rx="2" fill="{IVORY}" {LINE}/><rect x="544" y="460" width="12" height="8" fill="{FOREST_3}"/>',
+        f'<circle cx="462" cy="488" r="6" fill="{FOREST}"/><circle cx="538" cy="488" r="6" fill="{FOREST}"/>',
+    ])
+
+
+def ake(x, base, front, side, top, kind):
+    """LD3 (AKE) container: contoured lower-left corner, 3/4 depth faces, aluminium frame."""
+    w, h, dx, dy = 140, 112, 16, -11
+    y = base - h
+    face = [(x, y), (x + w, y), (x + w, base), (x + 34, base), (x, base - 46)]
+    out = [poly([(x, y), (x + dx, y + dy), (x + w + dx, y + dy), (x + w, y)], top),
+           poly([(x + w, y), (x + w + dx, y + dy), (x + w + dx, base + dy), (x + w, base)], side),
+           poly(face, front),
+           poly([(x + w, y), (x + w + dx, y + dy), (x + w + dx, base + dy), (x + w, base)], "none", f' {LINE}'),
+           poly([(x, y), (x + dx, y + dy), (x + w + dx, y + dy), (x + w, y)], "none", f' {LINE}')]
+    if kind == "alu":
+        out.append(f'<g stroke="{FOREST}" stroke-opacity=".18" stroke-width="1.5">'
+                   + "".join(f'<path d="M{x + k * 35} {y + 6}V{base - 4}"/>' for k in (1, 2, 3)) + "</g>")
+        out.append(f'<path d="M{x + 6} {y + 6}H{x + w - 6}" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2"/>')
+    else:  # fabric door with tie-down straps and an ID plate
+        out.append(f'<rect x="{x + 42}" y="{y + 10}" width="{w - 52}" height="{h - 18}" rx="2" fill="{CRIMSON_DEEP}" opacity=".55"/>')
+        out.append(f'<g stroke="{IVORY}" stroke-opacity=".55" stroke-width="2.5">'
+                   + "".join(f'<path d="M{x + 42} {y + yy}H{x + w - 10}"/>' for yy in (34, 58, 82)) + "</g>")
+        out.append(f'<rect x="{x + 10}" y="{y + 12}" width="24" height="13" rx="1.5" fill="{IVORY}"/>'
+                   f'<path d="M{x + 14} {y + 17}H{x + 30}M{x + 14} {y + 21}H{x + 25}" stroke="{FOREST}" stroke-opacity=".5" stroke-width="1.3"/>')
+    out.append(poly(face, "none", f' {LINE}'))
+    return "".join(out)
+
+
+def dolly(x, w=172):
+    wheels = "".join(f'<circle cx="{cx}" cy="692" r="16" fill="{FOREST}"/><circle cx="{cx}" cy="692" r="6" fill="{MIST}"/>'
+                     for cx in (x + 26, x + w - 26))
+    return (f'<rect x="{x + 14}" y="674" width="{w - 28}" height="9" fill="{FOREST}"/>'
+            f'<rect x="{x}" y="664" width="{w}" height="11" rx="2" fill="{FOREST_3}"/>'
+            f'<rect x="{x}" y="660" width="{w}" height="4" fill="{MIST}"/>'
+            f'<path d="M{x + 4} 660V650M{x + w - 4} 660V650" stroke="{FOREST_3}" stroke-width="3" stroke-linecap="round"/>'
+            + wheels)
+
+
+def tug(x):
+    return "".join([
+        f'<rect x="{x + 6}" y="586" width="80" height="7" rx="3" fill="{FOREST}"/>',
+        f'<path d="M{x + 12} 593V636M{x + 78} 593V636" stroke="{FOREST}" stroke-width="4"/>',
+        f'<path d="M{x} 690V646Q{x} 636 {x + 10} 636H{x + 120}Q{x + 138} 636 {x + 146} 654L{x + 152} 668V690Z" fill="{LEAF}"/>',
+        f'<path d="M{x} 676H{x + 152}V690H{x}Z" fill="{LEAF_2}"/>',
+        f'<path d="M{x + 22} 636V608Q{x + 22} 602 {x + 28} 602H{x + 36}V636Z" fill="{FOREST_3}"/>',
+        f'<path d="M{x + 72} 636L{x + 62} 614" stroke="{FOREST}" stroke-width="3" stroke-linecap="round"/>'
+        f'<ellipse cx="{x + 61}" cy="612" rx="8" ry="2.5" fill="{FOREST}"/>',
+        f'<circle cx="{x + 146}" cy="656" r="4" fill="{IVORY}"/>',
+        f'<rect x="{x + 148}" y="668" width="10" height="16" rx="2" fill="{FOREST}"/>',
+        f'<path d="M{x} 690V646Q{x} 636 {x + 10} 636H{x + 120}Q{x + 138} 636 {x + 146} 654L{x + 152} 668V690Z" fill="none" {LINE}/>',
+        "".join(f'<circle cx="{cx}" cy="690" r="18" fill="{FOREST}"/><circle cx="{cx}" cy="690" r="7" fill="{MIST}"/>'
+                for cx in (x + 28, x + 124)),
+    ])
+
+
+def palletised_cartons(x, cols, rows, cw=58, ch=42, base=716):
+    """Export cartons on a wooden block pallet with corner boards and two PET straps."""
+    gap, dx, dy = 2, 12, -8
+    w = cols * cw + (cols - 1) * gap + 8
+    top_deck = base - 28
+    out = [ground_shadow(x + w / 2 + 6, base + 1, w / 2 + 14, 5, .16),
+           # pallet: bottom boards, blocks, top deck and its depth face
+           f'<rect x="{x}" y="{base - 14}" width="{w}" height="14" fill="{FOREST}" opacity=".35"/>',
+           f'<rect x="{x}" y="{base - 6}" width="{w}" height="6" fill="{WOOD_DARK}"/>']
+    for bx in (x, x + w / 2 - 12, x + w - 24):
+        out.append(f'<rect x="{bx:g}" y="{base - 20}" width="24" height="14" fill="{WOOD}"/>')
+    out += [f'<rect x="{x}" y="{top_deck}" width="{w}" height="8" fill="{WOOD_LIGHT}"/>',
+            poly([(x + w, top_deck), (x + w + dx, top_deck + dy), (x + w + dx, base + dy), (x + w, base)], WOOD_DARK),
+            f'<path d="M{x} {top_deck + 8}H{x + w}" stroke="{WOOD_DARK}" stroke-width="1.5"/>']
+    stack_top = top_deck - rows * ch
+    for r in range(rows):
+        for c in range(cols):
+            cx, cy = x + 4 + c * (cw + gap), top_deck - (r + 1) * ch
+            out.append(f'<rect x="{cx}" y="{cy}" width="{cw}" height="{ch - gap}" fill="{KRAFT}" stroke="{KRAFT_SIDE}" stroke-width="1.5"/>')
+            out.append(f'<rect x="{cx + cw / 2 - 4:g}" y="{cy}" width="8" height="{ch * .36:g}" fill="{KRAFT_TAPE}"/>')
+            if (r + c) % 3 == 0:
+                out.append(f'<rect x="{cx + 7}" y="{cy + ch - 18}" width="17" height="11" fill="{IVORY}"/>'
+                           f'<path d="M{cx + 10} {cy + ch - 14}H{cx + 21}M{cx + 10} {cy + ch - 10.5}H{cx + 17}" stroke="{FOREST}" stroke-opacity=".5" stroke-width="1.2"/>')
+            elif (r + c) % 3 == 1:
+                ax, ay = cx + cw - 16, cy + ch - 9
+                out.append(f'<path d="M{ax} {ay}v-12M{ax - 4} {ay - 8}l4-4 4 4M{ax + 8} {ay}v-12M{ax + 4} {ay - 8}l4-4 4 4" '
+                           f'stroke="{FOREST}" stroke-opacity=".55" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    right = x + 4 + cols * (cw + gap) - gap
+    out.append(poly([(right, stack_top), (right + dx, stack_top + dy), (right + dx, top_deck + dy), (right, top_deck)], KRAFT_SIDE))
+    out.append(poly([(x + 4, stack_top), (x + 4 + dx, stack_top + dy), (right + dx, stack_top + dy), (right, stack_top)], KRAFT_TOP))
+    for c in range(cols):
+        tx = x + 4 + c * (cw + gap) + cw / 2
+        out.append(f'<path d="M{tx:g} {stack_top}l{dx} {dy}" stroke="{KRAFT_TAPE}" stroke-width="6"/>')
+    # corner boards and straps (front face, over the top, down the far side)
+    out.append(f'<g fill="{SAND}"><rect x="{x + 2}" y="{stack_top}" width="5" height="{rows * ch}"/>'
+               f'<rect x="{right - 3}" y="{stack_top}" width="5" height="{rows * ch}"/></g>')
+    for sx in (x + w * .27, x + w * .73):
+        out.append(f'<path d="M{sx:g} {top_deck + 6}V{stack_top}l{dx} {dy}" fill="none" stroke="{FOREST_3}" stroke-width="3.5" stroke-linejoin="round"/>')
+    out.append(f'<rect x="{x + 4}" y="{stack_top}" width="{right - x - 4}" height="{rows * ch}" fill="none" stroke="{FOREST}" stroke-opacity=".3" stroke-width="1.5"/>')
+    return "".join(out)
+
+
+def control_tower(x, base):
+    return (f'<rect x="{x - 34}" y="{base - 18}" width="76" height="18" fill="{MIST}"/>'
+            f'<rect x="{x - 8}" y="{base - 118}" width="16" height="100" fill="{MID_SHADE}"/>'
+            f'<path d="M{x - 20} {base - 118}L{x - 14} {base - 142}H{x + 14}L{x + 20} {base - 118}Z" fill="{FOREST_4}"/>'
+            f'<rect x="{x - 13}" y="{base - 137}" width="26" height="8" fill="{IVORY}" opacity=".7"/>'
+            f'<rect x="{x - 16}" y="{base - 148}" width="32" height="6" fill="{FOREST_4}"/>'
+            f'<path d="M{x} {base - 148}V{base - 162}" stroke="{FOREST_4}" stroke-width="2"/>')
+
+
 def feature_air_cargo():
     W, H = 1200, 800
-    far = [(0, 470), (0, 330), (110, 270), (200, 310), (300, 200), (380, 250), (470, 180), (560, 240), (650, 200),
-           (760, 270), (860, 210), (960, 260), (1060, 220), (1200, 290), (1200, 470)]
-    body = [f'<rect width="{W}" height="{H}" fill="{TINT}"/>',
-            f'<circle cx="960" cy="170" r="110" fill="{ROSE}" opacity=".5"/>',
-            range_with_snow(far, MIST, IVORY, [4, 6, 8, 10, 12]),
-            f'<path d="M0 470C200 440 400 460 600 446S1000 430 1200 450V800H0Z" fill="{LEAF_2}"/>',
-            f'<rect y="540" width="{W}" height="260" fill="{TINT_DEEP}"/>',
-            f'<path d="M0 700H1200" stroke="{IVORY}" stroke-width="6" stroke-dasharray="40 30"/>',
-            f'<path d="M0 548H1200" stroke="{SAND}" stroke-width="6"/>',
-            plane(560, 430, 1.55, 0, IVORY, FOREST, FOREST),
-            # open cargo door
-            f'<rect x="700" y="404" width="64" height="40" fill="{FOREST}"/>',
-            f'<path d="M700 404l14-46h64l-14 46z" fill="{IVORY}" stroke="{FOREST}" stroke-width="3"/>',
-            # loader ramp
-            f'<path d="M720 444L820 600H900L800 444Z" fill="{FOREST_3}"/>']
-    # ULD containers on dollies
-    for x, c in ((150, CRIMSON), (300, LEAF), (450, MIST)):
-        body.append(f'<path d="M{x} 640V560L{x + 26} 534H{x + 130}V640Z" fill="{c}"/>')
-        body.append(f'<rect x="{x - 6}" y="640" width="142" height="12" fill="{FOREST}"/>')
-        body.append(f'<circle cx="{x + 18}" cy="662" r="11" fill="{FOREST}"/><circle cx="{x + 112}" cy="662" r="11" fill="{FOREST}"/>')
-    body.append(f'<path d="M136 646H880" stroke="{FOREST}" stroke-width="3" opacity=".5"/>')
-    # cartons on a pallet
-    for i, (dx, dy, w, h) in enumerate(((930, 600, 110, 60), (1050, 600, 100, 60), (950, 540, 100, 60), (1060, 540, 80, 60), (990, 480, 110, 60))):
-        body.append(carton(dx, dy, w, h))
-    body.append(f'<rect x="918" y="660" width="244" height="16" fill="{FOREST_4}"/>')
-    body.append(f'<path d="M918 676h244" stroke="{FOREST}" stroke-width="4"/>')
-    return svg(W, H, "".join(body), "Air cargo: aircraft loading ULD containers and cartons beneath the Himalaya")
+    far = [(0, 300), (70, 250), (150, 282), (250, 172), (330, 232), (420, 190), (500, 252), (600, 150),
+           (700, 232), (790, 200), (860, 252), (960, 180), (1060, 240), (1140, 198), (1200, 238)]
+    mid = [(0, 382), (90, 332), (190, 362), (300, 298), (400, 350), (520, 312), (640, 372), (760, 322),
+           (880, 360), (1000, 300), (1110, 352), (1200, 322)]
+    body = [
+        f'<rect width="{W}" height="{H}" fill="{TINT}"/>',
+        f'<circle cx="880" cy="150" r="128" fill="{ROSE_PALE}" opacity=".55"/>',
+        f'<circle cx="880" cy="150" r="76" fill="{ROSE}" opacity=".6"/>',
+        mountain_range(far, 470, MIST_2, FAR_SHADE, [3, 5, 7, 9, 11, 13], depth=.4),
+        f'<rect x="110" y="262" width="270" height="10" rx="5" fill="{IVORY}" opacity=".75"/>',
+        f'<rect x="690" y="286" width="360" height="12" rx="6" fill="{IVORY}" opacity=".65"/>',
+        mountain_range(mid, 470, MIST, MID_SHADE, [3, 9], depth=.22),
+        f'<path d="M0 444C160 426 300 440 460 432S800 420 960 434S1120 440 1200 428V472H0Z" fill="{LEAF_3}"/>',
+        f'<path d="M0 458C220 446 420 456 640 450S1000 444 1200 452V472H0Z" fill="{LEAF_2}"/>',
+        control_tower(120, 470),
+        # apron, stand line, taxiway band with centreline and edge markings
+        f'<rect y="466" width="{W}" height="{H - 466}" fill="{TINT_DEEP}"/>',
+        f'<path d="M0 467H1200" stroke="{SAND}" stroke-width="2"/>',
+        f'<path d="M120 502H1180" stroke="{IVORY}" stroke-width="3"/>',
+        f'<rect y="732" width="{W}" height="{H - 732}" fill="{SAND}" opacity=".5"/>',
+        f'<path d="M0 735H1200M0 797H1200" stroke="{IVORY}" stroke-width="3"/>',
+        f'<path d="M0 766H1200" stroke="{IVORY}" stroke-width="6" stroke-dasharray="48 34"/>',
+        freighter(),
+        main_deck_loader(),
+        # foreground: tug and dolly train with LD3 containers, palletised export cartons
+        ground_shadow(330, 709, 290, 6, .14),
+        f'<path d="M226 683H254M418 683H446" stroke="{FOREST}" stroke-width="4" stroke-linecap="round"/>',
+        dolly(56), ake(72, 660, MIST_2, MIST, IVORY, "alu"),
+        dolly(248), ake(264, 660, CRIMSON, CRIMSON_DEEP, ROSE, "fabric"),
+        tug(442),
+        palletised_cartons(820, 3, 3),
+        palletised_cartons(1034, 2, 2),
+    ]
+    return svg(W, H, "".join(body), "Air cargo: a wide-body freighter loading at Kathmandu beneath the Himalaya")
 
 
 def feature_textiles():

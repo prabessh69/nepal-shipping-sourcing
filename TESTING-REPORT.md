@@ -139,9 +139,10 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
 
 ## Landline and sharper About banner
 
-- Landline +977 1-5918009 (01-5918009 within Nepal) added beside Mobile / WhatsApp +977 974-031-8224 on
+- An office landline was added beside Mobile / WhatsApp +977 974-031-8224 on
   the Contact page, the Contact banner, the footer and the call-to-action bands, and to Schema.org (a
   `telephone` array plus one `ContactPoint` per number). Phone links no longer wrap mid-number.
+  (Later removed; see "Landline removed, new air-cargo illustration" below.)
 - The About banner was blurry because it was saved at 1600 px but shown about 1240 CSS px wide, which
   needs about 2480 device px on Retina screens. It is now Boudhanath Stupa (original 8224 × 5140), saved
   at 2400 × 1080 WebP, quality 88, with a 1200 px copy served via `srcset`. Checked: a 2× desktop loads
@@ -236,6 +237,20 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
    deploy, confirm with `curl -sI https://<domain>/`.
 6. **A real test inquiry** should be sent to the business email after launch, from both a desktop and a
    phone, to confirm delivery end to end.
+
+## Landline removed, new air-cargo illustration
+
+- The old office landline was removed from every page, the footer, the call-to-action bands, the
+  Contact banner and Schema.org. `landline_*` in `site.config.json` are now blank, and every landline row
+  is wrapped in `{{IF_LANDLINE}}…{{END_IF_LANDLINE}}`, which the build drops (with its line) when the field
+  is blank. Verified: no landline number, `tel:` link or "Landline" label remains in `site/`; Schema.org
+  lists only the mobile number. Re-add test: filling the three fields and rebuilding restored the number
+  on all 7 pages, the Contact banner and Schema.org; blanking them again removed it.
+- The home-page illustration ("A Nepal-based partner for moving goods…") was redrawn: wide-body freighter
+  with nose cone, cockpit glazing, swept wing, engine nacelle, crimson tail and an open main-deck door; a
+  scissor-lift main-deck loader at the door sill; LD3 containers on dollies behind a tug; strapped export
+  cartons on wooden pallets; layered Himalayan peaks with two-tone snow caps; a control tower and apron
+  markings. The 1200 × 800 viewBox is unchanged, so it scales without clipping.
 
 ## Re-running the tests
 

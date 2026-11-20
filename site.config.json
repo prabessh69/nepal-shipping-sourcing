@@ -7,9 +7,10 @@
   "phone_e164": "+9779740318224",
   "phone_display": "+977 974-031-8224",
   "_phone_note": "Mobile and WhatsApp number, confirmed by the company.",
-  "landline_e164": "+97715918009",
-  "landline_display": "+977 1-5918009",
-  "landline_local": "01-5918009",
+  "_landline_note": "Optional office landline. Leave all three blank to hide it everywhere. To re-add it, fill in landline_e164 (+9771XXXXXXX), landline_display (+977 1-XXXXXXX) and landline_local (01-XXXXXXX), then run python3 tools/build.py and python3 tools/build_hero_map.py. Contact page, footer, call-to-action bands, contact banner and Schema.org update automatically.",
+  "landline_e164": "",
+  "landline_display": "",
+  "landline_local": "",
   "whatsapp_url": "https://wa.me/9779740318224",
   "address": {
     "locality": "Kathmandu",

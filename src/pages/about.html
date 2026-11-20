@@ -114,7 +114,7 @@
           <a class="btn btn--ivory" href="/contact/#inquiry">Send an inquiry</a>
           <ul class="cta-band__contact">
             <li><a href="{{GMAIL_COMPOSE}}" target="_blank" rel="noopener noreferrer">{{EMAIL_TEXT}}<span class="visually-hidden"> (opens Gmail in a new tab)</span></a></li>
-            <li>Landline <a href="tel:{{LANDLINE_E164}}">{{LANDLINE_DISPLAY}}</a></li>
+            {{IF_LANDLINE}}<li>Landline <a href="tel:{{LANDLINE_E164}}">{{LANDLINE_DISPLAY}}</a></li>{{END_IF_LANDLINE}}
             <li>Mobile / WhatsApp <a href="tel:{{PHONE_E164}}">{{PHONE_DISPLAY}}</a></li>
           </ul>
         </div>

@@ -84,15 +84,19 @@ def organization_jsonld(c):
         "url": c["site_url"] + "/",
         "logo": c["site_url"] + "/assets/img/NSS_logo.png",
         "email": c["email"],
-        "telephone": [c["landline_e164"], c["phone_e164"]],
+        "telephone": [n for n in (c.get("landline_e164"), c["phone_e164"]) if n],
         "address": postal_address(c),
-        "contactPoint": [
-            {"@type": "ContactPoint", "contactType": "customer service", "email": c["email"],
-             "telephone": c["landline_e164"], "name": "Office landline"},
+        "contactPoint": ([{"@type": "ContactPoint", "contactType": "customer service", "email": c["email"],
+                           "telephone": c["landline_e164"], "name": "Office landline"}] if has_landline(c) else []) + [
             {"@type": "ContactPoint", "contactType": "customer service", "email": c["email"],
              "telephone": c["phone_e164"], "name": "Mobile and WhatsApp"},
         ],
     })
+
+
+def has_landline(c):
+    """The landline is optional: leave landline_e164 blank in site.config.json to hide it everywhere."""
+    return bool((c.get("landline_e164") or "").strip())
 
 
 def website_jsonld(c):
@@ -248,9 +252,9 @@ def build_page(path, partials, c):
         # FormSubmit endpoints use the private alias token, so the inbox address is not in the form URL.
         "FORM_ENDPOINT": "https://formsubmit.co/ajax/" + c.get("form_token", c["email"]),
         "FORM_ACTION": "https://formsubmit.co/" + c.get("form_token", c["email"]),
-        "LANDLINE_E164": c["landline_e164"],
-        "LANDLINE_DISPLAY": html.escape(c["landline_display"]),
-        "LANDLINE_LOCAL": html.escape(c["landline_local"]),
+        "LANDLINE_E164": c.get("landline_e164", ""),
+        "LANDLINE_DISPLAY": html.escape(c.get("landline_display", "")),
+        "LANDLINE_LOCAL": html.escape(c.get("landline_local", "")),
         "WHATSAPP_URL": c["whatsapp_url"],
         "ADDRESS": html.escape(c["address"]["display"]),
         "YEAR": str(date.today().year),
@@ -264,6 +268,12 @@ def build_page(path, partials, c):
            .replace("{{FOOTER}}", partials["footer"]))
     doc = re.sub(r"\{\{INCLUDE:([a-z0-9-]+)\}\}", lambda m: partials[m.group(1)], doc)
     doc = PHOTO_RE.sub(lambda m: photo_html(m.group(1), m.group(2)), doc)
+    # {{IF_LANDLINE}}...{{END_IF_LANDLINE}}: kept (markers stripped) when a landline is configured,
+    # otherwise removed together with its indentation and line break, leaving no empty rows.
+    if has_landline(c):
+        doc = doc.replace("{{IF_LANDLINE}}", "").replace("{{END_IF_LANDLINE}}", "")
+    else:
+        doc = re.sub(r"[ \t]*\{\{IF_LANDLINE\}\}.*?\{\{END_IF_LANDLINE\}\}[ \t]*\n?", "", doc, flags=re.S)
     for k, v in vars_.items():
         doc = doc.replace("{{" + k + "}}", v)
     doc = version_assets(doc)
