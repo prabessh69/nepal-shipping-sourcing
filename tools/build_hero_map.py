@@ -224,6 +224,8 @@ MARKETS = [
     ("EU",  "European Union",  860,  80, "right", 510,  76),
     ("AUS", "Australia",      1255, 650, "below", 520, 652),
     ("NZ",  "New Zealand",    1430, 515, "below", 708, 628),
+    ("AFR", "Africa",          135, 350, "below",  62, 430),
+    ("ASIA", "Asia",          1300, 235, "right", 712, 118),
 ]
 
 
@@ -245,7 +247,7 @@ def _market_svg(view, kx, ky, nodes, r, code_size, name_size, terrain_transform,
     masks, routes, badges = [], [], []
     for i, (code, name, x, y, place) in enumerate(nodes, 1):
         d = _route((kx, ky), (x, y), r)
-        masks.append(f'<mask id="{idp}m{i}" maskUnits="userSpaceOnUse"><path class="reveal reveal--{min(i, 6)}" pathLength="1" d="{d}"/></mask>')
+        masks.append(f'<mask id="{idp}m{i}" maskUnits="userSpaceOnUse"><path class="reveal reveal--{min(i, 8)}" pathLength="1" d="{d}"/></mask>')
         routes.append(f'<path mask="url(#{idp}m{i})" d="{d}" marker-end="url(#{idp}arrow)"/>')
         label = ""
         if name_size:

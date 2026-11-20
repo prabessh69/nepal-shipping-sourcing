@@ -252,6 +252,14 @@ and value icons. The screenshots in `docs/screenshots/` predate this update.
   cartons on wooden pallets; layered Himalayan peaks with two-tone snow caps; a control tower and apron
   markings. The 1200 × 800 viewBox is unchanged, so it scales without clipping.
 
+## Africa and Asia added to the home map
+
+- Two destinations added to `MARKETS` in `tools/build_hero_map.py`, in the same badge, dashed-arrow and
+  label style: **AFR / Africa** (west side, between Canada and the US) and **ASIA / Asia** (upper right).
+  Their routes draw in after the original six (`.reveal--7`, `.reveal--8`; off with reduced motion).
+- Checked at 1440 px (desktop map) and 390 px (phone map): no overlap with the Nepal outline, the
+  Kathmandu label, other routes or the existing six badges. Screen-reader description lists all eight.
+
 ## Re-running the tests
 
 ```bash
